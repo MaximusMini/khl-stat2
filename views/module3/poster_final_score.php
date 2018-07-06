@@ -81,18 +81,6 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
         $score_team2 = 'score_team2_'.$i;        // счет команды 2
         
         $count_periods = 'count_periods_'.$i;    // количестов периодов
-//        
-//        $xPosTeams = 'xPosTeam1_'.$i;           // начальная позиция по X надписи команд
-//        $yPosTeams = 'yPosTeam1_'.$i;           // позиция по Y надписи команд
-//        $xPosLogo1 = 'xPosLogo1_'.$i;           // позиция по X логотипа команды 1
-//        $xPosLogo2 = 'xPosLogo2_'.$i;           // позиция по X логотипа команды 2
-//        $yPosLogos = 'yPosLogo1_'.$i;           // позиция по Y логотипов команд
-//        $fontSizeTeams = 'fontSizeTeams_'.$i;   // размер шрифта в названии команд
-        
-        echo '<br>teamFirst - '.$teamFirst.'<br>';
-        echo '$teamSecond - '.$teamSecond.'<br>';
-        echo 'data_poster[$teamFirst]- '.$data_poster[$teamFirst].'<br>';
-        echo 'data_poster[$teamSecond]- '.$data_poster[$teamSecond].'<br>';
         
         // логотипа команды 1
         $path_logo_temp_1 = $logo[$data_poster[$teamFirst]];
