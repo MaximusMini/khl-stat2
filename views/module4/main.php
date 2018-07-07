@@ -25,7 +25,20 @@ $db = new yii\db\Connection([
 
 $posts = $db->createCommand('show databases');
 echo gettype($posts);
+echo "<br>свойства объекта - ".get_object_vars($posts);
+// echo '<pre>'.print_r(get_object_vars($posts)).'</pre>';
+
+// $settings_DB = get_object_vars($posts);
+
+
+$settings_DB = (array)$posts;
+
+		
+echo "<br>имя БД ".gettype($settings_DB);
+
+		$name_DB = get_object_vars($settings_DB['db'])['dsn'];
+
+		echo "<br>имя БД - ".$name_DB;
 
 ?>
-
 
