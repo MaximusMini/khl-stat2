@@ -15,30 +15,22 @@ $this->title = 'Информация о базе данных';
 
 <?php
 
+// установка соединения с БД 
 $db = new yii\db\Connection([
 			'dsn' => 'mysql:host=localhost;dbname=db_preview',
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
 		]);
-
-
-$posts = $db->createCommand('show databases');
-echo gettype($posts);
-echo "<br>свойства объекта - ".get_object_vars($posts);
-// echo '<pre>'.print_r(get_object_vars($posts)).'</pre>';
-
-// $settings_DB = get_object_vars($posts);
-
-
+//*******************************
+// получение имени БД
+$posts = $db->createCommand('show databases'); // выполнение запроса show databases к БД
 $settings_DB = (array)$posts;
+$name_DB = get_object_vars($settings_DB['db'])['dsn']; // преобразование свойств объекта в массив
+$name_DB = explode('=',$name_DB)[2];
+echo "<br>имя БД - ".$name_DB;
+//*******************************
 
-		
-echo "<br>имя БД ".gettype($settings_DB);
-
-		$name_DB = get_object_vars($settings_DB['db'])['dsn'];
-
-		echo "<br>имя БД - ".$name_DB;
 
 ?>
 
