@@ -31,6 +31,27 @@ $name_DB = explode('=',$name_DB)[2];
 echo "<br>имя БД - ".$name_DB;
 //*******************************
 
+$tables = $db->createCommand('SHOW TABLES'); //
+//$tables = (array)$tables;
 
+
+// установка соединения с БД 
+$db2 = new yii\db\Schema([
+			'dsn' => 'mysql:host=localhost;dbname=db_preview',
+			'username' => 'root',
+			'password' => '',
+			'charset' => 'utf8',
+		]);
+//*******************************
+
+echo $db2->getTableNames();
 ?>
+
+  <pre>
+           <?= print_r($tables)?> 
+        </pre>
+        
+          <pre>
+           <?= print_r($posts)?> 
+        </pre>
 
