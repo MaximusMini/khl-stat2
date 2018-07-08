@@ -35,14 +35,19 @@ $dbSchema = $db->schema;
 $tables = $dbSchema->getTableNames();
 //*******************************
 
-
-
+$nameTable = $tables[15];
+$cells = $db->createCommand('SELECT * FROM '.$nameTable)
+            ->queryAll();
 
 
 ?>
 
-  <pre>
-           <?= print_r($tables)?> 
-        </pre>
+<pre>
+	<?= print_r($tables)?> 
+</pre>
+
+<pre>
+	<?= print_r($cells)?> 
+</pre>
 
 
