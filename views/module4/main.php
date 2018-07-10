@@ -40,6 +40,15 @@ $cells = $db->createCommand('SELECT * FROM '.$nameTable)
             ->queryAll();
 
 
+// echo '<br>---'.$cells;
+
+foreach ($cells as $val){
+	for ($i=0;$i<=count($val);$i++){
+		echo key($val[$i]);
+	}
+	echo '<br>!!!'.count($val);
+}
+
 ?>
 
 <pre>
