@@ -16,9 +16,15 @@ class Module4Controller extends Controller
     }
     
     
-    // вывод интерфейса для формирования данных постера 
-    public function actionAmountMatches($amount)
+    // обработка запроса для вывода данных таблицы из БД 
+    public function actionDataTable()
     {
+        // получаем все данные из $_GET
+        $arr_GET = Yii::$app->request->get();
+        // определяем таблицу
+        $name_table = $arr_GET['name_table'];
+        // передаем имя таблицы для отображения
+        
         
     }
     

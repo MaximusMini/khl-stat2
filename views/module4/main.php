@@ -40,19 +40,41 @@ $cells = $db->createCommand('SELECT * FROM '.$nameTable)
             ->queryAll();
 
 
-// echo '<br>---'.$cells;
+ echo '<table class="table">';
 
 foreach ($cells as $val){
-	for ($i=0;$i<=count($val);$i++){
-		echo key($val[$i]);
-	}
-	echo '<br>!!!'.count($val);
+//	for ($i=0;$i<=count($val);$i++){
+//		echo key($val[$i]);
+//	}
+//	echo '<br>!!!'.count($val);
+    
+   echo '<tr>'; 
+    while (current($val)) {
+//        echo key($val).'<br />';
+//        
+        echo '<td>';
+        echo $val[key($val)];
+        echo '</td>';
+//        echo '<hr>!!!';
+        next($val);
+    }
+    echo '</tr>'; 
+    
+    
 }
 
+echo '</table>';
 ?>
 
+<?/*= foreach($cells as $val):*/?>
+    
+<?/*= endforeach;*/?>
+
+
+
 <pre>
-	<?= print_r($tables)?> 
+	<?= print_r($tables)?>
+	<a href="<?= ?>" class="btn btn-inf">Показать</a> 
 </pre>
 
 <pre>
