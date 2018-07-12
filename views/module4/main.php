@@ -70,11 +70,20 @@ echo '</table>';
     
 <?/*= endforeach;*/?>
 
+<?php foreach($tables as $val):?>
+<form action="<?=Yii::$app->urlManager->createUrl(['module4/data-table'])?>" method="get">
+    <li>
+        <?=$val?>
+        <input type="hidden" name='name-table' value="<?=$val?>">
+        <input type="submit">
+    </li>
+</form>
+<?php endforeach;?>
 
 
 <pre>
 	<?= print_r($tables)?>
-	<a href="<?= ?>" class="btn btn-inf">Показать</a> 
+	<a href="<?=Yii::$app->urlManager->createUrl(['module4/main'])?>" class="btn btn-inf">Показать</a> 
 </pre>
 
 <pre>
