@@ -1,0 +1,392 @@
+
+таблицы:
+		team 						таблица с командами
+		table_conf					таблица с турнирнами данными (с сайта championat.com)
+		stat_wins					таблица с данными о победах (с сайта championat.com)
+		stat_loss					таблица с данными о поражениях (с сайта championat.com)
+		stat_puck					таблица с данными о заброшенных шайбах (с сайта championat.com)
+		stat_allow_puck 			таблица с данными о пропущенных шайбах (с сайта championat.com)
+		stat_penalty				таблица с данными о штрафном времени (с сайта championat.com)
+		stat_throw 					таблица с данными о количестве бросков (с сайта championat.com)
+		stat_throw_rival			таблица с данными о количестве бросков соперника (с сайта championat.com)
+		stat_trow_percent			таблица с данными о реализации бросков (с сайта championat.com)
+		stat_faceoff				таблица с данными о результатах вбрасывания (с сайта championat.com)
+		stat_pow_play_pow_kill		таблица с данными о результатах игры в большистве/меньшинстве (с сайта khl.ru)
+		stat_defenders				таблица с данными защитников (https://www.khl.ru/stat/players/468/)
+		stat_attacks				таблица с данными нападающих (https://www.khl.ru/stat/players/468/)
+		stat_goalies				таблица с данными голкиперов (https://www.khl.ru/stat/players/468/)
+		result_match 				таблица с результатами каждой команды KХЛ
+		
+
+		
+		
+		stat_team - 	таблица со статистикой команд с сайта championat
+		stat_khl - 		таблица со статистикой команд с сайта championat
+		
+		
+		
+		
+	team
+		id_team			id команды
+		name_team		название команды
+		conf			конференция
+		
+		создание таблицы
+			CREATE TABLE team (id_team INT, name_team VARCHAR(255), conf VARCHAR(255), PRIMARY KEY (id_team))
+		заполнение полей
+			INSERT INTO team (id_team, name_team, conf) values (1,"Авангард", "восток");
+			INSERT INTO team (id_team, name_team, conf) values (2,"Автомобилист", "восток");
+			INSERT INTO team (id_team, name_team, conf) values (3,"Адмирал", "восток");
+			INSERT INTO team (id_team, name_team, conf) values (4,"Ак Барс", "восток");
+			INSERT INTO team (id_team, name_team, conf) values (5,"Амур", "восток");
+			INSERT INTO team (id_team, name_team, conf) values (6,"Барыс","восток");
+			INSERT INTO team (id_team, name_team, conf) values (7,"Витязь","запад");
+			INSERT INTO team (id_team, name_team, conf) values (8,"ХК Динамо М","запад");
+			INSERT INTO team (id_team, name_team, conf) values (9,"Динамо Мн","запад");
+			INSERT INTO team (id_team, name_team, conf) values (10,"Динамо Р","запад");
+			INSERT INTO team (id_team, name_team, conf) values (11,"Йокерит","запад");
+			INSERT INTO team (id_team, name_team, conf) values (12,"Куньлунь РС","восток");
+			INSERT INTO team (id_team, name_team, conf) values (13,"Лада","восток");
+			INSERT INTO team (id_team, name_team, conf) values (14,"Локомотив","запад");
+			INSERT INTO team (id_team, name_team, conf) values (15,"Металлург Мг","восток");
+			INSERT INTO team (id_team, name_team, conf) values (16,"Нефтехимик","восток");
+			INSERT INTO team (id_team, name_team, conf) values (17,"Салават Юлаев","восток");
+			INSERT INTO team (id_team, name_team, conf) values (18,"Северсталь","запад");
+			INSERT INTO team (id_team, name_team, conf) values (19,"Сибирь","восток");
+			INSERT INTO team (id_team, name_team, conf) values (20,"СКА","запад");
+			INSERT INTO team (id_team, name_team, conf) values (21,"Слован","запад");
+			INSERT INTO team (id_team, name_team, conf) values (22,"ХК Сочи","запад");
+			INSERT INTO team (id_team, name_team, conf) values (23,"Спарта","запад");
+			INSERT INTO team (id_team, name_team, conf) values (24,"Торпедо","запад");
+			INSERT INTO team (id_team, name_team, conf) values (25,"Трактор","восток");
+			INSERT INTO team (id_team, name_team, conf) values (26,"ЦСКА","запад");
+			INSERT INTO team (id_team, name_team, conf) values (27,"Югра","восток");
+
+
+	table_conf
+		id_team			id команды
+		name			имя команды
+		place			место команды
+		games			количество проведенных игр
+		clear_wins		чистых побед
+		ot_wins			побед в овертайме
+		b_wins			побед по буллитам	   
+		clear_defeat	чистых поражений
+		ot_defeat		поражений в овертайме
+		b_defeat		поражений по буллитам
+		throw_puck		заброшенных шайб
+		miss_puck		пропущенных шайб
+		scores			очки
+		percent_scr		процент набранных очков
+		old_match_1		результаты последних шести игр
+		old_match_2
+		old_match_3
+		old_match_4
+		old_match_5
+		old_match_6
+		
+		создание таблицы
+			CREATE TABLE table_conf (id_team INT,name VARCHAR(255), place INT, games INT, clear_wins INT, ot_wins INT, b_wins INT, clear_defeat INT,ot_defeat INT, b_defeat INT, throw_puck INT, iss_puck INT, cores INT, percent_scr FLOAT, old_match_1 VARCHAR(255),old_match_2 VARCHAR(255),old_match_3 VARCHAR(255),old_match_4 VARCHAR(255),old_match_5 VARCHAR(255),old_match_6 VARCHAR(255))
+		запрос на добавление
+			INSERT INTO table_conf (id_team,name,place,games,clear_wins,ot_wins,b_wins,clear_defeat,ot_defeat,b_defeat,throw_puck,miss_puck,scores,percent_scr,old_match_1,old_match_2,old_match_3,old_match_4,old_match_5,old_match_6) VALUES ($key_name_team,$arr_1['name'],$arr_1['place'],$arr_1['games'],$arr_1['clear_wins'],$arr_1['ot_wins'], $arr_1['b_winse'],$arr_1['clear_defeat'],$arr_1['ot_defeat'],$arr_1['b_defeat'],$arr_1['throw_puck'],$arr_1['miss_puck'],$arr_1['scores'],$arr_1['percent_scr'],$arr_1['old_match_1'],$arr_1['old_match_2'],$arr_1['old_match_3'],$arr_1['old_match_4'],$arr_1['old_match_5'],$arr_1['old_match_6']);
+			
+	
+	stat_wins
+		id_team						id команды
+		name						имя команды
+		clear_wins					количество чистых побед
+		clear_wins_home				количество чистых побед дома
+		clear_wins_guest			количество чистых побед в гостях
+		ot_wins						количество побед в овертайме
+		ot_wins_home				количество побед в овертайме дома
+		ot_wins_guest				количество побед в овертайме в гостях
+		b_wins						количество побед по буллитам
+		b_wins_home					количество побед по буллитам дома
+		b_wins_guest				количество побед по буллитам в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_wins (id_team INT, name VARCHAR(255), clear_wins INT, clear_wins_home INT, clear_wins_guest INT, ot_wins INT, ot_wins_home INT, ot_wins_guest INT, b_wins INT, b_wins_home INT, b_wins_guest INT)
+	
+	stat_loss - таблица с данными о поражениях
+		id_team						id команды
+		name						имя команды
+		clear_loss					количество чистых поражений
+		clear_loss_home				количество чистых поражений дома
+		clear_loss_guest			количество чистых поражений в гостях
+		ot_loss						количество поражений в овертайме
+		ot_loss_home				количество поражений в овертайме дома
+		ot_loss_guest				количество поражений в овертайме в гостях
+		b_loss						количество поражений по буллитам
+		b_loss_home					количество поражений по буллитам дома
+		b_loss_guest				количество поражений по буллитам в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_loss (id_team INT, name VARCHAR(255), clear_loss INT, clear_loss_home INT, clear_loss_guest INT, ot_loss INT, ot_loss_home INT, ot_loss_guest INT, b_loss INT, b_loss_home INT, b_loss_guest INT)
+	
+	
+	stat_puck
+		id_team						id команды
+		name						имя команды
+		throw_puck					количество заброшенных шайб
+		throw_puck_home				количество заброшенных шайб дома
+		throw_puck_guest			количество заброшенных шайб в гостях
+		throw_puck_average			количество заброшенных шайб за матч
+		throw_puck_average_home		количество заброшенных шайб за матч дома
+		throw_puck_average_guest	количество заброшенных шайб за матч в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_puck (id_team INT, name VARCHAR(255), throw_puck INT, throw_puck_home INT, throw_puck_guest INT, throw_puck_average FLOAT, throw_puck_average_home FLOAT, throw_puck_average_guest FLOAT)
+			
+	stat_allow_puck
+		id_team						id команды
+		name						имя команды
+		allow_puck					количество пропущенных шайб
+		allow_puck_home				количество пропущенных шайб дома
+		allow_puck_guest			количество пропущенных шайб в гостях
+		allow_puck_average			количество пропущенных шайб за матч
+		allow_puck_average_home		количество пропущенных шайб за матч дома
+		allow_puck_average_guest	количество пропущенных шайб за матч в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_allow_puck (id_team INT, name VARCHAR(255), allow_puck INT, allow_puck_home INT, allow_puck_guest INT, allow_puck_average FLOAT, allow_puck_average_home FLOAT, allow_puck_average_guest FLOAT)
+	
+	
+	stat_penalty
+		id_team						id команды
+		name						имя команды
+		penalty_time				штрафное время
+		penalty_time_home			штрафное время дома
+		penalty_time_guest			штрафное время в гостях
+		penalty_time_average		штрафное время за матч
+		penalty_time_average_home	штрафное время за матч дома
+		penalty_time_average_guest	штрафное время за матч в гостях
+
+		создание таблицы
+			CREATE TABLE stat_penalty (id_team INT, name VARCHAR(255), penalty_time INT, penalty_time_home INT, penalty_time_guest INT, penalty_time_average FLOAT, penalty_time_average_home FLOAT, penalty_time_average_guest FLOAT)  
+	
+	
+	stat_throw	
+		id_team						id команды
+		name						имя команды
+		total_throw					количество бросков
+		total_throw_home			количество бросков дома
+		total_throw_guest			количество бросков в гостях
+		total_throw_average			количество бросков за матч
+		total_throw_average_home	количество бросков за матч дома
+		total_throw_average_guest	количество бросков за матч в гостях
+
+		создание таблицы
+			CREATE TABLE stat_throw (id_team INT, name VARCHAR(255), total_throw INT, total_throw_home INT, total_throw_guest INT, total_throw_average FLOAT, total_throw_average_home FLOAT, total_throw_average_guest FLOAT)  
+
+	
+	stat_throw_rival - таблица с данными о количестве бросков соперника
+		id_team						id команды
+		name						имя команды
+		throw_rival					количество бросков соперника
+		throw_rival_home			количество бросков соперника дома
+		throw_rival_guest			количество бросков соперника в гостях
+		throw_rival_average			количество бросков соперника за матч
+		throw_rival_average_home	количество бросков соперника за матч дома
+		throw_rival_average_guest	количество бросков соперника за матч в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_throw_rival (id_team INT, name VARCHAR(255), throw_rival INT, throw_rival_home INT, throw_rival_guest INT, throw_rival_average FLOAT, throw_rival_average_home FLOAT, throw_rival_average_guest FLOAT )  
+
+	
+	stat_trow_percent - таблица с данными о реализации бросков
+		id_team						id команды
+		name						имя команды
+		throw_perc_total			процент реализации бросков командой - общий
+		throw_perc_home				процент реализации бросков командой - дома
+		throw_perc_guest			процент реализации бросков командой - в гостях
+		throw_rival_perc_total		процент реализации бросков соперником - общий
+		throw_rival_perc_home		процент реализации бросков соперником - дома
+		throw_rival_perc_guest		процент реализации бросков соперником - в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_trow_percent (id_team INT, name VARCHAR(255), throw_perc_total FLOAT, throw_perc_home FLOAT, throw_perc_guest FLOAT, throw_rival_perc_total FLOAT, throw_rival_perc_home FLOAT, throw_rival_perc_guest FLOAT) 
+		
+	
+	stat_faceoff - таблица с данными о результатах вбрасывания
+		id_team							id команды
+		name							имя команды
+		faceoff_total					общее количество вбрасываний
+		faceoff_home					количество вбрасываний дома
+		faceoff_guest					количество вбрасываний в гостях
+		faceoff_perc_wins_total			общий процент выигранных вбрасываний
+		faceoff_perc_wins_home			процент выигранных вбрасываний дома
+		faceoff_perc_wins_guest			процент выигранных вбрасываний в гостях
+		faceoff_perc_wins_rival_total	общий процент выигранных соперником вбрасываний 
+		faceoff_perc_wins_rival_home	процент выигранных соперником вбрасываний дома
+		faceoff_perc_wins_rival_guest	процент выигранных соперником вбрасываний в гостях
+		
+		создание таблицы
+			CREATE TABLE stat_faceoff (id_team INT, name VARCHAR(255), faceoff_total INT, faceoff_home INT, faceoff_guest INT, faceoff_perc_wins_total FLOAT, faceoff_perc_wins_home FLOAT, faceoff_perc_wins_guest FLOAT, faceoff_perc_wins_rival_total FLOAT, faceoff_perc_wins_rival_home FLOAT, faceoff_perc_wins_rival_guest FLOAT) 
+
+		
+	stat_pow_play_pow_kill		результатs игры в большистве/меньшинстве (http://www.khl.ru/stat/teams/468/powerplay-gf/)
+		id_team							id команды
+		name							имя команды
+		games 							количество сыгранных игр
+		total_power_play				количество полученных численных преимуществ
+		goals_power_play				шайб заброшенных в большинстве
+		perc_power_play					процент реализованных численных преимуществ
+		goals_against_power_play		шайбы пропущенные в большинстве
+		total_power_kill				количество численных преимуществ полученных соперником
+		goals_against_power_kill		шайбы, пропущенные в меньшинстве
+		perc_power_kill					процент нереализованных численных преимуществ соперников
+		goals_power_kill				шайбы, заброшенные в меньшинстве
+		
+		создание таблицы
+			CREATE TABLE stat_pow_play_pow_kill (id_team INT, name VARCHAR(255), games INT, total_power_play INT, goals_power_play INT, perc_power_play FLOAT, goals_against_power_play INT, total_power_kill INT, goals_against_power_kill INT, perc_power_kill FLOAT, goals_power_kill INT) 
+	
+	stat_defenders				таблица с данными защитников
+		id_player			id игрока
+		profile				ссылка на профиль игрока
+		image				ссылка на фото игрока
+		last_name			фамилия игрока
+		first_name 			имя игрока
+		number				номер игрока
+		club				клуб игрока
+		games				количество проведеных игроком игр
+		pucks				количество заброшенных шайб
+		pass				количество передач
+		scores				количество очков
+		plus_minus			показатели по системе плюс/минус
+		penalty				штрафное время
+		pucks_equal			количество шайб в равных составах
+		pucks_most			количество шайб в большинстве
+		pucks_min			количество шайб в меньшинстве
+		pucks_ot			количество шайб в овертаймах
+		pucks_win			количество победных шайб
+		bullets_win			количество победных булитов
+		throw				количество бросков
+		throw_percent		процент реализации бросков
+		throw_games			количество бросков за игру
+		faceoff				количество вбрасываний
+		faceoff_win			количество выигранных вбрасываний
+		faceoff_percent		процент выигранных вбрасываний
+		time_game_m			среднее время на площадке за игру (минуты)
+		time_game_s			среднее время на площадке за игру (секунды)
+		change_game			среднее количество смен за игру
+		power_recep			количество силовых приемов
+		block_throw			количество блокированных бросков
+		fouls_against		количество фолов на игроке
+		date_wrte			дата и время записи
+		
+		создание таблицы
+			CREATE TABLE stat_defenders (id_player INT, profile VARCHAR(255), image VARCHAR(255), last_name VARCHAR(255), first_name VARCHAR(255), number INT, club VARCHAR(255), games INT, pucks INT, pass INT, scores INT, plus_minus INT, penalty	INT, pucks_equal INT, pucks_most INT, pucks_min INT, pucks_ot INT, pucks_win INT, bullets_win INT, throw INT, throw_percent FLOAT, throw_games INT, faceoff INT, faceoff_win INT, faceoff_percent FLOAT, time_game_m INT, time_game_s INT, change_game FLOAT, power_recep INT, block_throw INT, fouls_against INT) 
+
+	stat_attacks				таблица с данными нападающих
+		структура аналогична таблице 	stat_defenders
+		
+	создание таблицы
+			CREATE TABLE stat_attacks (id_player INT, profile VARCHAR(255), image VARCHAR(255), last_name VARCHAR(255), first_name VARCHAR(255), number INT, club VARCHAR(255), games INT, pucks INT, pass INT, scores INT, plus_minus INT, penalty	INT, pucks_equal INT, pucks_most INT, pucks_min INT, pucks_ot INT, pucks_win INT, bullets_win INT, throw INT, throw_percent FLOAT, throw_games INT, faceoff INT, faceoff_win INT, faceoff_percent FLOAT, time_game_m INT, time_game_s INT, change_game FLOAT, power_recep INT, block_throw INT, fouls_against INT) 
+			
+	
+	stat_goalies				таблица с данными голкиперов
+		id_player			id игрока
+		profile				ссылка на профиль игрока
+		image				ссылка на фото игрока
+		last_name			фамилия игрока
+		first_name 			имя игрока
+		number				номер игрока
+		club				клуб игрока
+		games				количество проведеных игр
+		games_win			количество выигранных игр
+		games_loss			количество проигранных игр
+		games_bul			количество игр с буллитами
+		throw				количество бросков в створ ворот
+		pucks_off			количество пропущенных шайб
+		throw_off			количество отраженных бросков
+		throw_off_perc		процент отраженных бросков
+		k_reliab			коэффициент надежности
+		pucks				количество заброшенных шайб
+		pass				количество передач
+		games_null			количество сухих матчей
+		penalty				штрафное время
+		time_game_m			среднее время на площадке за игру (минуты)
+		time_game_s			среднее время на площадке за игру (секунды)
+		
+	создание таблицы
+			CREATE TABLE stat_goalies (id_player INT, profile VARCHAR(255), image VARCHAR(255), last_name VARCHAR(255), first_name VARCHAR(255), number INT, club VARCHAR(255), games INT, games_win INT, games_loss INT, games_bul INT, throw INT, pucks_off INT, throw_off INT, throw_off_perc FLOAT, k_reliab FLOAT, pucks INT, pass INT, games_null INT, penalty INT, time_game_m INT, time_game_s INT)   
+
+
+	result_match_nhl
+		id_team						id команды 
+		rival						имя команды соперника
+		place						место проведения игры
+		date_match					дата матча
+		time_end					время матча (normal, OT, B)
+		puck_team					количество заброшенных шайб командой
+		puck_rival					количество заброшенных шайб соперником
+		result						результат матча (win/lose)
+		
+		создание таблицы
+			CREATE TABLE result_match_nhl (id_team INT, name VARCHAR(255), clear_wins INT, clear_wins_home INT, clear_wins_guest INT, ot_wins INT, ot_wins_home INT, ot_wins_guest INT, b_wins INT, b_wins_home INT, b_wins_guest INT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

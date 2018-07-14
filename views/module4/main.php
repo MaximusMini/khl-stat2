@@ -7,87 +7,68 @@ use yii\helpers\HTML;
 $this->title = 'Информация о базе данных';
 
 ?>
-
-<div class="container">
-    <h2>Информация о базе данных</h2>   
-</div>
-
-
 <?php
-
-// установка соединения с БД 
-$db = new yii\db\Connection([
-			'dsn' => 'mysql:host=localhost;dbname=db_preview',
-			'username' => 'root',
-			'password' => '',
-			'charset' => 'utf8',
-		]);
-//*******************************
-// получение имени БД
-$posts = $db->createCommand('show databases'); // выполнение запроса show databases к БД
-$settings_DB = (array)$posts;
-$name_DB = get_object_vars($settings_DB['db'])['dsn']; // преобразование свойств объекта в массив
-$name_DB = explode('=',$name_DB)[2];
-echo "<br>имя БД - ".$name_DB;
-//*******************************
-// получение имен таблиц
-$dbSchema = $db->schema;
-$tables = $dbSchema->getTableNames();
-//*******************************
-
-$nameTable = $tables[15];
-$cells = $db->createCommand('SELECT * FROM '.$nameTable)
-            ->queryAll();
-
-
- echo '<table class="table">';
-
-foreach ($cells as $val){
-//	for ($i=0;$i<=count($val);$i++){
-//		echo key($val[$i]);
-//	}
-//	echo '<br>!!!'.count($val);
-    
-   echo '<tr>'; 
-    while (current($val)) {
-//        echo key($val).'<br />';
-//        
-        echo '<td>';
-        echo $val[key($val)];
-        echo '</td>';
-//        echo '<hr>!!!';
-        next($val);
-    }
-    echo '</tr>'; 
-    
-    
-}
-
-echo '</table>';
+        // установка соединения с БД 
+        $db = new yii\db\Connection([
+                    'dsn' => 'mysql:host=localhost;dbname=db_preview',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8',
+                ]);
+        //*******************************
+        // получение имени БД
+        $posts = $db->createCommand('show databases'); // выполнение запроса show databases к БД
+        $settings_DB = (array)$posts;
+        $name_DB = get_object_vars($settings_DB['db'])['dsn']; // преобразование свойств объекта в массив
+        $name_DB = explode('=',$name_DB)[2];
+        // echo "<br>имя БД - ".$name_DB;
+        //*******************************
+        // получение имен таблиц
+        $dbSchema = $db->schema;
+        $tables = $dbSchema->getTableNames();
+        //*******************************
 ?>
 
-<?/*= foreach($cells as $val):*/?>
-    
-<?/*= endforeach;*/?>
 
-<?php foreach($tables as $val):?>
-<form action="<?=Yii::$app->urlManager->createUrl(['module4/data-table'])?>" method="get">
-    <li>
-        <?=$val?>
-        <input type="hidden" name='name-table' value="<?=$val?>">
-        <input type="submit">
-    </li>
-</form>
-<?php endforeach;?>
+<div class="container">
+    <h2>База данных приложения</h2>   
+    <div class="col-lg-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+            <h4 style="margin:0; padding:0;">Имя базы данных</h4>    
+            </div>
+            <div class="panel-body">
+            <p><strong><?=$name_DB?></strong></p>    
+            </div>
+        </div>
+        <!-- таблицы БД -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+            <h4 style="margin:0; padding:0;">Таблицы базы данных</h4>    
+            </div>
+            <div class="panel-body">
+            <?php foreach($tables as $val):?>
+            <p>
+            <form action="<?=Yii::$app->urlManager->createUrl(['module4/data-table'])?>" method="get">
+                <div class="row">
+                <li>
+                    <div class="col-lg-8">
+                        <?=$val?>
+                        <input type="hidden" name='name-table' value="<?=$val?>">
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="submit" class='btn btn-info'>
+                    </div>
+                </li>
+                </div>
+                <hr>
+            </form>
+            </p>
+            <?php endforeach;?>    
+            </div>
+        </div>
+    </div><!--  class="ol-lg-4"-->
+</div> <!--  class="container"-->
 
-
-<pre>
-	<?= print_r($tables)?>
-	<a href="<?=Yii::$app->urlManager->createUrl(['module4/main'])?>" class="btn btn-inf">Показать</a> 
-</pre>
-
-<pre>
-	<?= print_r($cells)?> 
-</pre>
 
 
