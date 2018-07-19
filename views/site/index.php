@@ -17,6 +17,9 @@ $this->title = 'My Yii Application';
             <li><?=Html::a("Модуль 4 - База данных", ["module4/main"])?></li>
             <li><?=Html::a("Модуль 5", ["site/modul_5"])?></li>
         </ul>
+        <ul>
+            <li><?=Html::a("Временная страница", ["temp/main"])?></li>
+        </ul>
     </div>
 
     <div class="jumbotron">
