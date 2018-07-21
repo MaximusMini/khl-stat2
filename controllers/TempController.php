@@ -15,6 +15,16 @@ class TempController extends Controller
         return $this->render('main');
     }
 
+    public function actionCanvas()
+    {
+        return $this->render('canvas');
+    }
+
+    public function actionCanvasSave()
+    {
+        return $this->render('canvas');
+    }
+
     
     
     

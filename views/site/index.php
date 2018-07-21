@@ -19,6 +19,7 @@ $this->title = 'My Yii Application';
         </ul>
         <ul>
             <li><?=Html::a("Временная страница", ["temp/main"])?></li>
+            <li><?=Html::a("Работа с Canvas", ["temp/canvas"])?></li>
         </ul>
     </div>
 
