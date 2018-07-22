@@ -48,14 +48,23 @@ $this->title = 'Работа с Canvas';
 
 <script>
     function saveImg(){
-//       alert('saveImg()');
-       var canvasData = canvas.toDataURL("image/png");
+     //            var canvas = document.getElementById('canva');
+            var contCanvas = canvas.getContext('2d');
+            
+            // загрузка картинки
+            var img = document.getElementById('img');
+            contCanvas.drawImage(img,0,0);
+            // рисование прямоугольника
+            contCanvas.fillStyle = "yellow"; 
+            contCanvas.fillRect(50,50,400,300);
+            
+            
+            var canvasData = canvas.toDataURL("image/png");
 		$.ajax({
 			url:'canvas-save', 
 			type:'POST', 
 			data:{
-                data:canvasData,
-                par:'Good Ajax',
+                par:canvasData,
 			},
             success: function(){
                 alert('success Ajax');
@@ -65,7 +74,7 @@ $this->title = 'Работа с Canvas';
     }
 </script>
 
-<h1><?=$resultPjax?></h1>
+<h1>resultPjax - <?=$resultPjax?></h1>
 
 <a href="javascript:saveImg()" class="btn btn-danger" id='rrr'>Чистый Ajax</a>
 

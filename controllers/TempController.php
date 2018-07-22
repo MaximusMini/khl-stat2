@@ -32,7 +32,7 @@ class TempController extends Controller
         // декодируем
 		$image = base64_decode($image);
 		// сохраняем изображение
-		file_put_contents('../web/111.png', $image);
+		file_put_contents('../web/121.png', $image);
         $dir = __DIR__;
         return $this->render('canvas',['resultPjax'=>$data_ajax['par'], 'dir'=>$dir] );
     }
