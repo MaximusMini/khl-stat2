@@ -20,6 +20,7 @@ class TempController extends Controller
         return $this->render('canvas');
     }
 
+    // сохранение картинки на диск из canvas через ajax запрос 
     public function actionCanvasSave()
     {
         // получаем массив с данными 
@@ -34,6 +35,31 @@ class TempController extends Controller
 		file_put_contents('../web/111.png', $image);
         $dir = __DIR__;
         return $this->render('canvas',['resultPjax'=>$data_ajax['par'], 'dir'=>$dir] );
+    }
+    
+    // передача параметров в JS из PHP
+    public function actionCodeJs()
+    {
+        $code_js = '
+        <script>
+            //alert("ho-ho");
+            var canvas = document.getElementById("canva");
+            var contCanvas = canvas.getContext("2d");
+            
+            // загрузка картинки
+            var img = document.getElementById("img");
+            contCanvas.drawImage(img,0,0);
+            // рисование прямоугольника
+            contCanvas.fillStyle = "green"; 
+            contCanvas.fillRect(10,10,40,30);
+            
+            
+            var canvasData = canvas.toDataURL("image/png");
+            document.getElementById("par").value = canvasData;
+        </script>
+        ';
+        
+        return $this->render('canvas',['code_js'=>$code_js]);
     }
 
     
