@@ -11,5 +11,6 @@ Git - навигация
 	git pull origin master
 	git add -A
 	git commit -m "Передача ajax запроса в php"
+	git push origin master
 	
 Р
