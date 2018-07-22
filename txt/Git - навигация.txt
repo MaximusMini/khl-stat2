@@ -7,5 +7,7 @@ Git - навигация
 	git push origin master
 	
 О
-
+	cd c:/openserver/domains/khl-stat2
+	git pull origin master
+	
 Р

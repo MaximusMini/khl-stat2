@@ -50,12 +50,26 @@ class TempController extends Controller
             var img = document.getElementById("img");
             contCanvas.drawImage(img,0,0);
             // рисование прямоугольника
-            contCanvas.fillStyle = "green"; 
+            contCanvas.fillStyle = "blue"; 
             contCanvas.fillRect(10,10,40,30);
             
             
             var canvasData = canvas.toDataURL("image/png");
             document.getElementById("par").value = canvasData;
+
+            $.ajax({
+            url:"canvas-save", 
+            type:"POST", 
+            // data:{
+            //     par:canvasData,
+            // },
+            success: function(){
+                alert("success Ajax");
+            },
+            error:function(jqXHR, srtErr, errorThrown){alert("error:" +srtErr+ " errorThrown:" +errorThrown);}
+        }); 
+
+
         </script>
         ';
         
