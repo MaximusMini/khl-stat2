@@ -63,7 +63,6 @@ $this->title = 'Информация о базе данных';
                 </div>
                 <hr>
             </form>
-            </p>
             <?php endforeach;?>    
             </div>
         </div>
