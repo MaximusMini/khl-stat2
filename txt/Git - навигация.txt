@@ -9,5 +9,7 @@ Git - навигация
 О
 	cd c:/openserver/domains/khl-stat2
 	git pull origin master
+	git add -A
+	git commit -m "Передача ajax запроса в php"
 	
 Р
