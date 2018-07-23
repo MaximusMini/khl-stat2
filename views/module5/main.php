@@ -37,7 +37,7 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-success form-control' style='margin:5px 0px; padding:5px 10px'>Ледовая площадка</p>
-                <select class='team2 form-control' name='arena' id='arena'> <?=$time_match ?> </select>
+                <select class='team2 form-control' name='arena' id='arena'> <?=$ice_arena ?> </select>
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-success form-control' style='margin:5px 0px; padding:5px 10px'>Город</p>

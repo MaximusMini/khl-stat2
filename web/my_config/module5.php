@@ -56,5 +56,62 @@ $time_match = <<<TIMEMATCH
     <option value="21.00">21.00</option>
     <option value="21.30">21.30</option>
 TIMEMATCH;
+// ледовые арены
+$ice_arena = <<<ICEARENA
+    <option selected disabled>Выбрать арену</option>
+    <option value="Арена 2000">     Арена 2000</option>
+    <option value="Арена-Металлург">Арена-Металлург</option>
+    <option value="Арена-Омск">     Арена-Омск</option>
+    <option value="Арена-Рига">     Арена-Рига</option>
+    <option value="Барыс-Арена">    Барыс-Арена</option>
+    <option value="Большой">        Большой</option>
+    <option value="Витязь">         Витязь</option>
+    <option value="ВТБ">            ВТБ</option>
+    <option value="Ледовый дворец"> Ледовый дворец - Санкт-Петербург</option>
+    <option value="Ледовый дворец"> Ледовый дворец - Череповец</option>
+    <option value="Мегаспорт">      Мегаспорт</option>
+    <option value="Минск-Арена">    Минск-Арена</option>
+    <option value="Нагорный">       Нагорный</option>
+    <option value="Нефтехим-Арена"> Нефтехим-Арена</option>
+    <option value="Платинум Арена"> Платинум Арена</option>
+    <option value="Словнафт Арена"> Словнафт Арена</option>
+    <option value="Сибирь">         Сибирь</option>
+    <option value="Татнефть-Арена"> Татнефть-Арена</option>
+    <option value="Трактор">        Трактор</option>
+    <option value="Уралец">         Уралец</option>
+    <option value="Уфа-Арена">      Уфа-Арена</option>
+    <option value="Фетисов-Арена">  Фетисов-Арена</option>
+    <option value="Хартвалл-Арена"> Хартвалл-Арена</option>
+    <option value="Фэйян">          Фэйян</option>
+ICEARENA;
+// города
+$city_match = <<<CITYMATCH
+    <option selected disabled>Выбрать город</option>
+    <option value="Омск">           Авангард-Омск</option>
+    <option value="Екатеринбург">   Автомобилист-Екатеринбург</option>
+
+    <option value="Владивосток">    Адмирал-Владивосток</option>
+    <option value="Казань">         Ак Барс-Казань</option>
+    <option value="Хабаровск">      Амур-Хабаровск</option>
+    <option value="Астана">         Барыс-Астана</option>
+
+    <option value="Владивосток">    Витязь-Чехов</option>
+    <option value="Москва">         Динамо М-Москва</option>
+    <option value="Минск">          Динамо Мн-Минск</option>
+    <option value="Рига">           Динамо Р-Рига</option>
+
+    <option value="Хельсинки">      Йокерит-Хельсинки</option>
+    <option value="Пекин">          Куньлунь РС-Пекин</option>
+    <option value="Ярославль">      Локомотив-Ярославль</option>
+    <option value="Магнитогорск">   Металлург Мг-Магнитогорск</option>
+
+    <option value="Хельсинки">      Нефтехимик-Нижнекамск</option>
+    <option value="Уфа">            Салават Юлаев-Уфа</option>
+    <option value="Череповец">      Северсталь-Череповец</option>
+    <option value="Новосибирск">   Сибирь-Новосибирск</option>
+    
+
+
+CITYMATCH;
 
 ?>
