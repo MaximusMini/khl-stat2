@@ -55,9 +55,16 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
     <?= print_r($data_request)?>
 </pre>
 
+<pre>
+    <?= $id_team1?>
+</pre>
 
 <pre>
     <?= print_r($all_data)?>
+</pre>
+
+<pre>
+    <?= $all_data?>
 </pre>
 
 

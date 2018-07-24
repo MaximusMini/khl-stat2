@@ -31,16 +31,21 @@ class Module5Controller extends Controller
         
         
         // подключение модели
-        $mod_poster_match_team1 = new PosterMatch();
-        $mod_poster_match_team2 = new PosterMatch();
+        $val_team1 = new PosterMatch();
+        //$mod_poster_match_team2 = new PosterMatch();
         
         
         
-        $mod_poster_match_team1->get_value(2);
+        $val_team1->get_value($id_team1);
         
         
         
-        return $this->render('main',['data_request' => $data_request, 'all_data' => $mod_poster_match_team1->all_data]);
+        return $this->render('main', [
+                                'data_request' => $data_request, 
+                                'id_team1'=>$id_team1,
+                                'all_data' => $val_team1->all_data,
+
+                            ]);
     }
     
     

@@ -2,31 +2,31 @@
 // команды
 $teams = <<<TEAMS
     <option selected disabled>Выбрать команду</option>
-    <option value="Авангард">       1-Авангард</option>
-    <option value="Автомобилист">   2-Автомобилист</option>
-    <option value="Адмирал">        3-Адмирал</option>
-    <option value="Ак Барс">        4-Ак Барс</option>
-    <option value="Амур">           5-Амур</option>
-    <option value="Барыс">          6-Барыс</option>
-    <option value="Витязь">         7-Витязь</option>
-    <option value="Динамо М">       8-Динамо М</option>
-    <option value="Динамо Мн">      9-Динамо Мн</option>
-    <option value="Динамо Р">       10-Динамо Р</option>
-    <option value="Йокерит">        11-Йокерит</option>
-    <option value="Куньлунь РС">    12-Куньлунь РС</option>
-    <option value="Локомотив">      13-Локомотив</option>
-    <option value="Металлург Мг">   14-Металлург Мг</option>
-    <option value="Нефтехимик">     15-Нефтехимик</option>
-    <option value="Салават Юлаев">  16-Салават Юлаев</option>
-    <option value="Северсталь">     17-Северсталь</option>
-    <option value="Сибирь">         18-Сибирь</option>
-    <option value="СКА">            19-СКА</option>                                                
-    <option value="Слован">         20-Слован</option>
-    <option value="Спартак">        21-Спартак</option>
-    <option value="Торпедо">        22-Торпедо</option>
-    <option value="Трактор">        23-Трактор</option>
-    <option value="ХК Сочи">        24-ХК Сочи</option>
-    <option value="ЦСКА">           25-ЦСКА</option>
+    <option value="1">       1-Авангард</option>
+    <option value="2">   2-Автомобилист</option>
+    <option value="3">        3-Адмирал</option>
+    <option value="4">        4-Ак Барс</option>
+    <option value="5">           5-Амур</option>
+    <option value="6">          6-Барыс</option>
+    <option value="7">         7-Витязь</option>
+    <option value="8">       8-Динамо М</option>
+    <option value="9">      9-Динамо Мн</option>
+    <option value="10">       10-Динамо Р</option>
+    <option value="11">        11-Йокерит</option>
+    <option value="12">    12-Куньлунь РС</option>
+    <option value="13">      13-Локомотив</option>
+    <option value="14">   14-Металлург Мг</option>
+    <option value="15">     15-Нефтехимик</option>
+    <option value="16">  16-Салават Юлаев</option>
+    <option value="17">     17-Северсталь</option>
+    <option value="18">         18-Сибирь</option>
+    <option value="19">            19-СКА</option>                                                
+    <option value="20">         20-Слован</option>
+    <option value="21">        21-Спартак</option>
+    <option value="22">        22-Торпедо</option>
+    <option value="23">        23-Трактор</option>
+    <option value="24">        24-ХК Сочи</option>
+    <option value="25">           25-ЦСКА</option>
 TEAMS;
 // время начало игры
 $time_match = <<<TIMEMATCH
