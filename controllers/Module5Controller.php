@@ -43,8 +43,7 @@ class Module5Controller extends Controller
         return $this->render('main', [
                                 'data_request' => $data_request, 
                                 'id_team1'=>$id_team1,
-                                'all_data' => $val_team1->all_data,
-
+                                'all_data' => get_object_vars($val_team1)
                             ]);
     }
     

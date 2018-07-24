@@ -24,9 +24,6 @@ class PosterMatch extends Model
 
     public $place;
 
-
-    public $all_data=[];
-
     function get_value($id_team){
         
         // установка соединения с БД
@@ -49,11 +46,6 @@ class PosterMatch extends Model
         $this->defeats=$this->clear_defeat+$this->ot_defeat+$this->b_defeat;
         // место команды в турнирной таблице конфиренции - table_conf(place)[0]['b_defeat']
         $this->place=$db->createCommand('SELECT place FROM table_conf WHERE id_team='.$id_team)->queryAll()[0]['place'];
-        
-        
-        
-        $this->all_data = compact($logo, $clear_wins, $ot_wins, $b_wins, $wins,
-                                  $clear_defeat, $ot_defeat, $b_defeat, $defeats);
     }
     
     
