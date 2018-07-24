@@ -41,13 +41,14 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-success form-control' style='margin:5px 0px; padding:5px 10px'>Город</p>
-                <select class='team2 form-control' name='city' id='city'> <?=$time_match ?> </select>
+                <select class='team2 form-control' name='city' id='city'> <?=$city_match ?> </select>
             </div>
         </div>
         <hr>
         <button type="submit" class="btn btn-success">Формировать постер</button>
     </form>
-  <br><br>  
+
+<br><br>  
 
    
 <pre>

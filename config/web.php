@@ -44,7 +44,9 @@ $config = [
             ],
         ],
         'db' => $db,
-        
+        // подключение второй БД
+        'db_preview'  => require(__DIR__ . '/db_preview.php'),
+        //======================
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

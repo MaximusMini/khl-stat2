@@ -61,9 +61,9 @@
 			INSERT INTO team (id_team, name_team, conf) values (25,"Трактор","восток");
 			INSERT INTO team (id_team, name_team, conf) values (26,"ЦСКА","запад");
 			INSERT INTO team (id_team, name_team, conf) values (27,"Югра","восток");
-
-
-	table_conf
+    -----------------------------------------------------------------------------------------------------------------------------------------
+	
+    table_conf					таблица с турнирнами данными (с сайта championat.com)
 		id_team			id команды
 		name			имя команды
 		place			место команды
@@ -89,7 +89,7 @@
 			CREATE TABLE table_conf (id_team INT,name VARCHAR(255), place INT, games INT, clear_wins INT, ot_wins INT, b_wins INT, clear_defeat INT,ot_defeat INT, b_defeat INT, throw_puck INT, iss_puck INT, cores INT, percent_scr FLOAT, old_match_1 VARCHAR(255),old_match_2 VARCHAR(255),old_match_3 VARCHAR(255),old_match_4 VARCHAR(255),old_match_5 VARCHAR(255),old_match_6 VARCHAR(255))
 		запрос на добавление
 			INSERT INTO table_conf (id_team,name,place,games,clear_wins,ot_wins,b_wins,clear_defeat,ot_defeat,b_defeat,throw_puck,miss_puck,scores,percent_scr,old_match_1,old_match_2,old_match_3,old_match_4,old_match_5,old_match_6) VALUES ($key_name_team,$arr_1['name'],$arr_1['place'],$arr_1['games'],$arr_1['clear_wins'],$arr_1['ot_wins'], $arr_1['b_winse'],$arr_1['clear_defeat'],$arr_1['ot_defeat'],$arr_1['b_defeat'],$arr_1['throw_puck'],$arr_1['miss_puck'],$arr_1['scores'],$arr_1['percent_scr'],$arr_1['old_match_1'],$arr_1['old_match_2'],$arr_1['old_match_3'],$arr_1['old_match_4'],$arr_1['old_match_5'],$arr_1['old_match_6']);
-			
+	-----------------------------------------------------------------------------------------------------------------------------------------		
 	
 	stat_wins
 		id_team						id команды
@@ -106,7 +106,8 @@
 		
 		создание таблицы
 			CREATE TABLE stat_wins (id_team INT, name VARCHAR(255), clear_wins INT, clear_wins_home INT, clear_wins_guest INT, ot_wins INT, ot_wins_home INT, ot_wins_guest INT, b_wins INT, b_wins_home INT, b_wins_guest INT)
-	
+	-----------------------------------------------------------------------------------------------------------------------------------------
+    
 	stat_loss - таблица с данными о поражениях
 		id_team						id команды
 		name						имя команды
@@ -122,9 +123,9 @@
 		
 		создание таблицы
 			CREATE TABLE stat_loss (id_team INT, name VARCHAR(255), clear_loss INT, clear_loss_home INT, clear_loss_guest INT, ot_loss INT, ot_loss_home INT, ot_loss_guest INT, b_loss INT, b_loss_home INT, b_loss_guest INT)
-	
-	
-	stat_puck
+	-----------------------------------------------------------------------------------------------------------------------------------------
+    
+    stat_puck
 		id_team						id команды
 		name						имя команды
 		throw_puck					количество заброшенных шайб
@@ -136,8 +137,9 @@
 		
 		создание таблицы
 			CREATE TABLE stat_puck (id_team INT, name VARCHAR(255), throw_puck INT, throw_puck_home INT, throw_puck_guest INT, throw_puck_average FLOAT, throw_puck_average_home FLOAT, throw_puck_average_guest FLOAT)
-			
-	stat_allow_puck
+    -----------------------------------------------------------------------------------------------------------------------------------------
+    
+    stat_allow_puck - таблица с данными о пропущенных шайбах (с сайта championat.com)
 		id_team						id команды
 		name						имя команды
 		allow_puck					количество пропущенных шайб
@@ -149,7 +151,7 @@
 		
 		создание таблицы
 			CREATE TABLE stat_allow_puck (id_team INT, name VARCHAR(255), allow_puck INT, allow_puck_home INT, allow_puck_guest INT, allow_puck_average FLOAT, allow_puck_average_home FLOAT, allow_puck_average_guest FLOAT)
-	
+    -----------------------------------------------------------------------------------------------------------------------------------------	
 	
 	stat_penalty
 		id_team						id команды
@@ -163,9 +165,9 @@
 
 		создание таблицы
 			CREATE TABLE stat_penalty (id_team INT, name VARCHAR(255), penalty_time INT, penalty_time_home INT, penalty_time_guest INT, penalty_time_average FLOAT, penalty_time_average_home FLOAT, penalty_time_average_guest FLOAT)  
+	-----------------------------------------------------------------------------------------------------------------------------------------
 	
-	
-	stat_throw	
+	stat_throw - таблица с данными о количестве бросков (с сайта championat.com)	
 		id_team						id команды
 		name						имя команды
 		total_throw					количество бросков
@@ -177,7 +179,7 @@
 
 		создание таблицы
 			CREATE TABLE stat_throw (id_team INT, name VARCHAR(255), total_throw INT, total_throw_home INT, total_throw_guest INT, total_throw_average FLOAT, total_throw_average_home FLOAT, total_throw_average_guest FLOAT)  
-
+    -----------------------------------------------------------------------------------------------------------------------------------------
 	
 	stat_throw_rival - таблица с данными о количестве бросков соперника
 		id_team						id команды

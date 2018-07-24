@@ -89,29 +89,22 @@ $city_match = <<<CITYMATCH
     <option selected disabled>Выбрать город</option>
     <option value="Омск">           Авангард-Омск</option>
     <option value="Екатеринбург">   Автомобилист-Екатеринбург</option>
-
     <option value="Владивосток">    Адмирал-Владивосток</option>
     <option value="Казань">         Ак Барс-Казань</option>
     <option value="Хабаровск">      Амур-Хабаровск</option>
     <option value="Астана">         Барыс-Астана</option>
-
     <option value="Владивосток">    Витязь-Чехов</option>
     <option value="Москва">         Динамо М-Москва</option>
     <option value="Минск">          Динамо Мн-Минск</option>
     <option value="Рига">           Динамо Р-Рига</option>
-
     <option value="Хельсинки">      Йокерит-Хельсинки</option>
     <option value="Пекин">          Куньлунь РС-Пекин</option>
     <option value="Ярославль">      Локомотив-Ярославль</option>
     <option value="Магнитогорск">   Металлург Мг-Магнитогорск</option>
-
     <option value="Хельсинки">      Нефтехимик-Нижнекамск</option>
     <option value="Уфа">            Салават Юлаев-Уфа</option>
     <option value="Череповец">      Северсталь-Череповец</option>
-    <option value="Новосибирск">   Сибирь-Новосибирск</option>
-    
-
-
+    <option value="Новосибирск">    Сибирь-Новосибирск</option>
 CITYMATCH;
 
 ?>
