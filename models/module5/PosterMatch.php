@@ -56,15 +56,15 @@ class PosterMatch extends Model
     public $total_pp2;
     public $goals_pp2;
     public $perc_pp2;
+    // игра в меньшинстве --------------------
+    public $total_pk1;
+    public $goals_pk1;
+    public $perc_pk1;
+    public $total_pk2;
+    public $goals_pk2;
+    public $perc_pk2;
+    // 
     
-    
-    
-    
-    
-    
-    
-    
-
     function get_value($id_team1, $id_team2){
         // установка соединения с БД
         $db = Yii::$app->db_preview;
@@ -122,22 +122,20 @@ class PosterMatch extends Model
         $this->goals_pp2=$db->createCommand('SELECT goals_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['goals_power_play'];
         $this->perc_pp2= $db->createCommand('SELECT perc_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['perc_power_play'];
         // игра в меньшинстве - stat_pow_play_pow_kill(total_power_kill, goals_against_power_kill, perc_power_kill)
-        
-        
+        $this->total_pk1=$db->createCommand('SELECT total_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['total_power_kill'];
+        $this->goals_pk1=$db->createCommand('SELECT goals_against_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['goals_against_power_kill'];
+        $this->perc_pk1= $db->createCommand('SELECT perc_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['perc_power_kill'];
+        //----------------------------------------------------------
+        $this->total_pk2=$db->createCommand('SELECT total_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['total_power_kill'];
+        $this->goals_pk2=$db->createCommand('SELECT goals_against_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['goals_against_power_kill'];
+        $this->perc_pk2= $db->createCommand('SELECT perc_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['perc_power_kill'];
     }
     
 
-    
-    // количество пропущенных шайб командой - stat_allow_puck(allow_puck)
-    
-    // реализация большинства - stat_pow_play_pow_kill(total_power_play, goals_power_play, perc_power_play)
-    
-    // игра в меньшинстве - stat_pow_play_pow_kill(total_power_kill, goals_against_power_kill, perc_power_kill)
-    
-    
-    
-    
     // формирование кода JavaScript
+
+    // круговая диаграмма
+    function arc(){}
     
     
     
