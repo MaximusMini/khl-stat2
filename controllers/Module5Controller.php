@@ -36,7 +36,7 @@ class Module5Controller extends Controller
         
         
         
-        $val_team1->get_value($id_team1);
+        $val_team1->get_value($id_team1,$id_team2);
         
         
         
