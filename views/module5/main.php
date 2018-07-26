@@ -58,7 +58,7 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
         canvas.height = 800;
     var contCanvas = canvas.getContext("2d");
 
-    https://code.tutsplus.com/ru/tutorials/how-to-draw-a-pie-chart-and-doughnut-chart-using-javascript-and-html5-canvas--cms-27197
+    // https://code.tutsplus.com/ru/tutorials/how-to-draw-a-pie-chart-and-doughnut-chart-using-javascript-and-html5-canvas--cms-27197
 
     // функция рисования линии
     function drawLine(ctx, startX, startY, endX, endY){
@@ -101,7 +101,7 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
     }
 
     // пересчет градусов в радианы
-    function rad(grad){
+    var rad = function(grad){
         return (grad*Math.PI)/180;
     }
 
@@ -114,7 +114,58 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
     drawPieSlice(contCanvas, 300, 300, 150, rad(270), rad(150),'#ff0000' );
     drawPieSlice(contCanvas, 300, 300, 150, rad(150), rad(270),'#00ff00' );
     drawPieSlice(contCanvas, 300, 300, 100, rad(0), rad(380),'#ffffff' );
+    
+    
+    // рисование показателей побед/поражений
+    function winsDefeats(centerX1, centerY,contCanvas){
+        // победы/поражения команды 1
+        var winsTeam1=29;
+        var defeatsTeam1=27;
+        var gamesTeam1 = 56;
+        var percWins1 = Math.round((winsTeam1/gamesTeam1)*100);
+        var percDefeats1 = Math.round((defeatsTeam1/gamesTeam1)*100);
+//        alert (percWins1);
+//        alert (percDefeats1);
+        
+        var percWinsRadian1 = Math.round((360*percDefeats1)/100);
+        var percDefeatsRadian1 = Math.round((360*percDefeats1)/100);
+        
+        alert (percDefeatsRadian1);
+        
+        // победы/поражения команды 1
+        var winsTeam2 = 25;
+        var defeatsTeam2 = 31;
+        var gamesTeams2 = 56;
+        var percWins2 = Math.round((winsTeam2/gamesTeams2)*100);
+//        var percDefeats2 = Math.round((defeatsTeam2/gamesTeam2)*100);
+        
+        contCanvas.lineWidth = 35;
+        contCanvas.fillStyle = '#ff0000';
+        contCanvas.strokeStyle = "#8B0000"; // цвет линии
+        
+        contCanvas.beginPath();
+//        contCanvas.moveTo(centerX1,centerY);
+        contCanvas.arc( centerX1, centerY, 100, rad(270), rad(270+percDefeatsRadian1));
+        
+        contCanvas.stroke();
+        contCanvas.beginPath();    
+        contCanvas.strokeStyle = "#008000"; // цвет линии
+        contCanvas.arc( centerX1, centerY, 100, rad(83), rad(270));
+        contCanvas.stroke();
+//        contCanvas.fill();
+        // рисование диаграммы команды 1
+//        drawPieSlice(contCanvas, centerX1, centerY, 100, rad(270), rad(150),'#ff0000' );// победы
+//        drawPieSlice(contCanvas, centerX1, centerY, 100, rad(270), rad(150),'#ff0000' );// поражения
+//        drawPieSlice(contCanvas, centerX1, centerY, 100, rad(270), rad(150),'#ff0000' );// вырез
+        
+        
+        
+    }
 
+    
+    
+    
+    winsDefeats(200, 200, contCanvas);
 
 
 </script>

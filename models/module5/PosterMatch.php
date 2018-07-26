@@ -26,7 +26,7 @@ class PosterMatch extends Model
     public $clear_defeat1;          // чистых поражений
     public $ot_defeat1;             // поражений в овертайме
     public $b_defeat1;              // поражений по буллитам
-    public $defeats1;               // всего побед
+    public $defeats1;               // всего поражений
     public $clear_defeat2;          // чистых поражений
     public $ot_defeat2;             // поражений в овертайме
     public $b_defeat2;              // поражений по буллитам
