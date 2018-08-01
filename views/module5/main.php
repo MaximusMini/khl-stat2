@@ -159,8 +159,19 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
 </script>
 
 <!-- rll -->
-<script><?=$all_data['wins_defeats']?></script>
-<script>winsDefeats(200, 200, contCanvas);</script>
+<script><?=$js_code?></script>
+<script>
+winsDefeats(200, 200, contCanvas);
+
+var imgTag = document.createElement('img');
+imgTag.id = 'img-template';
+imgTag.setAttribute('src','./../web/images/module5/temp.png');
+imgTag.setAttribute('width','600');
+var div = document.getElementsByClassName('wrap');
+document.body.appendChild(div);
+
+document.write
+</script>
 <pre>
     <?= print_r($data_request)?>
 </pre>

@@ -195,6 +195,15 @@ winsDefeats;
 }
 
 
+    // вывод шаблона
+    function draw_template(){
+$drawTemplate = <<< drawTemplate
+function drawTemplate(){
+    
+}
+drawTemplate;
+    }
+
     // основная функция для формирования всего js кода
     function main_js_code(){
         $this->wins_defeats();// рисование показателей побед/поражений
