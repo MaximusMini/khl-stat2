@@ -48,9 +48,15 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
         <button type="submit" class="btn btn-success">Формировать постер</button>
     </form>
 
-<br><br>  
+<br><br>
+    <div id="img-template">
+       
+    </div> 
+     
 
 <canvas id='canva' width='800' height='800'> </canvas> 
+
+ <!-- <img id="img-template" src="./../web/images/module5/temp.png" width="600"> -->
 
 <script>
     var canvas = document.getElementById("canva");
@@ -167,10 +173,12 @@ var imgTag = document.createElement('img');
 imgTag.id = 'img-template';
 imgTag.setAttribute('src','./../web/images/module5/temp.png');
 imgTag.setAttribute('width','600');
-var div = document.getElementsByClassName('wrap');
-document.body.appendChild(div);
+var div = document.getElementById('img-template');
+// $('div#img-template').append(imgTag);
+document.body.appendChild(imgTag, div);
+alert(div);
 
-document.write
+// document.write
 </script>
 <pre>
     <?= print_r($data_request)?>
