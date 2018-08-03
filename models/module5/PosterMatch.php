@@ -63,7 +63,16 @@ class PosterMatch extends Model
     public $total_pk2;
     public $goals_pk2;
     public $perc_pk2;
-    // 
+    
+
+    public $rad;    // радианы
+
+    // перемнные - функции для рисования --------------------
+    public $wins_defeats;    // рисование показателей побед/поражений
+
+
+
+
     
     function get_value($id_team1, $id_team2){
         // установка соединения с БД
@@ -136,6 +145,70 @@ class PosterMatch extends Model
 
     // круговая диаграмма
     function arc(){}
+
+    // функция пересчета 
+
+
+    // пересчет градусов в радианы
+    function grad($grad){
+        return $this->rad = (grad*M_.PI)/180;
+    }
+
+
+    // рисование показателей побед/поражений
+    function wins_defeats(){
+$winsDefeats = <<<winsDefeats
+ function winsDefeats(centerX1, centerY, contCanvas){
+        // победы/поражения команды 1
+        var winsTeam1=29;
+        var defeatsTeam1=27;
+        var gamesTeam1 = 56;
+        var percWins1 = Math.round((winsTeam1/gamesTeam1)*100);
+        var percDefeats1 = Math.round((defeatsTeam1/gamesTeam1)*100);
+        
+        var percWinsRadian1 = Math.round((360*percDefeats1)/100);
+        var percDefeatsRadian1 = Math.round((360*percDefeats1)/100);
+        
+        //alert (percDefeatsRadian1);
+        
+        // победы/поражения команды 1
+        var winsTeam2 = 25;
+        var defeatsTeam2 = 31;
+        var gamesTeams2 = 56;
+        var percWins2 = Math.round((winsTeam2/gamesTeams2)*100);
+        
+        contCanvas.lineWidth = 35;
+        contCanvas.fillStyle = '#ff0000';
+        contCanvas.strokeStyle = "#8B0000"; // цвет линии
+        
+        contCanvas.beginPath();
+        contCanvas.arc( centerX1, centerY, 100, rad(270), rad(270+percDefeatsRadian1));
+        
+        contCanvas.stroke();
+        contCanvas.beginPath();    
+        contCanvas.strokeStyle = "#008000"; // цвет линии
+        contCanvas.arc( centerX1, centerY, 100, rad(83), rad(270));
+        contCanvas.stroke();
+    }
+winsDefeats;
+    $this->wins_defeats = $winsDefeats;
+}
+
+
+    // вывод шаблона
+    function draw_template(){
+$drawTemplate = <<< drawTemplate
+function drawTemplate(){
+    
+}
+drawTemplate;
+    }
+
+    // основная функция для формирования всего js кода
+    function main_js_code(){
+        $this->wins_defeats();// рисование показателей побед/поражений
+    }
+
     
     
     

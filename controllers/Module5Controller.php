@@ -37,13 +37,16 @@ class Module5Controller extends Controller
         
         
         $val_team1->get_value($id_team1,$id_team2);
+        $val_team1->wins_defeats();
+        $js_code = $val_team1->wins_defeats;
         
         
         
         return $this->render('main', [
                                 'data_request' => $data_request, 
                                 'id_team1'=>$id_team1,
-                                'all_data' => get_object_vars($val_team1)
+                                'all_data' => get_object_vars($val_team1),
+                                'js_code' => $val_team1->wins_defeats,
                             ]);
     }
     

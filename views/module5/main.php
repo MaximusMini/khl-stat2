@@ -48,9 +48,15 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
         <button type="submit" class="btn btn-success">Формировать постер</button>
     </form>
 
-<br><br>  
+<br><br>
+    <div id="img-template">
+       
+    </div> 
+     
 
 <canvas id='canva' width='800' height='800'> </canvas> 
+
+ <!-- <img id="img-template" src="./../web/images/module5/temp.png" width="600"> -->
 
 <script>
     var canvas = document.getElementById("canva");
@@ -116,62 +122,64 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
     drawPieSlice(contCanvas, 300, 300, 100, rad(0), rad(380),'#ffffff' );
     
     
-    // рисование показателей побед/поражений
-    function winsDefeats(centerX1, centerY,contCanvas){
-        // победы/поражения команды 1
-        var winsTeam1=29;
-        var defeatsTeam1=27;
-        var gamesTeam1 = 56;
-        var percWins1 = Math.round((winsTeam1/gamesTeam1)*100);
-        var percDefeats1 = Math.round((defeatsTeam1/gamesTeam1)*100);
-//        alert (percWins1);
-//        alert (percDefeats1);
+    // // рисование показателей побед/поражений
+    // function winsDefeats(centerX1, centerY, contCanvas){
+    //     // победы/поражения команды 1
+    //     var winsTeam1=29;
+    //     var defeatsTeam1=27;
+    //     var gamesTeam1 = 56;
+    //     var percWins1 = Math.round((winsTeam1/gamesTeam1)*100);
+    //     var percDefeats1 = Math.round((defeatsTeam1/gamesTeam1)*100);
         
-        var percWinsRadian1 = Math.round((360*percDefeats1)/100);
-        var percDefeatsRadian1 = Math.round((360*percDefeats1)/100);
+    //     var percWinsRadian1 = Math.round((360*percDefeats1)/100);
+    //     var percDefeatsRadian1 = Math.round((360*percDefeats1)/100);
         
-        alert (percDefeatsRadian1);
+    //     //alert (percDefeatsRadian1);
         
-        // победы/поражения команды 1
-        var winsTeam2 = 25;
-        var defeatsTeam2 = 31;
-        var gamesTeams2 = 56;
-        var percWins2 = Math.round((winsTeam2/gamesTeams2)*100);
-//        var percDefeats2 = Math.round((defeatsTeam2/gamesTeam2)*100);
+    //     // победы/поражения команды 1
+    //     var winsTeam2 = 25;
+    //     var defeatsTeam2 = 31;
+    //     var gamesTeams2 = 56;
+    //     var percWins2 = Math.round((winsTeam2/gamesTeams2)*100);
         
-        contCanvas.lineWidth = 35;
-        contCanvas.fillStyle = '#ff0000';
-        contCanvas.strokeStyle = "#8B0000"; // цвет линии
+    //     contCanvas.lineWidth = 35;
+    //     contCanvas.fillStyle = '#ff0000';
+    //     contCanvas.strokeStyle = "#8B0000"; // цвет линии
         
-        contCanvas.beginPath();
-//        contCanvas.moveTo(centerX1,centerY);
-        contCanvas.arc( centerX1, centerY, 100, rad(270), rad(270+percDefeatsRadian1));
+    //     contCanvas.beginPath();
+    //     contCanvas.arc( centerX1, centerY, 100, rad(270), rad(270+percDefeatsRadian1));
         
-        contCanvas.stroke();
-        contCanvas.beginPath();    
-        contCanvas.strokeStyle = "#008000"; // цвет линии
-        contCanvas.arc( centerX1, centerY, 100, rad(83), rad(270));
-        contCanvas.stroke();
-//        contCanvas.fill();
-        // рисование диаграммы команды 1
-//        drawPieSlice(contCanvas, centerX1, centerY, 100, rad(270), rad(150),'#ff0000' );// победы
-//        drawPieSlice(contCanvas, centerX1, centerY, 100, rad(270), rad(150),'#ff0000' );// поражения
-//        drawPieSlice(contCanvas, centerX1, centerY, 100, rad(270), rad(150),'#ff0000' );// вырез
-        
-        
-        
-    }
+    //     contCanvas.stroke();
+    //     contCanvas.beginPath();    
+    //     contCanvas.strokeStyle = "#008000"; // цвет линии
+    //     contCanvas.arc( centerX1, centerY, 100, rad(83), rad(270));
+    //     contCanvas.stroke();
+    // }
 
     
     
     
-    winsDefeats(200, 200, contCanvas);
+    
 
 
 </script>
 
+<!-- rll -->
+<script><?=$js_code?></script>
+<script>
+winsDefeats(200, 200, contCanvas);
 
+var imgTag = document.createElement('img');
+imgTag.id = 'img-template';
+imgTag.setAttribute('src','./../web/images/module5/temp.png');
+imgTag.setAttribute('width','600');
+var div = document.getElementById('img-template');
+// $('div#img-template').append(imgTag);
+document.body.appendChild(imgTag, div);
+alert(div);
 
+// document.write
+</script>
 <pre>
     <?= print_r($data_request)?>
 </pre>
@@ -181,7 +189,7 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
 </pre>
 
 <pre>
-    <?= print_r($all_data)?>
+    <?= 'bbb'.print_r($all_data)?>
 </pre>
 
 <pre>
