@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
     
     <div class="container">
         <ul>
-            <li><?=Html::a("Модуль 1", ["module1/main"])?></li>
+            <li><?=Html::a("Модуль 1 - Парсеры", ["module1/main"])?></li>
             <li><?=Html::a("Модуль 2 - Формирование постера матчей дня", ["module2/main"])?></li>
             <li><?=Html::a("Модуль 3 - Формирование постера результаты матчей дня", ["module3/main"])?></li>
             <li><?=Html::a("Модуль 4 - База данных", ["module4/main"])?></li>
