@@ -73,7 +73,7 @@ class PosterMatch extends Model
 
 
 
-    
+    // получения данных из БД
     function get_value($id_team1, $id_team2){
         // установка соединения с БД
         $db = Yii::$app->db_preview;

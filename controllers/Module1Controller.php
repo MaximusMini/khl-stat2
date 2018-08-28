@@ -9,6 +9,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+// класс 
+use app\models\module1\ParserKhlStat;
+
 
 class Module1Controller extends Controller
 {
@@ -63,6 +66,42 @@ class Module1Controller extends Controller
     {
         return $this->render('main');
     }
+    
+    //ПАРСИНГ 2 - Парсер статистических данных команд КХЛ
+    //---------------------------------------------------
+    // отображение страницы парсинга
+    public function actionParserKhlView_2()
+    {
+        return $this->render('parser_khl_view_2');
+    }
+    // парсинг статистических данных
+    public function actionParserKhlModel_2()
+    {
+        // определение модели для парсера данных
+//        $model_parser = Yii::$app->request->get('model_parser');
+        
+        
+        // запуск парсера
+        
+        // подключение модели
+        $parser_khl_stat = new ParserKhlStat;
+        $parser_khl_stat->main();
+        
+        
+        return $this->render('parser_khl_view_2');
+    }
+    // отображение таблицы с результатами
+     public function actionParserKhlData_2()
+    {
+        return $this->render('parser_khl_view_2');
+    }
 
+    
+    
+    
+    
+    
+    
+    
    
 }

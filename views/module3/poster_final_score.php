@@ -113,21 +113,6 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
     }
     
                
-    // вставка логотипа команды 1
-//    $logo_team_1 = imagecreatefrompng('images\module3\logo\25.png');
-//    imagecopyresized($image, $logo_team_1, 160, 210, 0, 0,90, 91, 90,90);           
-    // вставка логотипа команды 2
-//    $logo_team_2 = imagecreatefrompng('images\module3\logo\24.png');
-//    imagecopyresized($image, $logo_team_2, 690, 210, 0, 0,90, 90, 90,90);            
-    // вставка счета команды 1
-               
-    // вставка счета команды 2
-               
-    // вставка линий
-//    imageline ($image , 250 , 210 , 780 , 210 , $color_line);
-//    imageline ($image , 248 , 300 , 780 , 300 , $color_line);
-    // вставка шаблона длительности матча
-               
     // сохранение файла
     imagepng($image,'images\module3\new\final_score_.png',9);           
                
