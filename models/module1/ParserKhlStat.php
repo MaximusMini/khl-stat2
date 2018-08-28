@@ -5,7 +5,9 @@ namespace app\models\module1;
 use Yii;
 use yii\base\Model;
 
-use app\web\php\phpQuery;
+//use app\web\php\phpQuery;
+
+use GuzzleHttp\Client; // подключаем Guzzle
 
 
 
@@ -115,7 +117,7 @@ class ParserKhlStat extends Model
         // запрос страницы
         $data_stat_team = $this->curl_get ($data_team['linl']);
         //создание объекта phpQuery
-        $doc_Dom = phpQuery::newDocument($data_stat_team);
+        $doc_Dom = \phpQuery::newDocument($data_stat_team);
         // парсинг страницы в массив $stat_team
          //----------------------------------------
         // заброшенные шайбы
@@ -192,7 +194,7 @@ class ParserKhlStat extends Model
         $stat_team['b_loss_guest'] = $doc_Dom->find('tr:nth-child(8) td:nth-child(6)')->text();
 
 
-        echo printArray($stat_team);
+//        echo printArray($stat_team);
 
         // вызов функции записи в БД
 
@@ -205,55 +207,55 @@ class ParserKhlStat extends Model
         // формирования запроса на добавление данных о заброшенных шайбах
         $query_1 = 'INSERT INTO stat_puck (id_team, name , throw_puck, throw_puck_home, throw_puck_guest, throw_puck_average, throw_puck_average_home, throw_puck_average_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['throw_puck'].','.$stat_team['throw_puck_home'].','.$stat_team['throw_puck_guest'].','.str_replace(',','.',$stat_team['throw_puck_average']).','.str_replace(',','.',$stat_team['throw_puck_home_average']).','.str_replace(',','.',$stat_team['throw_puck_guest_average']).')';
         // добавление данных в БД
-        $this->id_connect_DB->query($query_1);
+        $this->id_connect_DB->createCommand($query_1);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о пропущенных шайбах
         $query_2 = 'INSERT INTO stat_allow_puck (id_team, name , allow_puck, allow_puck_home, allow_puck_guest, allow_puck_average, allow_puck_average_home, allow_puck_average_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['allow_puck'].','.$stat_team['allow_puck_home'].','.$stat_team['allow_puck_guest'].','.str_replace(',','.',$stat_team['allow_puck_average']).','.str_replace(',','.',$stat_team['allow_puck_average_home']).','.str_replace(',','.',$stat_team['allow_puck_average_guest']).')';
         // добавление данных в БД
         //echo '<br>'.$query_2;
-        $this->id_connect_DB->query($query_2);
+        $this->id_connect_DB->createCommand($query_2);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о штрафном времени
         $query_3 = 'INSERT INTO stat_penalty (id_team, name , penalty_time, penalty_time_home, penalty_time_guest, penalty_time_average, penalty_time_average_home, penalty_time_average_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['penalty_time'].','.$stat_team['penalty_time_home'].','.$stat_team['penalty_time_guest'].','.str_replace(',','.',$stat_team['penalty_time_average']).','.str_replace(',','.',$stat_team['penalty_time_average_home']).','.str_replace(',','.',$stat_team['penalty_time_average_guest']).')';
         // добавление данных в БД
         //echo '<br>'.$query_3;
-        $this->id_connect_DB->query($query_3);
+        $this->id_connect_DB->createCommand($query_3);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о бросках по воротам
         $query_4 = 'INSERT INTO stat_throw (id_team, name , total_throw, total_throw_home, total_throw_guest, total_throw_average, total_throw_average_home, total_throw_average_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['total_throw'].','.$stat_team['total_throw_home'].','.$stat_team['total_throw_guest'].','.str_replace(',','.',$stat_team['total_throw_average']).','.str_replace(',','.',$stat_team['total_throw_average_home']).','.str_replace(',','.',$stat_team['total_throw_average_guest']).')';
         // добавление данных в БД
         //echo '<br>'.$query_4;
-        $this->id_connect_DB->query($query_4);
+        $this->id_connect_DB->createCommand($query_4);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о бросках соперника по воротам
         $query_5 = 'INSERT INTO stat_throw_rival (id_team, name , throw_rival, throw_rival_home, throw_rival_guest, throw_rival_average, throw_rival_average_home, throw_rival_average_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['throw_rival'].','.$stat_team['throw_rival_home'].','.$stat_team['throw_rival_guest'].','.str_replace(',','.',$stat_team['throw_rival_average']).','.str_replace(',','.',$stat_team['throw_rival_average_home']).','.str_replace(',','.',$stat_team['throw_rival_average_guest']).')';
         // добавление данных в БД
         //echo '<br>'.$query_5;
-        $this->id_connect_DB->query($query_5);
+        $this->id_connect_DB->createCommand($query_5);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о победах команды
         $query_6 = 'INSERT INTO stat_wins (id_team, name, clear_wins, clear_wins_home, clear_wins_guest, ot_wins, ot_wins_home, ot_wins_guest, b_wins, b_wins_home, b_wins_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['clear_wins'].','.$stat_team['clear_wins_home'].','.$stat_team['clear_wins_guest'].','.$stat_team['ot_wins'].','.$stat_team['ot_wins_home'].','.$stat_team['ot_wins_guest'].','.$stat_team['b_wins'].','.$stat_team['b_wins_home'].','.$stat_team['b_wins_guest'].')';
         // добавление данных в БД
         //echo '<br>'.$query_6;
-        $this->id_connect_DB->query($query_6);
+        $this->id_connect_DB->createCommand($query_6);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о реализации бросков команды и соперником
         $query_7 = 'INSERT INTO stat_trow_percent (id_team, name, throw_perc_total, throw_perc_home, throw_perc_guest, throw_rival_perc_total, throw_rival_perc_home, throw_rival_perc_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['throw_perc_total'].','.$stat_team['throw_perc_home'].','.$stat_team['throw_perc_guest'].','.$stat_team['throw_rival_perc_total'].','.$stat_team['throw_rival_perc_home'].','.$stat_team['throw_rival_perc_guest'].')';
         // добавление данных в БД
         //echo '<br>'.$query_7;
-        $this->id_connect_DB->query($query_7);
+        $this->id_connect_DB->createCommand($query_7);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о вбрасываниях
         $query_8 = 'INSERT INTO stat_faceoff (id_team, name, faceoff_total, faceoff_home, faceoff_guest, faceoff_perc_wins_total, faceoff_perc_wins_home, faceoff_perc_wins_guest, faceoff_perc_wins_rival_total, faceoff_perc_wins_rival_home, faceoff_perc_wins_rival_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['faceoff_total'].','.$stat_team['faceoff_home'].','.$stat_team['faceoff_guest'].','.$stat_team['faceoff_perc_wins_total'].','.$stat_team['faceoff_perc_wins_home'].','.$stat_team['faceoff_perc_wins_guest'].','.$stat_team['faceoff_perc_wins_rival_total'].','.$stat_team['faceoff_perc_wins_rival_home'].','.$stat_team['faceoff_perc_wins_rival_guest'].')';
         // добавление данных в БД
         //echo '<br>'.$query_7;
-        $this->id_connect_DB->query($query_8);
+        $this->id_connect_DB->createCommand($query_8);
         //------------------------------------------------------------------
         // формирования запроса на добавление данных о поражениях команды
         $query_9 = 'INSERT INTO stat_loss (id_team, name, clear_loss, clear_loss_home, clear_loss_guest, ot_loss, ot_loss_home, ot_loss_guest, b_loss, b_loss_home, b_loss_guest) VALUES ('.$id_team.',\''.$name.'\','.$stat_team['clear_loss'].','.$stat_team['clear_loss_home'].','.$stat_team['clear_loss_guest'].','.$stat_team['ot_loss'].','.$stat_team['ot_loss_home'].','.$stat_team['ot_loss_guest'].','.$stat_team['b_loss'].','.$stat_team['b_loss_home'].','.$stat_team['b_loss_guest'].')';
         // добавление данных в БД
         //echo '<br>'.$query_6;
-        $this->id_connect_DB->query($query_9);
+        $this->id_connect_DB->createCommand($query_9);
         //------------------------------------------------------------------
     }
     
@@ -280,7 +282,7 @@ class ParserKhlStat extends Model
             echo '<br> соединение с БД не установлено';
         }
         // закрытие подключения к БД
-        mysqli_close($this->id_connect_DB);
+//        mysqli_close($this->id_connect_DB);
     }
     
     
@@ -288,7 +290,7 @@ class ParserKhlStat extends Model
     
     // главная функция 
     function main(){
-        include_once('..\web\php\phpQuery.php');
+//        include_once('..\web\php\phpQuery.php');
         $this->link_go($this->link_stat_team);
     }
     
