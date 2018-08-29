@@ -47,6 +47,9 @@ $config = [
         // подключение второй БД
         'db_preview'  => require(__DIR__ . '/db_preview.php'),
         //======================
+        // подключение третей БД
+        'db_khl_stat_2018'  => require(__DIR__ . '/db_khl_stat_2018.php'),
+        //======================
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

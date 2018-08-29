@@ -12,7 +12,7 @@ use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
 
 
-$this->title = ('Парсер статистических данных команд КХЛ');
+$this->title = ('Парсер статистических данных команд КХЛ сезон 2018/19');
 
 ?>
 
@@ -22,8 +22,8 @@ $this->title = ('Парсер статистических данных кома
     </div>
 
     <div class="row">
-        <?=Html::a("Парсинг данных", ["module1/parser-khl-model_2"],['class'=>'btn btn-success'])?>
-        <?=Html::a("Отобразить таблицы", ["module1/parser-khl-data_2"],['class'=>'btn btn-primary'])?>
+        <?=Html::a("Парсинг данных", ["module1/parser-khl-model_2_2018"],['class'=>'btn btn-success'])?>
+        <?=Html::a("Отобразить таблицы", ["module1/parser-khl-data_2_2018"],['class'=>'btn btn-primary'])?>
         <?=Html::a("Парсеры", ["module1/main"],['class'=>'btn btn-warning'])?>
     </div>
     

@@ -12,47 +12,50 @@ use GuzzleHttp\Client; // подключаем Guzzle
 
 
 // парсер статистических данных команд КХЛ (с www.championat.com)
-class ParserKhlStat extends Model
+class ParserKhlStat_2018 extends Model
 {
     
     public $id_connect_DB;// дескриптор подключения к БД
     
     // массив с сылками на статистику команд
     public $link_stat_team = [
-        ['id_team'=>'1', 'name' => 'Авангард', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63634/tstat.html'],
-        ['id_team'=>'2', 'name' => 'Автомобилист', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63280/tstat.html'],
-        ['id_team'=>'3', 'name' => 'Адмирал', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63636/tstat.html'],
-        ['id_team'=>'4', 'name' => 'Ак Барс', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63282/tstat.html'],
-        ['id_team'=>'5', 'name' => 'Амур', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63638/tstat.html'],
+        ['id_team'=>'1', 'name' => 'Авангард', 'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99237/tstat.html'],
+        ['id_team'=>'2', 'name' => 'Автомобилист', 'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99225/result.html'],
+        ['id_team'=>'3', 'name' => 'Адмирал', 'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99239/result.html'],
+        ['id_team'=>'4', 'name' => 'Ак Барс', 'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99227/result.html'],
+        ['id_team'=>'5', 'name' => 'Амур', 'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99241/result.html'],
+        
         ['id_team'=>'6', 'name' => 'Барыс', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63640/tstat.html'],
         ['id_team'=>'7', 'name' => 'Витязь', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63266/tstat.html'],
         ['id_team'=>'8', 'name' => 'Динамо М', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63268/tstat.html'],
         ['id_team'=>'9', 'name' => 'Динамо Мн', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63254/tstat.html'],
         ['id_team'=>'10', 'name' => 'Динамо Р', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63256/tstat.html'],
+        
         ['id_team'=>'11', 'name' => 'Йокерит', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63258/tstat.html'],
         ['id_team'=>'12', 'name' => 'Куньлунь РС', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63642/tstat.html'],
         ['id_team'=>'13', 'name' => 'Лада', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63284/tstat.html'],
         ['id_team'=>'14', 'name' => 'Локомотив', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63270/tstat.html'],
-        ['id_team'=>'15', 'name' => 'Металлург Мг', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63626/tstat.html'],
-        ['id_team'=>'16', 'name' => 'Нефтехимик', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63628/tstat.html'],
-        ['id_team'=>'17', 'name' => 'Салават Юлаев', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63644/tstat.html'],
-        ['id_team'=>'18', 'name' => 'Северсталь', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63272/tstat.html'],
-        ['id_team'=>'19', 'name' => 'Сибирь', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63646/tstat.html'],
-        ['id_team'=>'20', 'name' => 'СКА', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63260/tstat.html'],
-        ['id_team'=>'21', 'name' => 'Слован', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63262/tstat.html'],
-        ['id_team'=>'22', 'name' => 'ХК Сочи', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63276/tstat.html'],
-        ['id_team'=>'23', 'name' => 'Спартак', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63264/tstat.html'],
-        ['id_team'=>'24', 'name' => 'Торпедо', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63274/tstat.html'],
-        ['id_team'=>'25', 'name' => 'Трактор', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63630/tstat.html'],
-        ['id_team'=>'26', 'name' => 'ЦСКА', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63278/tstat.html'],
-        ['id_team'=>'27', 'name' => 'Югра', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63632/tstat.html'],
+        ['id_team'=>'15', 'name' => 'Нефтехимик', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63628/tstat.html'],
+        
+        ['id_team'=>'16', 'name' => 'Салават Юлаев', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63644/tstat.html'],
+        ['id_team'=>'17', 'name' => 'Северсталь', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63272/tstat.html'],
+        ['id_team'=>'18', 'name' => 'Сибирь', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63646/tstat.html'],
+        ['id_team'=>'19', 'name' => 'СКА', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63260/tstat.html'],
+        ['id_team'=>'20', 'name' => 'Слован', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63262/tstat.html'],
+        
+        ['id_team'=>'21', 'name' => 'Спартак', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63264/tstat.html'],
+        ['id_team'=>'22', 'name' => 'Торпедо', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63274/tstat.html'],
+        ['id_team'=>'23', 'name' => 'Трактор', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63630/tstat.html'],
+        ['id_team'=>'24', 'name' => 'ХК Сочи', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63276/tstat.html'],
+        ['id_team'=>'25', 'name' => 'ЦСКА', 'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63278/tstat.html'],
+
 ];
     
     
     // конструктор класса - присвоивание полям класса значений при создании экземпляра класса
     public function __construct(){
         // создание подключения к БД
-        $this->id_connect_DB = Yii::$app->db_preview;
+        $this->id_connect_DB = Yii::$app->db_khl_stat_2018;
     }
     
     
