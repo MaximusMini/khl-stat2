@@ -67,9 +67,12 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
     $color_text = imagecolorallocate($image, 219,223,224);
     $color_line = imagecolorallocate($image, 255,255,255);
     // установка шрифта
-    $font_date = 'font\ARIALBD.TTF';
+    $font_date = 'font\NEXTART-Light.otf';
     $font_time = 'font\BigNoodleTitlingCyr.ttf';
     $font_text = 'font\Arciform Sans cyr-lat Regular.otf';
+    $font_text = 'font\Arciform Sans cyr-lat Regular.otf';           
+               
+             
     // цикл прорисовки результатов
     for($i=1; $i <= $count_matches; $i++){
         // формирование имен ключей
@@ -109,8 +112,13 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
         echo '$data_poster[$count_periods]- '. $count_periods;
         $periods = imagecreatefrompng('images\module3\template_final_score\period_'.$data_poster[$count_periods].'.png');
         imagecopyresized($image, $periods, 425, $arr_coord[$i-1]['y_line_up_1']+15, 0, 0,70, 90, 70,90);
-        
+         
     }
+               
+    //вставка даты
+    $date = $data_poster['day_game'];
+    $month = $data_poster['month_game'];
+    imagettftext($image, 35, 0, 90, 1170, $color_text , $font_date, $date.' '.$month);
     
                
     // сохранение файла
