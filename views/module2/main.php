@@ -46,7 +46,7 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
 
     // формирование полей в зависимости от количества выбранных матчей
     if($_GET['amount']>0){
-        echo "<form action='poster-game-day' method='GET'>";
+        echo "<form action='poster-game-day' method='get'>";
         echo "<div id='container add-bloks'>";
         echo "<div class='row'>";
             echo "<div class='col-lg-2'>";
