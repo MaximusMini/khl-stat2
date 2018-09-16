@@ -56,7 +56,7 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
     $font_text = 'font\Arciform Sans cyr-lat Regular.otf';
     // дата матча
     $date_matches = $data_poster['day_game'].' '.$data_poster['month_game'];
-    imagettftext($image, 30, 0, 535, 85, $color_date, $font_date, $date_matches);
+    imagettftext($image, 28, 0, 532, 85, $color_date, $font_date, $date_matches);
     // заполнение данными матчей
     $c_m = $data_poster['amount'];// количество матчей
     for($i=1; $i<=$c_m; $i++){

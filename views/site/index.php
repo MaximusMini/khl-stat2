@@ -4,7 +4,7 @@
 
 use yii\helpers\HTML;
 
-$this->title = 'My Yii Application';
+$this->title = 'KHL-STAT';
 ?>
 <div class="site-index">
     
@@ -16,6 +16,7 @@ $this->title = 'My Yii Application';
             <li><?=Html::a("Модуль 3 - Формирование постера результаты матчей дня", ["module3/main"])?></li>
             <li><?=Html::a("Модуль 4 - База данных", ["module4/main"])?></li>
             <li><?=Html::a("Модуль 5 - Формирование постера матча", ["module5/main"])?></li>
+            <li><?=Html::a("Модуль 6 - Получение статистических данных команды", ["module6/main"])?></li>
         </ul>
         <ul>
             <li><?=Html::a("Временная страница", ["temp/main"])?></li>
