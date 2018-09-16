@@ -31,3 +31,6 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+#images
+web/images/module2/new/
