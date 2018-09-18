@@ -146,6 +146,27 @@ class Module1Controller extends Controller
 //                                'provider'=>$provider
                             ]);
     }
+    
+    //ПАРСИНГ - Парсер результатов команд КХЛ сезон 2017/2018
+    //---------------------------------------------------
+    
+    // отображение страницы парсинга
+    public function actionParserResults_2018()
+    {
+        return $this->render('parser_results_2018');
+    }
+    
+    // парсинг результатов команд
+    public function actionParserResults_2018_Model()
+    {
+        // запуск парсера - подключение модели
+//        $parser_khl_stat = new ParserKhlStat_2018;
+//        $parser_khl_stat->main();
+//        
+//        return $this->render('parser_khl_view_2_2018',[
+//                                'view_data'=>false,
+//                            ]);
+    }
 
 
     

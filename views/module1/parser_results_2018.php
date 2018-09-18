@@ -1,25 +1,27 @@
 <?php
 
-
 use yii\helpers\HTML;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
 
+$this->title='Парсинг результатов матчей';
 
-$this->title = ('Парсер статистических данных команд КХЛ сезон 2018/19');
+$this->registerJsFile('web/js/module1.js',['depends' => ['app\assets\AppAsset']]);
 
 ?>
 
 
+
     <div class="row">
-        <h2>Парсер статистических данных команд КХЛ</h2>
+        <h2>Парсинг результатов матчей команд КХЛ 2018/2019</h2>
     </div>
 
     <div class="row">
         <?=Html::a("Парсинг данных", ["module1/parser-khl-model_2_2018"],['class'=>'btn btn-success'])?>
-        <?=Html::a("Отобразить таблицы", ["module1/parser-khl-data_2_2018"],['class'=>'btn btn-primary'])?>
+        <?=Html::a("Отобразить таблицы", ["module1/..........."],['class'=>'btn btn-primary'])?>
         <?=Html::a("Парсеры", ["module1/main"],['class'=>'btn btn-warning'])?>
+        <?=Html::a("onClick", [""],['class'=>'btn btn-warning', 'onclick'=>'goGo()'])?>
     </div>
     
     <div class="row">
@@ -40,6 +42,3 @@ $this->title = ('Парсер статистических данных кома
             }
         ?> 
     </div>
-
-
-
