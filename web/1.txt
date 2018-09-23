@@ -1,1 +1,0 @@
-SELECT * FROM result_match WHERE id_team=1

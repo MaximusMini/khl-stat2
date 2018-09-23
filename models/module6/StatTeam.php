@@ -28,8 +28,8 @@ class StatTeam extends Model
     
     
     
-    // функция запуска
-    function func_start(){
+    // главная функция
+    function main(){
         
     }
     

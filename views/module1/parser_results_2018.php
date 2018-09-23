@@ -18,14 +18,22 @@ $this->registerJsFile('web/js/module1.js',['depends' => ['app\assets\AppAsset']]
     </div>
 
     <div class="row">
-        <?=Html::a("Парсинг данных", ["module1/parser-khl-model_2_2018"],['class'=>'btn btn-success'])?>
+        <?=Html::a("Парсинг данных", ["module1/parser-results_2018-model"],['class'=>'btn btn-success'])?>
         <?=Html::a("Отобразить таблицы", ["module1/..........."],['class'=>'btn btn-primary'])?>
         <?=Html::a("Парсеры", ["module1/main"],['class'=>'btn btn-warning'])?>
         <?=Html::a("onClick", [""],['class'=>'btn btn-warning', 'onclick'=>'goGo()'])?>
+        <button onclick='parsResults(1)'>onClick</button>
     </div>
     
-    <div class="row">
+    <div class="row" id='qqq'>
         <hr>
+    </div>
+    
+    
+    <div class="row">
+        <?= $ddd ?>
+        <hr>
+        <?= $www ?>
     </div>
     
     <div class="row">

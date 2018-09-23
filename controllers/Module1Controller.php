@@ -9,10 +9,11 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-// класс 
+// классы - модели 
 use app\models\module1\ParserKhlStat;
 use app\models\module1\ParserKhlStat_2018;
 use app\models\module1\ViewKhlStat;
+use app\models\module1\ParserKhlResults_2018;
 
 
 class Module1Controller extends Controller
@@ -157,7 +158,7 @@ class Module1Controller extends Controller
     }
     
     // парсинг результатов команд
-    public function actionParserResults_2018_Model()
+    public function actionParserResults_2018Model()
     {
         // запуск парсера - подключение модели
 //        $parser_khl_stat = new ParserKhlStat_2018;
@@ -166,7 +167,15 @@ class Module1Controller extends Controller
 //        return $this->render('parser_khl_view_2_2018',[
 //                                'view_data'=>false,
 //                            ]);
+        $ddd=22222;
+        
+        $pars = new ParserKhlResults_2018(Yii::$app->request->post('id_team'));
+        //$pars = new ParserKhlResults_2018(1);
+        
+        //return $this->render('parser_results_2018', ['ddd'=>$ddd, 'www'=>$www] );
+        return ($pars->main());
     }
+
 
 
     

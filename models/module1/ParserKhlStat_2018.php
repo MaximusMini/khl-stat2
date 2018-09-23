@@ -114,7 +114,7 @@ class ParserKhlStat_2018 extends Model
     // функция парсинга страницы
     function pars_stat_team($data_team){
         // запрос страницы
-        $data_stat_team = $this->curl_get ($data_team['linl']);
+        $data_stat_team = $this->curl_get($data_team['linl']);
         //создание объекта phpQuery
         $doc_Dom = \phpQuery::newDocument($data_stat_team);
         // парсинг страницы в массив $stat_team
