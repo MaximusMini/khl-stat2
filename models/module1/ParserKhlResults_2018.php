@@ -53,7 +53,7 @@ class ParserKhlResults_2018 extends Model
         ['id_team'=>'22', 'name' => 'Торпедо',      'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99233/result.html'],
         ['id_team'=>'23', 'name' => 'Трактор',      'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99235/result.html'],
         ['id_team'=>'24', 'name' => 'ХК Сочи',      'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99221/result.html'],
-        ['id_team'=>'25', 'name' => 'ЦСКА',         'linl'=>'https://www.championat.com/hockey/_superleague/2202/team/63278/result.html'],
+        ['id_team'=>'25', 'name' => 'ЦСКА',         'linl'=>'https://www.championat.com/hockey/_superleague/2593/team/99223/result.html'],
 ];
     
     
@@ -153,9 +153,7 @@ class ParserKhlResults_2018 extends Model
     
     // функция записи данных в БД
 	function write_result($result_team, $id_team){
-        // очищаем таблицу result_match
-        $tbl_TRUNCATE = 'TRUNCATE TABLE result_match';// формирование запроса
-        $this->id_connect_DB->createCommand($tbl_TRUNCATE)->execute();// выполнение запроса
+        
     // определяем количество записей для внесения в БД
     $count_record = count($result_team[$id_team]);
     for($rec=1; $rec<=$count_record; $rec++){
@@ -169,12 +167,21 @@ class ParserKhlResults_2018 extends Model
     //------------------------------------------------------------------
     } 
         
-        
+       
         
 }
     
     // главная функция 
     function main(){
+        
+        // очищаем таблицу result_match
+        if($this->id_team == 1){
+            $tbl_TRUNCATE = 'TRUNCATE TABLE result_match';// формирование запроса
+            $this->id_connect_DB->createCommand($tbl_TRUNCATE)->execute();// выполнение запроса    
+        }
+        
+        
+        
         // парсинг страницы с результатами
         $this->pars_results($this->arr_team[($this->id_team)-1]['linl'],
                             $this->arr_team[($this->id_team)-1]['id_team'],
@@ -184,9 +191,11 @@ class ParserKhlResults_2018 extends Model
         
         $str_result['code'] = '<code>'.$this->arr_team[($this->id_team)-1]['id_team'].'</code> Результаты команды '.$this->arr_team[($this->id_team)-1]['name'].' собраны';
         
-        //$str_result['id_team']=$this->id_team;
+        $str_result['id_team']=$this->arr_team[($this->id_team)-1]['id_team'];
         
-        //return json_encode($str_result);
+        file_put_contents('../1234.txt',json_encode($str_result));
+        
+        return json_encode($str_result); 
         
         //file_put_contents('../1234.txt','json_encode($this->$arr_temp)');
         

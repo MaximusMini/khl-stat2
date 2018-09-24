@@ -16,15 +16,16 @@ function parsResults(id_team){
     if(id_team === undefined){id_team = 1;}
     // очистка блока для вывода текста
     if(id_team === 1){$('#qqq').empty();}
+    //alert(id_team);
     $.ajax({
             url:'../module1/parser-results_2018-model',
             //async:false,
             data:'id_team='+id_team,
-            //dataType:'json',
+            dataType:'json',
             type:'POST',
             success:function(data, textStatus, jqXHR){   
-                    //controlAjaxRequest(data);// функция управления ajax-запросом
-                    $('#qqq').append(data+'<br>');
+                    controlAjaxRequest(data);// функция управления ajax-запросом
+                    //$('#qqq').append(data.code+'<br>');
             },
             error:function(jqXHR, srtErr, errorThrown){
                     // srtErr-строка описывающая тип произошедшей ошибки
@@ -41,5 +42,5 @@ function controlAjaxRequest(data){
     var data2 = (Number(data.id_team) + 1);
     if(data2 < 26){
         parsResults(data2);
-    }
+    }else{alert('Конец парсинга результатов');}
 }
