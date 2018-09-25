@@ -1,9 +1,6 @@
 <?php
 
 
-
-
-
 $this->title='Статистика команд';
 
 
@@ -31,7 +28,7 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
             </div>
             <div class="form-group col-lg-2">
             <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
@@ -46,14 +43,14 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
             <?php if($result_query_team_1 != NULL): ?>
             <?php foreach($result_query_team_1 as $val):?>
             <?php
-                echo date_default_timezone_get();
+                //echo date_default_timezone_get();
                 if(trim($val['place']) == 'home'){
-                    echo '<p>'.gmdate("d.m.Y",$val['date_match']).'  '.
+                    echo '<p>'.$val['date_view'].'  '.
                          $arr_team[$val['id_team']].' - '.$val['rival']."  <code>".
                          $val['puck_team'].':'.$val['puck_rival'].   
                          '</code></p>';    
                 }else{
-                    echo '<p>'.gmdate("d.m.Y",$val['date_match']).'  '.
+                    echo '<p>'.$val['date_view'].'  '.
                          $val['rival'].' - '.$arr_team[$val['id_team']]."  <code>".
                          $val['puck_rival'].':'.$val['puck_team'].
                          '</code></p>';
@@ -74,12 +71,12 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
                 date_default_timezone_set('Europe/Rome');
                 //echo date_default_timezone_get();
                 if(trim($val['place']) == 'home'){
-                    echo '<p>'.gmdate("d.m.Y",$val['date_match']).'  '.
+                    echo '<p>'.$val['date_view'].'  '.
                          $arr_team[$val['id_team']].' - '.$val['rival']."  <code>".
                          $val['puck_team'].':'.$val['puck_rival'].   
                          '</code></p>';    
                 }else{
-                    echo '<p>'.gmdate("d.m.Y",$val['date_match']).'  '.
+                    echo '<p>'.$val['date_view'].'  '.
                          $val['rival'].' - '.$arr_team[$val['id_team']]."  <code>".
                          $val['puck_rival'].':'.$val['puck_team'].
                          '</code></p>';
@@ -99,19 +96,19 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
     <p>
         <?php
 
-// Мадрид, Испания
-ini_set('date.timezone', 'Europe/Madrid');
-echo date('Y-m-d H:i:s'); // 2011-12-28 18:24:45
-echo '<br>';
-// Лос-Анджелес, США
-ini_set('date.timezone', 'America/Los_Angeles');
-echo date('Y-m-d H:i:s'); // 2011-12-28 09:24:45
-echo '<br>';
-// Токио, Япония
-ini_set('date.timezone', 'Asia/Tokyo');
-echo date('Y-m-d H:i:s'); // 2011-12-29 02:24:45
+        //// Мадрид, Испания
+        //ini_set('date.timezone', 'Europe/Madrid');
+        //echo date('Y-m-d H:i:s'); // 2011-12-28 18:24:45
+        //echo '<br>';
+        //// Лос-Анджелес, США
+        //ini_set('date.timezone', 'America/Los_Angeles');
+        //echo date('Y-m-d H:i:s'); // 2011-12-28 09:24:45
+        //echo '<br>';
+        //// Токио, Япония
+        //ini_set('date.timezone', 'Asia/Tokyo');
+        //echo date('Y-m-d H:i:s'); // 2011-12-29 02:24:45
 
-?>
+        ?>
     </p>
     
     

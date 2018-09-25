@@ -158,13 +158,13 @@ class ParserKhlResults_2018 extends Model
     $count_record = count($result_team[$id_team]);
     for($rec=1; $rec<=$count_record; $rec++){
       // формирования запроса на добавление данных о заброшенных шайбах
-        $query_1 = "INSERT INTO result_match (id_team, rival, place, date_match, time_end, puck_team, puck_rival, result) VALUES (".$id_team.", '".$result_team[$id_team][$rec]['rival']."',' ".$result_team[$id_team][$rec]['place']."', ".strtotime($result_team[$id_team][$rec]['date_match']).",' ".$result_team[$id_team][$rec]['time_end']."',' ".$result_team[$id_team][$rec]['puck_team']."',' ".$result_team[$id_team][$rec]['puck_rival']."',' ".$result_team[$id_team][$rec]['result']."')";
+        $query_1 = "INSERT INTO result_match (id_team, date_view, rival, place, date_match, time_end, puck_team, puck_rival, result) VALUES (".$id_team.",'".$result_team[$id_team][$rec]['date_match']."', '".$result_team[$id_team][$rec]['rival']."',' ".$result_team[$id_team][$rec]['place']."', ".strtotime($result_team[$id_team][$rec]['date_match']).",' ".$result_team[$id_team][$rec]['time_end']."',' ".$result_team[$id_team][$rec]['puck_team']."',' ".$result_team[$id_team][$rec]['puck_rival']."',' ".$result_team[$id_team][$rec]['result']."')";
         // добавление данных в БД
         //$id_connect_DB->query($query_1);
         //$this->last5game_team_2=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
         //file_put_contents('1234.txt',$query_1.";\n",FILE_APPEND);
         $this->id_connect_DB->createCommand($query_1)->execute();
-    //------------------------------------------------------------------
+    //------------------------------------------------------------------date_view
     } 
         
        

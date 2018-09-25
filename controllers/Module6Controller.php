@@ -22,18 +22,17 @@ class Module6Controller extends Controller
         
         $stat_team = new StatTeam(Yii::$app->request->get('id_team_1'),Yii::$app->request->get('id_team_2'));
         
-        
         // получение результатов последних пяти игр
         $stat_team->last_5_games();
         $result_query_team_1 = $stat_team->last5game_team_1;
         $result_query_team_2 = $stat_team->last5game_team_2;
         
         return $this->render('main',
-                             ['id_team_1'=>Yii::$app->request->get('id_team_1'),'id_team_2'=>Yii::$app->request->get('id_team_2'),
-                              'result_query_team_1'=>$result_query_team_1, 'result_query_team_2'=>$result_query_team_2]
+                             ['id_team_1'=>Yii::$app->request->get('id_team_1'),
+                              'id_team_2'=>Yii::$app->request->get('id_team_2'),
+                              'result_query_team_1'=>$result_query_team_1, 
+                              'result_query_team_2'=>$result_query_team_2]
                             );    
-            
-        
     }
     
    
