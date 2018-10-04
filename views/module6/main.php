@@ -92,7 +92,7 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 
     
     
-    <p><?php /*printArray($result_query_team_1)*/?></p>
+    <p><?php printArray($all_stat)/**/?></p>
     <p>
         <?php
 

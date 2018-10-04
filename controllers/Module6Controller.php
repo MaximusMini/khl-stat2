@@ -27,9 +27,12 @@ class Module6Controller extends Controller
         $result_query_team_1 = $stat_team->last5game_team_1;
         $result_query_team_2 = $stat_team->last5game_team_2;
         
+        $all_stat=$stat_team->all_stat;
+        
         return $this->render('main',
                              ['id_team_1'=>Yii::$app->request->get('id_team_1'),
                               'id_team_2'=>Yii::$app->request->get('id_team_2'),
+                              'all_stat'=>$all_stat,
                               'result_query_team_1'=>$result_query_team_1, 
                               'result_query_team_2'=>$result_query_team_2]
                             );    
