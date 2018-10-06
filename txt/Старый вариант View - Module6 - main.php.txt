@@ -1,0 +1,53 @@
+Старый вариант View - Module6 - main.php
+<div class="row">
+        <div class="col-lg-4">
+            <h3><?= $arr_team[$id_team_1]?></h3>
+            <div id='matchs-team1'>
+            <?php if($result_query_team_1 != NULL): ?>
+            <?php foreach($result_query_team_1 as $val):?>
+            <?php
+                //echo date_default_timezone_get();
+                if(trim($val['place']) == 'home'){
+                    echo '<p>'.$val['date_view'].'  '.
+                         $arr_team[$val['id_team']].' - '.$val['rival']."  <code>".
+                         $val['puck_team'].':'.$val['puck_rival'].   
+                         '</code></p>';    
+                }else{
+                    echo '<p>'.$val['date_view'].'  '.
+                         $val['rival'].' - '.$arr_team[$val['id_team']]."  <code>".
+                         $val['puck_rival'].':'.$val['puck_team'].
+                         '</code></p>';
+
+                }
+            ?>
+            <?php endforeach?>
+            <?php endif;?>
+            </div>    
+        </div>
+        <div class="col-lg-4">
+            <div id='matchs-team1'>
+            <h3><?= $arr_team[$id_team_2]?></h3>
+            <?php if($result_query_team_2 != NULL): ?>
+            <?php foreach($result_query_team_2 as $val):?>
+            <?php
+                //установить часовой пояс по умолчанию
+                date_default_timezone_set('Europe/Rome');
+                //echo date_default_timezone_get();
+                if(trim($val['place']) == 'home'){
+                    echo '<p>'.$val['date_view'].'  '.
+                         $arr_team[$val['id_team']].' - '.$val['rival']."  <code>".
+                         $val['puck_team'].':'.$val['puck_rival'].   
+                         '</code></p>';    
+                }else{
+                    echo '<p>'.$val['date_view'].'  '.
+                         $val['rival'].' - '.$arr_team[$val['id_team']]."  <code>".
+                         $val['puck_rival'].':'.$val['puck_team'].
+                         '</code></p>';
+
+                }
+            ?>
+            <?php endforeach?>
+            <?php endif;?>
+            </div>    
+        </div>
+    </div>
