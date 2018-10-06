@@ -58,16 +58,18 @@ class StatTeam extends Model
         $this->all_stat['last5g_t2']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
         
         // последние 5 игр дома
-        
         //SELECT * FROM result_match WHERE id_team=1 AND place=' home' ORDER BY date_match DESC LIMIT 5
-        
+        $query_team_1 = 'SELECT * FROM result_match WHERE'.$this->id_team_1.'AND place=" home" ORDER BY date_match DESC LIMIT 5';
+		$query_team_2 = 'SELECT * FROM result_match WHERE'.$this->id_team_2.'AND place=" home" ORDER BY date_match DESC LIMIT 5';
+		$this->all_stat['last5g_hom_t1']=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
+		$this->all_stat['last5g_hom_t2']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
         
         // последние 5 игр в гостях
         // SELECT * FROM result_match WHERE id_team=1 AND place=' guest' ORDER BY date_match DESC LIMIT 5
-        
-        
-        
-        
+		$query_team_1 = 'SELECT * FROM result_match WHERE'.$this->id_team_1.'AND place=" guest" ORDER BY date_match DESC LIMIT 5';
+		$query_team_2 = 'SELECT * FROM result_match WHERE'.$this->id_team_2.'AND place=" guest" ORDER BY date_match DESC LIMIT 5';
+		$this->all_stat['last5g_gst_t1']=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
+		$this->all_stat['last5g_gst_t1']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
         
         return;
     }
