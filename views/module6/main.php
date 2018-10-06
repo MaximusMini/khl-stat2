@@ -35,59 +35,245 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
     
     
     
-    
-    <div class="row">
-        <div class="col-lg-4">
-            <h3><?= $arr_team[$id_team_1]?></h3>
-            <div id='matchs-team1'>
-            <?php if($result_query_team_1 != NULL): ?>
-            <?php foreach($result_query_team_1 as $val):?>
-            <?php
-                //echo date_default_timezone_get();
-                if(trim($val['place']) == 'home'){
-                    echo '<p>'.$val['date_view'].'  '.
-                         $arr_team[$val['id_team']].' - '.$val['rival']."  <code>".
-                         $val['puck_team'].':'.$val['puck_rival'].   
-                         '</code></p>';    
-                }else{
-                    echo '<p>'.$val['date_view'].'  '.
-                         $val['rival'].' - '.$arr_team[$val['id_team']]."  <code>".
-                         $val['puck_rival'].':'.$val['puck_team'].
-                         '</code></p>';
-
-                }
-            ?>
-            <?php endforeach?>
-            <?php endif;?>
-            </div>    
-        </div>
-        <div class="col-lg-4">
-            <div id='matchs-team1'>
-            <h3><?= $arr_team[$id_team_2]?></h3>
-            <?php if($result_query_team_2 != NULL): ?>
-            <?php foreach($result_query_team_2 as $val):?>
-            <?php
-                //установить часовой пояс по умолчанию
-                date_default_timezone_set('Europe/Rome');
-                //echo date_default_timezone_get();
-                if(trim($val['place']) == 'home'){
-                    echo '<p>'.$val['date_view'].'  '.
-                         $arr_team[$val['id_team']].' - '.$val['rival']."  <code>".
-                         $val['puck_team'].':'.$val['puck_rival'].   
-                         '</code></p>';    
-                }else{
-                    echo '<p>'.$val['date_view'].'  '.
-                         $val['rival'].' - '.$arr_team[$val['id_team']]."  <code>".
-                         $val['puck_rival'].':'.$val['puck_team'].
-                         '</code></p>';
-
-                }
-            ?>
-            <?php endforeach?>
-            <?php endif;?>
-            </div>    
-        </div>
-    </div>
+<?php if($all_stat != NULL): /*проверка наличия данных*/?> 
+	
+	<div class="row"><?php /*Последние 5 игр*/?>
+	<h4> Последние 5 игр</h4>
+		<?php /*ПЕРВАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_t1'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place'])) == 'home'): /*игра дома*/?>
+							<?php switch (trim($val['time_end'])): ?>
+								<?php case 'normal': ?>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
+								<?php break;?>
+								<?php case 'OT': ?>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+								<?php break;?>
+								<?php case 'B': ?>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['place'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place'])) == 'guest'): /*игра в гостях*/?> 
+							<?php switch (trim($val['time_end'])): ?>
+								<?php case 'normal': ?>
+									<td><?=$val['rival']?></td>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+								<?php break;?>
+								<?php case 'OT': ?>
+									<td><?=$val['rival']?></td>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+								<?php break;?>
+								<?php case 'B': ?>
+									<td><?=$val['rival']?></td>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['guest'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+		<?php /*ВТОРАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_t2'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place'])) == 'home'): /*игра дома*/?>
+							<?php switch (trim($val['time_end'])): ?>
+								<?php case 'normal': ?>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
+								<?php break;?>
+								<?php case 'OT': ?>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+								<?php break;?>
+								<?php case 'B': ?>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['place'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place'])) == 'guest'): /*игра в гостях*/?> 
+							<?php switch (trim($val['time_end'])): ?>
+								<?php case 'normal': ?>
+									<td><?=$val['rival']?></td>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+								<?php break;?>
+								<?php case 'OT': ?>
+									<td><?=$val['rival']?></td>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+								<?php break;?>
+								<?php case 'B': ?>
+									<td><?=$val['rival']?></td>
+									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['guest'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+	</div><!--class="row"-->
+	<!-- ================================================================================== -->
+	<div class="row"><?php /*Последние 5 игр дома - $all_stat['last5g_hom_t1']*/?>
+	<h4> Последние 5 игр дома</h4>
+		<?php /*ПЕРВАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_hom_t1'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php switch (trim($val['time_end'])): ?>
+							<?php case 'normal': ?>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><?=$val['rival']?></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
+							<?php break;?>
+							<?php case 'OT': ?>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><?=$val['rival']?></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+							<?php break;?>
+							<?php case 'B': ?>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><?=$val['rival']?></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+							<?php break;?>
+						<?php endswitch ?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+		<?php /*ВТОРАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_hom_t2'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php switch (trim($val['time_end'])): ?>
+							<?php case 'normal': ?>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><?=$val['rival']?></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
+							<?php break;?>
+							<?php case 'OT': ?>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><?=$val['rival']?></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+							<?php break;?>
+							<?php case 'B': ?>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><?=$val['rival']?></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+							<?php break;?>
+						<?php endswitch ?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+	</div><!--class="row"-->
+	<!-- ================================================================================== -->
+	<div class="row"><?php /*Последние 5 игр в гостях - $all_stat['last5g_gst_t1']*/?>
+	<h4> Последние 5 игр в гостях</h4>
+		<?php /*ПЕРВАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_gst_t1'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php switch (trim($val['time_end'])): ?>
+							<?php case 'normal': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+							<?php break;?>
+							<?php case 'OT': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+							<?php break;?>
+							<?php case 'B': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+							<?php break;?>
+						<?php endswitch ?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+		<?php /*ВТОРАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_gst_t2'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php switch (trim($val['time_end'])): ?>
+							<?php case 'normal': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+							<?php break;?>
+							<?php case 'OT': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+							<?php break;?>
+							<?php case 'B': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+							<?php break;?>
+						<?php endswitch ?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+	</div><!--class="row"-->
+	
+<?php endif; /*if($all_stat != NULL): - проверка наличия данных*/?>
+        
+        
     
 
     
