@@ -1,0 +1,63 @@
+Последние 5 игр в гостях
+
+<div class="row"><?php /*Последние 5 игр в гостях - $all_stat['last5g_gst_t1']*/?>
+	<h4> Последние 5 игр в гостях</h4>
+		<?php /*ПЕРВАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_gst_t1'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php switch (trim($val['time_end'])): ?>
+							<?php case 'normal': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+							<?php break;?>
+							<?php case 'OT': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+							<?php break;?>
+							<?php case 'B': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+							<?php break;?>
+						<?php endswitch ?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+		<?php /*ВТОРАЯ КОМАНДА*/?>
+		<div class="col-lg-4">
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last5g_gst_t2'] as $val):?>
+					<tr>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php switch (trim($val['time_end'])): ?>
+							<?php case 'normal': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+							<?php break;?>
+							<?php case 'OT': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+							<?php break;?>
+							<?php case 'B': ?>
+								<td><?=$val['rival']?></td>
+								<td><?=$arr_team[$val['id_team']]?></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+							<?php break;?>
+						<?php endswitch ?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+	</div><!--class="row"-->
