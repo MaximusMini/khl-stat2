@@ -37,52 +37,88 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
     
 <?php if($all_stat != NULL): /*проверка наличия данных*/?> 
 	
+	<div class="row">
+	    <div class="col-lg-5">
+	    <div class="alert alert-info alert-font" role="alert"><?=$arr_team[$id_team_1]?></div>    
+	    </div>
+	    <div class="col-lg-5">
+	    <div class="alert alert-info alert-font" role="alert"><?=$arr_team[$id_team_2]?></div>    
+	    </div>   
+	</div>
+	<!-- Проведенные матчи================================================================= -->
+	<div class="row">
+    <h4> Проведенные матчи </h4>
+	    <div class="col-lg-5">
+	        <table class="table">
+                <tr><td><samp>Все матчи</samp></td><td class="lead-m"><?= $all_stat['all_g_t1']?></td></tr>
+	            <tr><td><samp>Матчи дома</samp></td><td class="lead-m"><?= $all_stat['all_g_h_t1']?></td></tr>
+	            <tr><td><samp>Матчи в гостях</samp></td><td class="lead-m"><?= $all_stat['all_g_g_t1']?></td></tr>
+	            <tr><td></td><td></td></tr>
+	        </table>    
+	    </div>
+	    <div class="col-lg-5">
+	        <table class="table">
+                <tr><td><samp>Все матчи</samp></td><td class="lead-m"><?= $all_stat['all_g_t2']?></td></tr>
+	            <tr><td><samp>Матчи дома</samp></td><td class="lead-m"><?= $all_stat['all_g_h_t2']?></td></tr>
+	            <tr><td><samp>Матчи в гостях</samp></td><td class="lead-m"><?= $all_stat['all_g_g_t2']?></td></tr>
+	            <tr><td></td><td></td></tr>
+	        </table>     
+	    </div>   
+	</div>
+	<hr>
+	<!-- Последние 5 игр=================================================================== -->
 	<div class="row"><?php /*Последние 5 игр*/?>
 	<h4> Последние 5 игр</h4>
 		<?php /*ПЕРВАЯ КОМАНДА*/?>
-		<div class="col-lg-4">
-			<table class="table">
+		<div class="col-lg-5">
+			<table class="table table-dark">
 				<tbody>
 				<?php foreach($all_stat['last5g_t1'] as $val):?>
-					<tr>
+				    <?php /*установка цвета ячеек: победа - проигрыш команды*/?>
+                    <?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
 						<td><?=$val['date_view']?></td> <!-- дата-->
 						<?php/*-------------------------------------------------*/?>
-						<?php if(trim($val['place'])) == 'home'): /*игра дома*/?>
+						<?php if(trim($val['place']) == 'home'): /*игра дома*/?>
 							<?php switch (trim($val['time_end'])): ?>
-								<?php case 'normal': ?>
+<?php case 'normal': ?>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
 								<?php break;?>
-								<?php case 'OT': ?>
+								<?php case 'ОТ': ?>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><?=$val['rival']?></td>
-									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
 								<?php break;?>
-								<?php case 'B': ?>
+								<?php case 'Б': ?>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><?=$val['rival']?></td>
-									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
 								<?php break;?>
 							<?php endswitch ?>
 						<?php endif; /*if(trim($val['place'])) == 'home')*/?>
 						<?php/*-------------------------------------------------*/?>
-						<?php if(trim($val['place'])) == 'guest'): /*игра в гостях*/?> 
+						<?php if(trim($val['place']) == 'guest'): /*игра в гостях*/?> 
 							<?php switch (trim($val['time_end'])): ?>
-								<?php case 'normal': ?>
+<?php case 'normal': ?>
 									<td><?=$val['rival']?></td>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
 								<?php break;?>
-								<?php case 'OT': ?>
+								<?php case 'ОТ': ?>
 									<td><?=$val['rival']?></td>
 									<td><?=$arr_team[$val['id_team']]?></td>
-									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
 								<?php break;?>
-								<?php case 'B': ?>
+								<?php case 'Б': ?>
 									<td><?=$val['rival']?></td>
 									<td><?=$arr_team[$val['id_team']]?></td>
-									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
 								<?php break;?>
 							<?php endswitch ?>
 						<?php endif; /*if(trim($val['guest'])) == 'home')*/?>
@@ -93,49 +129,55 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 			</table>
 		</div><!--class="col-lg-4"-->
 		<?php /*ВТОРАЯ КОМАНДА*/?>
-		<div class="col-lg-4">
+		<div class="col-lg-5">
 			<table class="table">
 				<tbody>
 				<?php foreach($all_stat['last5g_t2'] as $val):?>
-					<tr>
+				    <?php /*установка цвета ячеек: победа - проигрыш команды*/?>
+                    <?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
 						<td><?=$val['date_view']?></td> <!-- дата-->
 						<?php/*-------------------------------------------------*/?>
-						<?php if(trim($val['place'])) == 'home'): /*игра дома*/?>
+						<?php if(trim($val['place']) == 'home'): /*игра дома*/?>
 							<?php switch (trim($val['time_end'])): ?>
-								<?php case 'normal': ?>
+<?php case 'normal': ?>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
 								<?php break;?>
-								<?php case 'OT': ?>
+								<?php case 'ОТ': ?>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><?=$val['rival']?></td>
-									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
 								<?php break;?>
-								<?php case 'B': ?>
+								<?php case 'Б': ?>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><?=$val['rival']?></td>
-									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
 								<?php break;?>
 							<?php endswitch ?>
 						<?php endif; /*if(trim($val['place'])) == 'home')*/?>
 						<?php/*-------------------------------------------------*/?>
-						<?php if(trim($val['place'])) == 'guest'): /*игра в гостях*/?> 
+						<?php if(trim($val['place']) == 'guest'): /*игра в гостях*/?> 
 							<?php switch (trim($val['time_end'])): ?>
-								<?php case 'normal': ?>
+<?php case 'normal': ?>
 									<td><?=$val['rival']?></td>
 									<td><?=$arr_team[$val['id_team']]?></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
 								<?php break;?>
-								<?php case 'OT': ?>
+								<?php case 'ОТ': ?>
 									<td><?=$val['rival']?></td>
 									<td><?=$arr_team[$val['id_team']]?></td>
-									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
 								<?php break;?>
-								<?php case 'B': ?>
+								<?php case 'Б': ?>
 									<td><?=$val['rival']?></td>
 									<td><?=$arr_team[$val['id_team']]?></td>
-									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
 								<?php break;?>
 							<?php endswitch ?>
 						<?php endif; /*if(trim($val['guest'])) == 'home')*/?>
@@ -146,31 +188,37 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 			</table>
 		</div><!--class="col-lg-4"-->
 	</div><!--class="row"-->
-	<!-- ================================================================================== -->
+	<hr>
+	<!-- Последние 5 игр дома============================================================== -->
 	<div class="row"><?php /*Последние 5 игр дома - $all_stat['last5g_hom_t1']*/?>
 	<h4> Последние 5 игр дома</h4>
 		<?php /*ПЕРВАЯ КОМАНДА*/?>
-		<div class="col-lg-4">
+		<div class="col-lg-5">
 			<table class="table">
 				<tbody>
 				<?php foreach($all_stat['last5g_hom_t1'] as $val):?>
-					<tr>
+					<?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
 						<td><?=$val['date_view']?></td> <!-- дата-->
 						<?php switch (trim($val['time_end'])): ?>
-							<?php case 'normal': ?>
+<?php case 'normal': ?>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><?=$val['rival']?></td>
 								<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
 							<?php break;?>
-							<?php case 'OT': ?>
+							<?php case 'ОТ': ?>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><?=$val['rival']?></td>
-								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
 							<?php break;?>
-							<?php case 'B': ?>
+							<?php case 'Б': ?>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><?=$val['rival']?></td>
-								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
 							<?php break;?>
 						<?php endswitch ?>
 					</tr>
@@ -179,27 +227,32 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 			</table>
 		</div><!--class="col-lg-4"-->
 		<?php /*ВТОРАЯ КОМАНДА*/?>
-		<div class="col-lg-4">
+		<div class="col-lg-5">
 			<table class="table">
 				<tbody>
 				<?php foreach($all_stat['last5g_hom_t2'] as $val):?>
-					<tr>
+					<?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
 						<td><?=$val['date_view']?></td> <!-- дата-->
 						<?php switch (trim($val['time_end'])): ?>
-							<?php case 'normal': ?>
+<?php case 'normal': ?>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><?=$val['rival']?></td>
 								<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
 							<?php break;?>
-							<?php case 'OT': ?>
+							<?php case 'ОТ': ?>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><?=$val['rival']?></td>
-								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'OT'?></code></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
 							<?php break;?>
-							<?php case 'B': ?>
+							<?php case 'Б': ?>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><?=$val['rival']?></td>
-								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].'Б'?></code></td>
+								<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
 							<?php break;?>
 						<?php endswitch ?>
 					</tr>
@@ -208,31 +261,37 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 			</table>
 		</div><!--class="col-lg-4"-->
 	</div><!--class="row"-->
-	<!-- ================================================================================== -->
+	<hr>
+	<!-- Последние 5 игр в гостях========================================================== -->
 	<div class="row"><?php /*Последние 5 игр в гостях - $all_stat['last5g_gst_t1']*/?>
 	<h4> Последние 5 игр в гостях</h4>
 		<?php /*ПЕРВАЯ КОМАНДА*/?>
-		<div class="col-lg-4">
+		<div class="col-lg-5">
 			<table class="table">
 				<tbody>
 				<?php foreach($all_stat['last5g_gst_t1'] as $val):?>
-					<tr>
+					<?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
 						<td><?=$val['date_view']?></td> <!-- дата-->
 						<?php switch (trim($val['time_end'])): ?>
-							<?php case 'normal': ?>
+<?php case 'normal': ?>
 								<td><?=$val['rival']?></td>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
 							<?php break;?>
-							<?php case 'OT': ?>
+							<?php case 'ОТ': ?>
 								<td><?=$val['rival']?></td>
 								<td><?=$arr_team[$val['id_team']]?></td>
-								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
 							<?php break;?>
-							<?php case 'B': ?>
+							<?php case 'Б': ?>
 								<td><?=$val['rival']?></td>
 								<td><?=$arr_team[$val['id_team']]?></td>
-								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
 							<?php break;?>
 						<?php endswitch ?>
 					</tr>
@@ -241,27 +300,32 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 			</table>
 		</div><!--class="col-lg-4"-->
 		<?php /*ВТОРАЯ КОМАНДА*/?>
-		<div class="col-lg-4">
+		<div class="col-lg-5">
 			<table class="table">
 				<tbody>
 				<?php foreach($all_stat['last5g_gst_t2'] as $val):?>
-					<tr>
+					<?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
 						<td><?=$val['date_view']?></td> <!-- дата-->
 						<?php switch (trim($val['time_end'])): ?>
-							<?php case 'normal': ?>
+<?php case 'normal': ?>
 								<td><?=$val['rival']?></td>
 								<td><?=$arr_team[$val['id_team']]?></td>
 								<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
 							<?php break;?>
-							<?php case 'OT': ?>
+							<?php case 'ОТ': ?>
 								<td><?=$val['rival']?></td>
 								<td><?=$arr_team[$val['id_team']]?></td>
-								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'OT'?></code></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
 							<?php break;?>
-							<?php case 'B': ?>
+							<?php case 'Б': ?>
 								<td><?=$val['rival']?></td>
 								<td><?=$arr_team[$val['id_team']]?></td>
-								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].'Б'?></code></td>
+								<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
 							<?php break;?>
 						<?php endswitch ?>
 					</tr>
@@ -270,7 +334,109 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 			</table>
 		</div><!--class="col-lg-4"-->
 	</div><!--class="row"-->
-	
+	<hr>
+	<!-- Заброшенные шайбы================================================================= -->
+	<div class="row bg-info">
+	<h4> Заброшенные шайбы</h4>
+	    <div class="col-lg-5">
+	        <table class="table table-striped">
+                <tr>
+                    <td><samp>0 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_0_all_g_t1']?></strong></td>
+                    <td><samp>P(0) = </samp><?= $all_stat['p_puck_0_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>1 шайба</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_1_all_g_t1']?></strong></td>
+                    <td><samp>P(1) = </samp><?= $all_stat['p_puck_1_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>2 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_2_all_g_t1']?></strong></td>
+                    <td><samp>P(2) = </samp><?= $all_stat['p_puck_2_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>3 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_3_all_g_t1']?></strong></td>
+                    <td><samp>P(3) = </samp><?= $all_stat['p_puck_3_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>4 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_4_all_g_t1']?></strong></td>
+                    <td><samp>P(4) = </samp><?= $all_stat['p_puck_4_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>5 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_5_all_g_t1']?></strong></td>
+                    <td><samp>P(5) = </samp><?= $all_stat['p_puck_5_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>6 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_6_all_g_t1']?></strong></td>
+                    <td><samp>P(6) = </samp><?= $all_stat['p_puck_6_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>7 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_7_all_g_t1']?></strong></td>
+                    <td><samp>P(7) = </samp><?= $all_stat['p_puck_7_t1']?></td>
+                </tr>
+	        </table>
+	        <p><strong>Математическое ожидание заброшенных шайб:</strong></p>
+            <p><samp>M(з.ш.) = </samp><?=$all_stat['M(X)_puck_t1']?> <br> <samp>M(з.ш.<sup>2</sup>) = </samp><?=$all_stat['M(X)2_puck_t1']?></p>
+	        <p><strong>Дисперсия заброшенных шайб:</strong></p>
+	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_t1']?> - (<?=$all_stat['M(X)_puck_t1']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_t1']?></p>     
+	    </div><!--class="col-lg-5"-->
+	    <div class="col-lg-5">
+	        <table class="table table-striped">
+                 <tr>
+                    <td><samp>0 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_0_all_g_t2']?></strong></td>
+                    <td><samp>P(0) = </samp><?= $all_stat['p_puck_0_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>1 шайба</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_1_all_g_t2']?></strong></td>
+                    <td><samp>P(1) = </samp><?= $all_stat['p_puck_1_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>2 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_2_all_g_t2']?></strong></td>
+                    <td><samp>P(2) = </samp><?= $all_stat['p_puck_2_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>3 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_3_all_g_t2']?></strong></td>
+                    <td><samp>P(3) = </samp><?= $all_stat['p_puck_3_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>4 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_4_all_g_t2']?></strong></td>
+                    <td><samp>P(4) = </samp><?= $all_stat['p_puck_4_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>5 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_5_all_g_t2']?></strong></td>
+                    <td><samp>P(5) = </samp><?= $all_stat['p_puck_5_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>6 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_6_all_g_t2']?></strong></td>
+                    <td><samp>P(6) = </samp><?= $all_stat['p_puck_6_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>7 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_7_all_g_t2']?></strong></td>
+                    <td><samp>P(7) = </samp><?= $all_stat['p_puck_7_t2']?></td>
+                </tr>
+	        </table>
+	        <p><strong>Математическое ожидание заброшенных шайб:</strong></p>
+            <p><samp>M(з.ш.) = </samp><?=$all_stat['M(X)_puck_t2']?> <br> <samp>M(з.ш.<sup>2</sup>) = </samp><?=$all_stat['M(X)2_puck_t2']?></p>
+	        <p><strong>Дисперсия заброшенных шайб:</strong></p>
+	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_t2']?> - (<?=$all_stat['M(X)_puck_t2']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_t2']?></p>
+	        </table>     
+	    </div><!--class="col-lg-5"-->       
+	</div><!--class="row"-->
+	<hr>
 <?php endif; /*if($all_stat != NULL): - проверка наличия данных*/?>
         
         
@@ -279,23 +445,7 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
     
     
     <p><?php printArray($all_stat)/**/?></p>
-    <p>
-        <?php
-
-        //// Мадрид, Испания
-        //ini_set('date.timezone', 'Europe/Madrid');
-        //echo date('Y-m-d H:i:s'); // 2011-12-28 18:24:45
-        //echo '<br>';
-        //// Лос-Анджелес, США
-        //ini_set('date.timezone', 'America/Los_Angeles');
-        //echo date('Y-m-d H:i:s'); // 2011-12-28 09:24:45
-        //echo '<br>';
-        //// Токио, Япония
-        //ini_set('date.timezone', 'Asia/Tokyo');
-        //echo date('Y-m-d H:i:s'); // 2011-12-29 02:24:45
-
-        ?>
-    </p>
+   
     
     
     
