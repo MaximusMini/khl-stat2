@@ -86,17 +86,17 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 						<?php if(trim($val['place']) == 'home'): /*игра дома*/?>
 							<?php switch (trim($val['time_end'])): ?>
 <?php case 'normal': ?>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
 								<?php break;?>
 								<?php case 'ОТ': ?>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
 								<?php break;?>
 								<?php case 'Б': ?>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
 								<?php break;?>
@@ -107,17 +107,17 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 							<?php switch (trim($val['time_end'])): ?>
 <?php case 'normal': ?>
 									<td><?=$val['rival']?></td>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
 								<?php break;?>
 								<?php case 'ОТ': ?>
 									<td><?=$val['rival']?></td>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
 								<?php break;?>
 								<?php case 'Б': ?>
 									<td><?=$val['rival']?></td>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
 								<?php break;?>
 							<?php endswitch ?>
@@ -145,17 +145,17 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 						<?php if(trim($val['place']) == 'home'): /*игра дома*/?>
 							<?php switch (trim($val['time_end'])): ?>
 <?php case 'normal': ?>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
 								<?php break;?>
 								<?php case 'ОТ': ?>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
 								<?php break;?>
 								<?php case 'Б': ?>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><?=$val['rival']?></td>
 									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
 								<?php break;?>
@@ -166,17 +166,17 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 							<?php switch (trim($val['time_end'])): ?>
 <?php case 'normal': ?>
 									<td><?=$val['rival']?></td>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
 								<?php break;?>
 								<?php case 'ОТ': ?>
 									<td><?=$val['rival']?></td>
-									<td><?=$arr_team[$val['id_team']]?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
 								<?php break;?>
 								<?php case 'Б': ?>
 									<td><?=$val['rival']?></td>
-									<td><?=$arr_team[$val['id_team']]?></td>
+                                    <td><strong><?=$arr_team[$val['id_team']]?></strong></td>
 									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
 								<?php break;?>
 							<?php endswitch ?>
@@ -437,6 +437,107 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	    </div><!--class="col-lg-5"-->       
 	</div><!--class="row"-->
 	<hr>
+	<!-- Пропущенные шайбы================================================================= -->
+	<div class="row bg-warning">
+	<h4> Пропущенные шайбы</h4>
+	    <div class="col-lg-5">
+	        <table class="table table-striped">
+                <tr>
+                    <td><samp>0 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_0_all_g_t1']?></strong></td>
+                    <td><samp>P(0) = </samp><?= $all_stat['p_puck_loss_0_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>1 шайба</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_1_all_g_t1']?></strong></td>
+                    <td><samp>P(1) = </samp><?= $all_stat['p_puck_loss_1_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>2 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_2_all_g_t1']?></strong></td>
+                    <td><samp>P(2) = </samp><?= $all_stat['p_puck_loss_2_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>3 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_3_all_g_t1']?></strong></td>
+                    <td><samp>P(3) = </samp><?= $all_stat['p_puck_loss_3_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>4 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_4_all_g_t1']?></strong></td>
+                    <td><samp>P(4) = </samp><?= $all_stat['p_puck_loss_4_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>5 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_5_all_g_t1']?></strong></td>
+                    <td><samp>P(5) = </samp><?= $all_stat['p_puck_loss_5_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>6 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_6_all_g_t1']?></strong></td>
+                    <td><samp>P(6) = </samp><?= $all_stat['p_puck_loss_6_t1']?></td>
+                </tr>
+                <tr>
+                    <td><samp>7 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_7_all_g_t1']?></strong></td>
+                    <td><samp>P(7) = </samp><?= $all_stat['p_puck_loss_7_t1']?></td>
+                </tr>
+	        </table>
+	        <p><strong>Математическое ожидание пропущенных шайб:</strong></p>
+            <p><samp>M(п.ш.) = </samp><?=$all_stat['M(X)_puck_loss_t1']?> <br> <samp>M(п.ш.<sup>2</sup>) = </samp><?=$all_stat['M(X)2_puck_loss_t1']?></p>
+	        <p><strong>Дисперсия пропущенных шайб:</strong></p>
+	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_loss_t1']?> - (<?=$all_stat['M(X)_puck_loss_t1']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_loss_t1']?></p>     
+	    </div><!--class="col-lg-5"-->
+	    <div class="col-lg-5">
+	        <table class="table table-striped">
+                 <tr>
+                    <td><samp>0 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_0_all_g_t1']?></strong></td>
+                    <td><samp>P(0) = </samp><?= $all_stat['p_puck_loss_0_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>1 шайба</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_1_all_g_t2']?></strong></td>
+                    <td><samp>P(1) = </samp><?= $all_stat['p_puck_loss_1_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>2 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_2_all_g_t2']?></strong></td>
+                    <td><samp>P(2) = </samp><?= $all_stat['p_puck_loss_2_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>3 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_3_all_g_t2']?></strong></td>
+                    <td><samp>P(3) = </samp><?= $all_stat['p_puck_loss_3_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>4 шайбы</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_4_all_g_t2']?></strong></td>
+                    <td><samp>P(4) = </samp><?= $all_stat['p_puck_loss_4_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>5 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_5_all_g_t2']?></strong></td>
+                    <td><samp>P(5) = </samp><?= $all_stat['p_puck_loss_5_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>6 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_6_all_g_t2']?></strong></td>
+                    <td><samp>P(6) = </samp><?= $all_stat['p_puck_loss_6_t2']?></td>
+                </tr>
+                <tr>
+                    <td><samp>7 шайб</samp></td>
+                    <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_7_all_g_t2']?></strong></td>
+                    <td><samp>P(7) = </samp><?= $all_stat['p_puck_loss_7_t2']?></td>
+                </tr>
+	        </table>
+	        <p><strong>Математическое ожидание пропущенных шайб:</strong></p>
+            <p><samp>M(п.ш.) = </samp><?=$all_stat['M(X)_puck_loss_t2']?> <br> <samp>M(п.ш.<sup>2</sup>) = </samp><?=$all_stat['M(X)2_puck_loss_t2']?></p>
+	        <p><strong>Дисперсия пропущенных шайб:</strong></p>
+	        <p><samp></samp>D(п.ш.) = <?=$all_stat['M(X)2_puck_loss_t2']?> - (<?=$all_stat['M(X)_puck_loss_t2']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_loss_t2']?></p>
+	        </table>     
+	    </div><!--class="col-lg-5"-->       
+	</div><!--class="row"-->
 <?php endif; /*if($all_stat != NULL): - проверка наличия данных*/?>
         
         
