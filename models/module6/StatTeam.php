@@ -67,11 +67,11 @@ class StatTeam extends Model
         $query_all_t1 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_1;
         $query_all_t2 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_2;
         
-        $query_h_t1 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_1.' AND place=" home"';
-        $query_h_t2 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_2.' AND place=" home"';
+        $query_h_t1 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_1.' AND place="home"';
+        $query_h_t2 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_2.' AND place="home"';
         
-        $query_g_t1 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_1.' AND place=" guest"';
-        $query_g_t2 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_2.' AND place=" guest"';
+        $query_g_t1 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_1.' AND place="guest"';
+        $query_g_t2 = 'SELECT COUNT(*) FROM result_match WHERE id_team='.$this->id_team_2.' AND place="guest"';
         
         // выполнение запросов
         $this->all_stat['all_g_t1']=$this->id_connect_DB->createCommand($query_all_t1)->queryAll()[0]['COUNT(*)'];
@@ -99,16 +99,16 @@ class StatTeam extends Model
         
         // последние 5 игр дома
         //SELECT * FROM result_match WHERE id_team=1 AND place=' home' ORDER BY date_match DESC LIMIT 5
-        $query_team_1 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_1.' AND place=" home" ORDER BY date_match DESC LIMIT 5';
-		$query_team_2 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_2.' AND place=" home" ORDER BY date_match DESC LIMIT 5';
+        $query_team_1 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_1.' AND place="home" ORDER BY date_match DESC LIMIT 5';
+		$query_team_2 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_2.' AND place="home" ORDER BY date_match DESC LIMIT 5';
         file_put_contents('111.txt', $query_team_1);
 		$this->all_stat['last5g_hom_t1']=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
 		$this->all_stat['last5g_hom_t2']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
         
         // последние 5 игр в гостях
         // SELECT * FROM result_match WHERE id_team=1 AND place=' guest' ORDER BY date_match DESC LIMIT 5
-		$query_team_1 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_1.' AND place=" guest" ORDER BY date_match DESC LIMIT 5';
-		$query_team_2 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_2.' AND place=" guest" ORDER BY date_match DESC LIMIT 5';
+		$query_team_1 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_1.' AND place="guest" ORDER BY date_match DESC LIMIT 5';
+		$query_team_2 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_2.' AND place="guest" ORDER BY date_match DESC LIMIT 5';
 		$this->all_stat['last5g_gst_t1']=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
 		$this->all_stat['last5g_gst_t2']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
         

@@ -1,0 +1,1 @@
+SELECT * FROM result_match WHERE id_team=1 AND place="home" ORDER BY date_match DESC LIMIT 5
