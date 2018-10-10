@@ -19,8 +19,9 @@ $this->registerJsFile('web/js/module1.js',['depends' => ['app\assets\AppAsset']]
 
     <div class="row">
         <button class='btn btn-success' onclick='parsResults(1)'>Парсинг данных</button>
+        <button class='btn btn-info' onclick='goGo()'>Go</button>
         <?=Html::a("Отобразить таблицы", ["module1/..........."],['class'=>'btn btn-primary'])?>
-        <?=Html::a("Парсеры", ["module1/main"],['class'=>'btn btn-warning'])?>
+        <?=Html::a("Парсеры", ["module1/parser-results_2018-model", "id_team"=>"1"],['class'=>'btn btn-warning'])?>
     </div>
     
     <div class="row" id='qqq'>

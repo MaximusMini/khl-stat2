@@ -148,7 +148,7 @@ class Module1Controller extends Controller
                             ]);
     }
     
-    //ПАРСИНГ - Парсер результатов команд КХЛ сезон 2017/2018
+    //ПАРСИНГ - Парсер результатов команд КХЛ сезон 2018/2019
     //---------------------------------------------------
     
     // отображение страницы парсинга
@@ -169,8 +169,12 @@ class Module1Controller extends Controller
 //                            ]);
         $ddd=22222;
         
+       
+        
         $pars = new ParserKhlResults_2018(Yii::$app->request->post('id_team'));
         //$pars = new ParserKhlResults_2018(1);
+        
+         file_put_contents('../222.txt',$pars);
         
         //return $this->render('parser_results_2018', ['ddd'=>$ddd, 'www'=>$www] );
         return ($pars->main());
