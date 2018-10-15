@@ -140,7 +140,7 @@ class ParserKhlResults_2018 extends Model
             // матч не сыгран
             file_put_contents("5++.txt",$this->result_team[$id_team][$number_match]['puck_team'],FILE_APPEND);    
             break;
-            }
+            }//else
             
             
             // чистые заброшенные/пропущенные шайбы
@@ -154,41 +154,41 @@ class ParserKhlResults_2018 extends Model
             
         
             // корректировка забытых/пропущенных шайб
-//            if($this->result_team[$id_team][$number_match]['time_end'] == 'ОТ' || $this->result_team[$id_team][$number_match]['time_end'] == 'Б' and $this->result_team[$id_team][$number_match]['result'] == 'win'){
-//                // ОТ или Б и победила команда = отнять 1 шайбу о команды
-//                $this->result_team[$id_team][$number_match]['puck_t_clear'] = ($this->result_team[$id_team][$number_match]['puck_team'] - 1);
-//                $this->result_team[$id_team][$number_match]['puck_r_clear'] = $this->result_team[$id_team][$number_match]['puck_rival'];
-//                
-//                file_put_contents("5--.txt",
-//                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
-//                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
-//                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
-//                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
-//                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
-//                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
-//                                  "=ОТ===================================================================="."\n",
-//                                  FILE_APPEND);
-//                
-//                
-//            }
-//            elseif($this->result_team[$id_team][$number_match]['time_end'] == 'Б'  || $this->result_team[$id_team][$number_match]['time_end'] == 'Б' and $this->result_team[$id_team][$number_match]['result'] == 'lose'){
-//                // ОТ и проиграла команда = отнять 1 шайбу у соперника
-//                $this->result_team[$id_team][$number_match]['puck_t_clear'] = $this->result_team[$id_team][$number_match]['puck_team'];
-//                $this->result_team[$id_team][$number_match]['puck_r_clear'] = ($this->result_team[$id_team][$number_match]['puck_rival'] - 1);
-//                
-//                
-//                file_put_contents("5--.txt",
-//                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
-//                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
-//                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
-//                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
-//                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
-//                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
-//                                  "=Б===================================================================="."\n",
-//                                  FILE_APPEND);
-//                
-//                
-//            }
+            if($this->result_team[$id_team][$number_match]['time_end'] == 'ОТ' || $this->result_team[$id_team][$number_match]['time_end'] == 'Б' and $this->result_team[$id_team][$number_match]['result'] == 'win'){
+                // ОТ или Б и победила команда = отнять 1 шайбу о команды
+                $this->result_team[$id_team][$number_match]['puck_t_clear'] = ($this->result_team[$id_team][$number_match]['puck_team'] - 1);
+                $this->result_team[$id_team][$number_match]['puck_r_clear'] = $this->result_team[$id_team][$number_match]['puck_rival'];
+                
+                file_put_contents("5-win.txt",
+                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
+                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
+                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
+                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
+                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
+                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
+                                  "=ОТ===================================================================="."\n",
+                                  FILE_APPEND);
+                
+                
+            }
+            elseif($this->result_team[$id_team][$number_match]['time_end'] == 'ОТ'  || $this->result_team[$id_team][$number_match]['time_end'] == 'Б' and $this->result_team[$id_team][$number_match]['result'] == 'lose'){
+                // ОТ и проиграла команда = отнять 1 шайбу у соперника
+                $this->result_team[$id_team][$number_match]['puck_t_clear'] = $this->result_team[$id_team][$number_match]['puck_team'];
+                $this->result_team[$id_team][$number_match]['puck_r_clear'] = ($this->result_team[$id_team][$number_match]['puck_rival'] - 1);
+                
+                
+                file_put_contents("5-lose.txt",
+                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
+                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
+                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
+                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
+                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
+                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
+                                  "=Б===================================================================="."\n",
+                                  FILE_APPEND);
+                
+                
+            }
             
             // матч не сыгран
            
@@ -196,7 +196,7 @@ class ParserKhlResults_2018 extends Model
         // ALTER TABLE result_match ADD puck_r_clear INT
         // ALTER TABLE result_match ADD puck_t_clear INT
         
-    } 
+    }//for
     
         
         //$this->$arr_temp=$result_team;
