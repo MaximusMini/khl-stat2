@@ -336,10 +336,14 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	</div><!--class="row"-->
 	<hr>
 	<!-- Заброшенные шайбы================================================================= -->
-	<div class="row bg-info">
-	<h4> Заброшенные шайбы</h4>
-	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	<div class="row">
+        <div class="col-lg-10 alert alert-info lead" role="alert"><strong>Заброшенные шайбы</strong></div>
+	    <div class="col-lg-5 ">
+	        <p class="text-primary lead">Всего:</p>
+              <p class="text-success lead">Дома:</p>
+              <p class="text-danger lead">В гостях:</p>
+               
+            <table class="table table-striped">
                 <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_0_all_g_t1']?></strong></td>
