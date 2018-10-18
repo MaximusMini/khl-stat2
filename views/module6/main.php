@@ -339,9 +339,10 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	<div class="row">
         <div class="col-lg-10 alert alert-info lead" role="alert"><strong>Заброшенные шайбы</strong></div>
 	    <div class="col-lg-5 ">
-	        <p class="text-primary lead">Всего:</p>
-              <p class="text-success lead">Дома:</p>
-              <p class="text-danger lead">В гостях:</p>
+            
+            <p class="text-primary lead">Всего: <?=$all_stat['puck_all_g_t1']?> <code>(<?=$all_stat['puck_all_g_clear_t1']?>)</code></p>
+            <p class="text-success lead">Дома: <?=$all_stat['puck_all_hom_t1']?> <code>(<?=$all_stat['puck_all_hom_clear_t1']?>)</code></p>
+            <p class="text-danger lead">В гостях: <?=$all_stat['puck_all_gst_t1']?> <code>(<?=$all_stat['puck_all_gst_clear_t1']?>)</code></p>
                
             <table class="table table-striped">
                 <tr>
@@ -391,7 +392,12 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_t1']?> - (<?=$all_stat['M(X)_puck_t1']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_t1']?></p>     
 	    </div><!--class="col-lg-5"-->
 	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	        
+             <p class="text-primary lead">Всего: <?=$all_stat['puck_all_g_t2']?> <code>(<?=$all_stat['puck_all_g_clear_t2']?>)</code></p>
+              <p class="text-success lead">Дома: <?=$all_stat['puck_all_hom_t2']?> <code>(<?=$all_stat['puck_all_hom_clear_t2']?>)</code></p>
+              <p class="text-danger lead">В гостях: <?=$all_stat['puck_all_gst_t2']?> <code>(<?=$all_stat['puck_all_gst_clear_t2']?>)</code></p>
+            
+            <table class="table table-striped">
                  <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_0_all_g_t2']?></strong></td>
@@ -442,10 +448,15 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	</div><!--class="row"-->
 	<hr>
 	<!-- Пропущенные шайбы================================================================= -->
-	<div class="row bg-warning">
-	<h4> Пропущенные шайбы</h4>
+	<div class="row">
+	<div class="col-lg-10 alert alert-warning lead" role="alert"><strong>Пропущенные шайбы</strong></div>
 	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	        
+                <p class="text-primary lead">Всего: <?=$all_stat['puck_loss_all_g_t1']?> <code>(<?=$all_stat['puck_loss_all_g_clear_t1']?>)</code></p>
+                <p class="text-success lead">Дома: <?=$all_stat['puck_loss_all_hom_t1']?> <code>(<?=$all_stat['puck_loss_all_hom_clear_t1']?>)</code></p>
+                <p class="text-danger lead">В гостях: <?=$all_stat['puck_loss_all_gst_t1']?> <code>(<?=$all_stat['puck_loss_all_gst_clear_t1']?>)</code></p>
+            
+               <table class="table table-striped">
                 <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_0_all_g_t1']?></strong></td>
@@ -493,7 +504,12 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_loss_t1']?> - (<?=$all_stat['M(X)_puck_loss_t1']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_loss_t1']?></p>     
 	    </div><!--class="col-lg-5"-->
 	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	        
+            <p class="text-primary lead">Всего: <?=$all_stat['puck_loss_all_g_t2']?> <code>(<?=$all_stat['puck_loss_all_g_clear_t2']?>)</code></p>
+            <p class="text-success lead">Дома: <?=$all_stat['puck_loss_all_hom_t2']?> <code>(<?=$all_stat['puck_loss_all_hom_clear_t2']?>)</code></p>
+            <p class="text-danger lead">В гостях: <?=$all_stat['puck_loss_all_gst_t2']?> <code>(<?=$all_stat['puck_loss_all_gst_clear_t2']?>)</code></p>
+                    
+            <table class="table table-striped">
                  <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_0_all_g_t1']?></strong></td>
@@ -541,6 +557,44 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	        <p><samp></samp>D(п.ш.) = <?=$all_stat['M(X)2_puck_loss_t2']?> - (<?=$all_stat['M(X)_puck_loss_t2']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_loss_t2']?></p>
 	        </table>     
 	    </div><!--class="col-lg-5"-->       
+	</div><!--class="row"-->
+	<!-- Cводная таблица=================================== -->
+	<div class="row">
+	<div class="col-lg-10 alert alert-success lead" role="alert"><strong>Cводная таблица</strong></div>
+	    <div class="col-lg-6">
+	        
+            
+               <table class="table table-hover table-striped">
+                <thead>
+                    <td class="success"></td>
+                    <td class="success"><?=$arr_team[$id_team_1]?></td>
+                    <td class="success"><?=$arr_team[$id_team_2]?></td>
+                </thead>
+                <tr>
+                    <td class="warning">M(з.ш.)</td>
+                    <td><?=$all_stat['M(X)_puck_t1']?></td>
+                    <td><?=$all_stat['M(X)_puck_t2']?></td>    
+                </tr>
+                <tr>
+                    <td class="warning">D(з.ш.)</td>
+                    <td><?=$all_stat['D(X)_puck_t1']?></td>
+                    <td><?=$all_stat['D(X)_puck_t2']?></td>    
+                </tr>
+                <tr>
+                    <td class="warning">M(п.ш.)</td>
+                    <td><?=$all_stat['M(X)_puck_loss_t1']?></td>
+                    <td><?=$all_stat['M(X)_puck_loss_t2']?></td>    
+                </tr>
+                <tr>
+                    <td class="warning">D(п.ш.)</td>
+                    <td><?=$all_stat['D(X)_puck_loss_t1']?></td>
+                    <td><?=$all_stat['D(X)_puck_loss_t2']?></td>    
+                </tr>
+                
+	        </table>
+   
+	    </div><!--class="col-lg-5"-->
+	           
 	</div><!--class="row"-->
 <?php endif; /*if($all_stat != NULL): - проверка наличия данных*/?>
         

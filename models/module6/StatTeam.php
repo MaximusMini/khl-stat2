@@ -57,7 +57,8 @@ class StatTeam extends Model
         $this->puck_loss_all_g();            //количество игр в которых было пропущено 0..7 шайб
         $this->P_puck();                     //данные по заброшенным шайбам
         //$this->P_puck_loss();              //данные по пропущенным шайбам
-        puck_stat();                         //статистика заброшенных шайб - всего, дома, в гостях
+        $this->puck_stat();                  //статистика заброшенных шайб - всего, дома, в гостях
+        $this->puck_loss_stat();             //статистика пропущенных шайб - всего, дома, в гостях
     }
     
     
@@ -102,7 +103,6 @@ class StatTeam extends Model
         //SELECT * FROM result_match WHERE id_team=1 AND place=' home' ORDER BY date_match DESC LIMIT 5
         $query_team_1 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_1.' AND place="home" ORDER BY date_match DESC LIMIT 5';
 		$query_team_2 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_2.' AND place="home" ORDER BY date_match DESC LIMIT 5';
-        file_put_contents('111.txt', $query_team_1);
 		$this->all_stat['last5g_hom_t1']=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
 		$this->all_stat['last5g_hom_t2']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
         
@@ -122,40 +122,106 @@ class StatTeam extends Model
         // формирование запросов
         // заброшенных шайб ВСЕГО
         // -- количество заброшенных шайб за 3 периода
-        $q_clear_t1='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_1
-        $q_clear_t2='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_2
+        $q_clear_t1='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_1;
+        $q_clear_t2='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_2;
         // -- количество заброшенных шайб с учетом ОТ и Б
-        $q_t1='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_1
-        $q_t2='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_2
+        $q_t1='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_1;
+        $q_t2='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_2;
         // заброшенных шайб ДОМА
         // -- количество заброшенных шайб за 3 периода
-        $q_clear_h_t1='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_1.'AND place="home"'
-        $q_clear_h_t2='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_2.'AND place="home"'
+        $q_clear_h_t1='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="home"';
+        $q_clear_h_t2='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="home"';
         // -- количество заброшенных шайб с учетом ОТ и Б
-        $q_h_t1='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_1.'AND place="home"'
-        $q_h_t2='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_2.'AND place="home"'
+        $q_h_t1='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="home"';
+        $q_h_t2='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="home"';
         // заброшенных шайб В ГОСТЯХ
         // -- количество заброшенных шайб за 3 периода
-        $q_clear_g_t1='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_1.'AND place="guest"'
-        $q_clear_g_t2='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_2.'AND place="guest"'
+        $q_clear_g_t1='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="guest"';
+        $q_clear_g_t2='SELECT SUM(puck_t_clear) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="guest"';
         // -- количество заброшенных шайб с учетом ОТ и Б
-        $q_g_t1='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_1.'AND place="guest"'
-        $q_g_t2='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_2.'AND place="guest"'
+        $q_g_t1='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="guest"';
+        $q_g_t2='SELECT SUM(puck_team) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="guest"';
         
         // получение данных
+        $this->all_stat['puck_all_g_t1']=
+            $this->id_connect_DB->createCommand($q_t1)->queryAll()[0]['SUM(puck_team)'];
+        $this->all_stat['puck_all_g_t2']=
+            $this->id_connect_DB->createCommand($q_t2)->queryAll()[0]['SUM(puck_team)']; 
+        $this->all_stat['puck_all_g_clear_t1'] =
+            $this->id_connect_DB->createCommand($q_clear_t1)->queryAll()[0]['SUM(puck_t_clear)'];
+        $this->all_stat['puck_all_g_clear_t2'] =
+            $this->id_connect_DB->createCommand($q_clear_t2)->queryAll()[0]['SUM(puck_t_clear)'];
+        $this->all_stat['puck_all_hom_t1'] =
+            $this->id_connect_DB->createCommand($q_h_t1)->queryAll()[0]['SUM(puck_team)'];
+        $this->all_stat['puck_all_hom_t2'] =
+            $this->id_connect_DB->createCommand($q_h_t2)->queryAll()[0]['SUM(puck_team)'];
+        $this->all_stat['puck_all_hom_clear_t1'] =
+            $this->id_connect_DB->createCommand($q_clear_h_t1)->queryAll()[0]['SUM(puck_t_clear)'];
+        $this->all_stat['puck_all_hom_clear_t2'] =
+            $this->id_connect_DB->createCommand($q_clear_h_t2)->queryAll()[0]['SUM(puck_t_clear)'];
+        $this->all_stat['puck_all_gst_t1'] =
+            $this->id_connect_DB->createCommand($q_g_t1)->queryAll()[0]['SUM(puck_team)'];
+        $this->all_stat['puck_all_gst_t2'] =
+            $this->id_connect_DB->createCommand($q_g_t2)->queryAll()[0]['SUM(puck_team)'];
+        $this->all_stat['puck_all_gst_clear_t1'] =
+            $this->id_connect_DB->createCommand($q_clear_g_t1)->queryAll()[0]['SUM(puck_t_clear)'];
+        $this->all_stat['puck_all_gst_clear_t2'] =
+            $this->id_connect_DB->createCommand($q_clear_g_t2)->queryAll()[0]['SUM(puck_t_clear)'];
+    
+    }
+    
+    // статистика пропущенных шайб - всего, дома, в гостях
+    function puck_loss_stat(){
+        // формирование запросов
+        // пропущенных шайб ВСЕГО
+        // -- количество пропущенных шайб за 3 периода
+        $q_clear_t1='SELECT SUM(puck_r_clear) FROM `result_match` WHERE id_team='.$this->id_team_1;
+        $q_clear_t2='SELECT SUM(puck_r_clear) FROM `result_match` WHERE id_team='.$this->id_team_2;
+        // -- количество пропущенных шайб с учетом ОТ и Б
+        $q_t1='SELECT SUM(puck_rival) FROM `result_match` WHERE id_team='.$this->id_team_1;
+        $q_t2='SELECT SUM(puck_rival) FROM `result_match` WHERE id_team='.$this->id_team_2;
+        // пропущенных шайб ДОМА
+        // -- количество пропущенных шайб за 3 периода
+        $q_clear_h_t1='SELECT SUM(puck_r_clear) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="home"';
+        $q_clear_h_t2='SELECT SUM(puck_r_clear) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="home"';
+        // -- количество пропущенных шайб с учетом ОТ и Б
+        $q_h_t1='SELECT SUM(puck_rival) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="home"';
+        $q_h_t2='SELECT SUM(puck_rival) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="home"';
+        // пропущенных шайб В ГОСТЯХ
+        // -- количество пропущенных шайб за 3 периода
+        $q_clear_g_t1='SELECT SUM(puck_r_clear) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="guest"';
+        $q_clear_g_t2='SELECT SUM(puck_r_clear) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="guest"';
+        // -- количество пропущенных шайб с учетом ОТ и Б
+        $q_g_t1='SELECT SUM(puck_rival) FROM `result_match` WHERE id_team='.$this->id_team_1.' AND place="guest"';
+        $q_g_t2='SELECT SUM(puck_rival) FROM `result_match` WHERE id_team='.$this->id_team_2.' AND place="guest"';
         
-            
-        $all_stat['puck_all_g_t1']                 количество заброшенных шайб ВСЕГО
-        $all_stat['puck_all_g_clear_t1']           количество заброшенных шайб ВСЕГО без учета ОТ и Б
-$all_stat['puck_all_hom_t1']               количество заброшенных шайб ДОМА
-$all_stat['puck_all_hom_clear_t1']         количество заброшенных шайб ДОМА без учета ОТ и Б
-$all_stat['puck_all_gst_t1']               количество заброшенных шайб В ГОСТЯХ
-$all_stat['puck_all_gst_clear_t1']         количество заброшенных шайб В ГОСТЯХ без учета ОТ и Б    
-            
-            
-            
-            
-            
+        // получение данных
+        $this->all_stat['puck_loss_all_g_t1']=
+            $this->id_connect_DB->createCommand($q_t1)->queryAll()[0]['SUM(puck_rival)'];
+        $this->all_stat['puck_loss_all_g_t2']=
+            $this->id_connect_DB->createCommand($q_t2)->queryAll()[0]['SUM(puck_rival)']; 
+        $this->all_stat['puck_loss_all_g_clear_t1'] =
+            $this->id_connect_DB->createCommand($q_clear_t1)->queryAll()[0]['SUM(puck_r_clear)'];
+        $this->all_stat['puck_loss_all_g_clear_t2'] =
+            $this->id_connect_DB->createCommand($q_clear_t2)->queryAll()[0]['SUM(puck_r_clear)'];
+        $this->all_stat['puck_loss_all_hom_t1'] =
+            $this->id_connect_DB->createCommand($q_h_t1)->queryAll()[0]['SUM(puck_rival)'];
+        $this->all_stat['puck_loss_all_hom_t2'] =
+            $this->id_connect_DB->createCommand($q_h_t2)->queryAll()[0]['SUM(puck_rival)'];
+        $this->all_stat['puck_loss_all_hom_clear_t1'] =
+            $this->id_connect_DB->createCommand($q_clear_h_t1)->queryAll()[0]['SUM(puck_r_clear)'];
+        $this->all_stat['puck_loss_all_hom_clear_t2'] =
+            $this->id_connect_DB->createCommand($q_clear_h_t2)->queryAll()[0]['SUM(puck_r_clear)'];
+        $this->all_stat['puck_loss_all_gst_t1'] =
+            $this->id_connect_DB->createCommand($q_g_t1)->queryAll()[0]['SUM(puck_rival)'];
+        $this->all_stat['puck_loss_all_gst_t2'] =
+            $this->id_connect_DB->createCommand($q_g_t2)->queryAll()[0]['SUM(puck_rival)'];
+        $this->all_stat['puck_loss_all_gst_clear_t1'] =
+            $this->id_connect_DB->createCommand($q_clear_g_t1)->queryAll()[0]['SUM(puck_r_clear)'];
+        $this->all_stat['puck_loss_all_gst_clear_t2'] =
+            $this->id_connect_DB->createCommand($q_clear_g_t2)->queryAll()[0]['SUM(puck_r_clear)'];
+        
+    
     }
     
     // определение количества игр в которых было ЗАБРОШЕНО 0,1,2,3,4,5,6,7 шайб
@@ -176,7 +242,6 @@ $all_stat['puck_all_gst_clear_t1']         количество заброшен
         
         
     }
-    
     
     // определение количества игр в которых было ПРОПУЩЕНО 0,1,2,3,4,5,6,7 шайб
     function puck_loss_all_g(){
@@ -368,6 +433,14 @@ $all_stat['puck_all_hom_t1']               количество заброшен
 $all_stat['puck_all_hom_clear_t1']         количество заброшенных шайб ДОМА без учета ОТ и Б
 $all_stat['puck_all_gst_t1']               количество заброшенных шайб В ГОСТЯХ
 $all_stat['puck_all_gst_clear_t1']         количество заброшенных шайб В ГОСТЯХ без учета ОТ и Б
+
+
+$all_stat['puck_loss_all_g_t1']            количество пропущенных шайб ВСЕГО
+$all_stat['puck_loss_all_g_clear_t1']      количество пропущенных шайб ВСЕГО без учета ОТ и Б
+$all_stat['puck_loss_all_hom_t1']          количество пропущенных шайб ДОМА
+$all_stat['puck_loss_all_hom_clear_t1']    количество пропущенных шайб ДОМА без учета ОТ и Б
+$all_stat['puck_loss_all_gst_t1']          количество пропущенных шайб В ГОСТЯХ
+$all_stat['puck_loss_all_gst_clear_t1']    количество пропущенных шайб В ГОСТЯХ без учета ОТ и Б
 
 
 

@@ -1,0 +1,1 @@
+SELECT SUM(puck_team) FROM `result_match` WHERE id_team=2 AND place="home"

@@ -308,10 +308,24 @@ puck_r_clear - 2
 =Б====================================================================
 time_end - ОТ
 result - lose
+puck_team - 4
+puck_t_clear - 4
+puck_rival - 5
+puck_r_clear - 4
+=Б====================================================================
+time_end - ОТ
+result - lose
 puck_team - 1
 puck_t_clear - 1
 puck_rival - 2
 puck_r_clear - 1
+=Б====================================================================
+time_end - ОТ
+result - lose
+puck_team - 4
+puck_t_clear - 4
+puck_rival - 5
+puck_r_clear - 4
 =Б====================================================================
 time_end - Б
 result - lose

@@ -84,6 +84,13 @@ puck_r_clear - 3
 =ОТ====================================================================
 time_end - ОТ
 result - win
+puck_team - 5
+puck_t_clear - 4
+puck_rival - 4
+puck_r_clear - 4
+=ОТ====================================================================
+time_end - ОТ
+result - win
 puck_team - 3
 puck_t_clear - 2
 puck_rival - 2
@@ -116,6 +123,13 @@ puck_team - 2
 puck_t_clear - 1
 puck_rival - 1
 puck_r_clear - 1
+=ОТ====================================================================
+time_end - ОТ
+result - win
+puck_team - 5
+puck_t_clear - 4
+puck_rival - 4
+puck_r_clear - 4
 =ОТ====================================================================
 time_end - Б
 result - win
