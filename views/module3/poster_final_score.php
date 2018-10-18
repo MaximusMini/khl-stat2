@@ -49,6 +49,8 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
         ['x_logo1'=>160, 'y_logo1'=>210+($step*6), 'x_logo2'=>690, 'y_logo2'=>210+($step*6), 'x_line_up_1'=>250, 'y_line_up_1'=>210+($step*6), 'x_line_up_2'=>780, 'y_line_up_2'=>210+($step*6), 'x_line_down_1'=>250, 'y_line_down_1'=>300+($step*6), 'x_line_down_2'=>780, 'y_line_down_2'=>300+($step*6),],
         // матч 8
         ['x_logo1'=>160, 'y_logo1'=>210+($step*7), 'x_logo2'=>690, 'y_logo2'=>210+($step*7), 'x_line_up_1'=>250, 'y_line_up_1'=>210+($step*7), 'x_line_up_2'=>780, 'y_line_up_2'=>210+($step*7), 'x_line_down_1'=>250, 'y_line_down_1'=>300+($step*7), 'x_line_down_2'=>780, 'y_line_down_2'=>300+($step*7),],
+        // матч 9
+        ['x_logo1'=>160, 'y_logo1'=>210+($step*8), 'x_logo2'=>690, 'y_logo2'=>210+($step*8), 'x_line_up_1'=>250, 'y_line_up_1'=>210+($step*8), 'x_line_up_2'=>780, 'y_line_up_2'=>210+($step*8), 'x_line_down_1'=>250, 'y_line_down_1'=>300+($step*8), 'x_line_down_2'=>780, 'y_line_down_2'=>300+($step*8),],
     ];
     //********************************************************
     // данные, получаемые из $_GET массива из вида
@@ -61,6 +63,7 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
     //********************************************************
     // загрузка изображения - шаблона
     $image = imagecreatefrompng('images\module3\template_final_score\final_score.png');
+    if ($data_poster['amount'] == 9){$image = imagecreatefrompng('images\module3\template_final_score\final_score_big.png');}
      // установка цвета
     $color_date = imagecolorallocate($image, 196,199,200);
     $color_time = imagecolorallocate($image, 112,214,243);
@@ -118,8 +121,11 @@ include(Yii::getAlias('@app/web/my_config/module2.php'));
     //вставка даты
     $date = $data_poster['day_game'];
     $month = $data_poster['month_game'];
-    imagettftext($image, 35, 0, 90, 1170, $color_text , $font_date, $date.' '.$month);
-    
+    if ($data_poster['amount'] == 9){
+        imagettftext($image, 35, 0, 90, 1315, $color_text , $font_date, $date.' '.$month);;
+    }else{
+        imagettftext($image, 35, 0, 90, 1170, $color_text , $font_date, $date.' '.$month);    
+    }
                
     // сохранение файла
     imagepng($image,'images\module3\new\final_score_.png',9);           
