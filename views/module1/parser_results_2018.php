@@ -10,17 +10,16 @@ $this->title='Парсинг результатов матчей';
 $this->registerJsFile('web/js/module1.js',['depends' => ['app\assets\AppAsset']]);
 
 ?>
-
-
-
-    <div class="row">
-        <h2>Парсинг результатов матчей команд КХЛ 2018/2019</h2>
+    
+    
+    <div class="row alert alert-info lead">
+        Парсинг результатов матчей команд КХЛ 2018/2019
+        <?=Html::a("Парсеры", ["module1/main", "id_team"=>"1"],['class'=>'btn btn-warning pull-right'])?>
     </div>
 
     <div class="row">
         <button class='btn btn-success' onclick='parsResults(1)'>Парсинг данных</button>
         <?=Html::a("Отобразить таблицы", ["module1/..........."],['class'=>'btn btn-primary'])?>
-        <?=Html::a("Парсеры", ["module1/parser-results_2018-model", "id_team"=>"1"],['class'=>'btn btn-warning'])?>
     </div>
     
     <div class="row" id='qqq'>

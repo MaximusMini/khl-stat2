@@ -52,6 +52,7 @@ class StatTeam extends Model
     // главная функция
     function main(){
         $this->all_matches();                //получение количества проведенных матчей - всех, дома, вгостях
+        $this->last_10_games();              // получение результатов последних 10 игр
         $this->last_5_games();               //получение результатов последних пяти игр
         $this->puck_all_g();                 //количество игр в которых было заброшено 0..7 шайб
         $this->puck_loss_all_g();            //количество игр в которых было пропущено 0..7 шайб
@@ -87,6 +88,23 @@ class StatTeam extends Model
 
         return;
         
+    }
+    
+    // получение результатов последних 10 игр
+    function last_10_games(){
+        // формирование запроса
+        $query_team_1 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_1.' ORDER BY date_match DESC LIMIT 10';
+        $query_team_2 = 'SELECT * FROM result_match WHERE id_team='.$this->id_team_2.' ORDER BY date_match DESC LIMIT 10';
+
+        // последние 10 игр
+        $this->all_stat['last10g_t1']=$this->id_connect_DB->createCommand($query_team_1)->queryAll();
+        $this->all_stat['last10g_t2']=$this->id_connect_DB->createCommand($query_team_2)->queryAll();
+        
+        // динамика последних 10 игр
+        $q_t1 = 'SELECT result FROM result_match WHERE id_team='.$this->id_team_1.' ORDER BY date_match DESC LIMIT 10';
+        $q_t2 = 'SELECT result FROM result_match WHERE id_team='.$this->id_team_2.' ORDER BY date_match DESC LIMIT 10';
+        $this->all_stat['last10g_din_t1']=$this->id_connect_DB->createCommand($q_t1)->queryAll();
+        $this->all_stat['last10g_din_t2']=$this->id_connect_DB->createCommand($q_t2)->queryAll();
     }
     
     // получение результатов последних пяти игр
@@ -167,6 +185,18 @@ class StatTeam extends Model
             $this->id_connect_DB->createCommand($q_clear_g_t1)->queryAll()[0]['SUM(puck_t_clear)'];
         $this->all_stat['puck_all_gst_clear_t2'] =
             $this->id_connect_DB->createCommand($q_clear_g_t2)->queryAll()[0]['SUM(puck_t_clear)'];
+        
+        
+        // заброшенные шайбы в последних 10 играх
+        $q_last10_t1=
+            'SELECT puck_t_clear FROM result_match WHERE id_team='.$this->id_team_1.' ORDER BY date_match DESC LIMIT 10';
+        $q_last10_t2=
+            'SELECT puck_t_clear FROM result_match WHERE id_team='.$this->id_team_2.' ORDER BY date_match DESC LIMIT 10';
+        
+        $this->all_stat['puck_last_g10_t1'] =
+            $this->id_connect_DB->createCommand($q_last10_t1)->queryAll();
+        $this->all_stat['puck_last_g10_t2'] =
+            $this->id_connect_DB->createCommand($q_last10_t2)->queryAll();  
     
     }
     
@@ -220,6 +250,17 @@ class StatTeam extends Model
             $this->id_connect_DB->createCommand($q_clear_g_t1)->queryAll()[0]['SUM(puck_r_clear)'];
         $this->all_stat['puck_loss_all_gst_clear_t2'] =
             $this->id_connect_DB->createCommand($q_clear_g_t2)->queryAll()[0]['SUM(puck_r_clear)'];
+        
+        // пропущенные шайбы в последних 10 играх
+        $q_last10_t1=
+            'SELECT puck_r_clear FROM result_match WHERE id_team='.$this->id_team_1.' ORDER BY date_match DESC LIMIT 10';
+        $q_last10_t2=
+            'SELECT puck_r_clear FROM result_match WHERE id_team='.$this->id_team_2.' ORDER BY date_match DESC LIMIT 10';
+        
+        $this->all_stat['puck_loss_last_g10_t1'] =
+            $this->id_connect_DB->createCommand($q_last10_t1)->queryAll();
+        $this->all_stat['puck_loss_last_g10_t2'] =
+            $this->id_connect_DB->createCommand($q_last10_t2)->queryAll(); 
         
     
     }
@@ -433,7 +474,7 @@ $all_stat['puck_all_hom_t1']               количество заброшен
 $all_stat['puck_all_hom_clear_t1']         количество заброшенных шайб ДОМА без учета ОТ и Б
 $all_stat['puck_all_gst_t1']               количество заброшенных шайб В ГОСТЯХ
 $all_stat['puck_all_gst_clear_t1']         количество заброшенных шайб В ГОСТЯХ без учета ОТ и Б
-
+all_stat['puck_last_g10_t1']               динамика заброшенных шайб в последних 10 матчах
 
 $all_stat['puck_loss_all_g_t1']            количество пропущенных шайб ВСЕГО
 $all_stat['puck_loss_all_g_clear_t1']      количество пропущенных шайб ВСЕГО без учета ОТ и Б

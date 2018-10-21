@@ -14,6 +14,7 @@ use app\models\module1\ParserKhlStat;
 use app\models\module1\ParserKhlStat_2018;
 use app\models\module1\ViewKhlStat;
 use app\models\module1\ParserKhlResults_2018;
+use app\models\module1\ParserKhlTable_18_19;
 
 
 class Module1Controller extends Controller
@@ -70,6 +71,42 @@ class Module1Controller extends Controller
         return $this->render('main');
     }
     
+    //ПАРСИНГ 1 - Парсер турнирной таблицы КХЛ сезон 2018/2019
+    //---------------------------------------------------
+    
+    // главная страница парсера
+    public function actionParserKhlTable_18_19()
+    {
+        return $this->render('parser-khl-table_18_19');
+    }
+    
+    // отображение результатов парсинга - таблицы из БД
+    public function actionViewKhlTable_18_19()
+    {
+        $all_data = new ParserKhlTable_18_19();
+        
+        $table=$all_data->view_table();
+        
+//        return $this->render('main',
+//                             ['id_team_1'=>Yii::$app->request->get('id_team_1'),
+//                              'id_team_2'=>Yii::$app->request->get('id_team_2'),
+//                              'all_stat'=>$all_stat,
+//                             ]
+//                            );    
+//        
+        
+        
+        return $this->render('parser-khl-table_18_19',[
+                                'table'=>$table,                                                
+        ]);
+    }
+    
+    
+    
+    //======================================================================
+    
+    
+
     //ПАРСИНГ 2 - Парсер статистических данных команд КХЛ сезон 2017/2018
     //---------------------------------------------------
     

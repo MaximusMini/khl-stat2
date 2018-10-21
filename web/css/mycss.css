@@ -11,3 +11,58 @@
     font-size: 16px;
     font-weight: 700;
 }
+
+/*круг для отображения динамики игр*/
+.circle-lose {
+    width: 20px;
+    height: 20px;
+    background: #e64242;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    float: left;
+}
+.circle-win {
+    width: 20px;
+    height: 20px;
+    background: #47b147;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    float: left;
+}
+.tire{
+    width: 10px;
+	height: 3px;
+    margin: 9px 2px;    
+	background: #000000;
+    float: left;
+}
+
+
+/*круг для отображения динамики заброшенных шайб*/
+.star-six {
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 20px solid red;
+	position: relative;
+    float: left;
+    z-index: 0;
+}
+.star-six:after {
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 20px solid red;
+	position: absolute;
+	content: "";
+	top: 8px;
+	left: -15px;
+}
+
+
+
+
