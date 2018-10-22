@@ -66,6 +66,157 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	    </div>   
 	</div>
 	<hr>
+	<!-- Последние 10 игр=================================================================== -->
+	<div class="row"><?php /*Последние 10 игр*/?>
+	<h4> Последние 10 игр</h4>
+		<?php /*ПЕРВАЯ КОМАНДА*/?>
+		<div class="col-lg-5">
+			<?php /*динамика последних 10 игр*/?>
+			<div>
+			    <?php $num_match=1; /*переменная для контроля тире между кругами*/?>
+			    <?php foreach($all_stat['last10g_din_t1'] as $val):?>
+			        <?php if($num_match != 1){echo '<p class="tire"></p>';}?>
+                    <?php if($val['result'] == win){
+                            echo '<p class="circle-win"></p>';
+                        }else{
+                            echo '<p class="circle-lose"></p>';
+                        }
+                    ?>
+                    <?php $num_match++;?>
+			    <?php endforeach; /*if(trim($val['place'])) == 'home')*/?>
+			</div>
+			<table class="table table-dark">
+				<tbody>
+				<?php foreach($all_stat['last10g_t1'] as $val):?>
+				    <?php /*установка цвета ячеек: победа - проигрыш команды*/?>
+                    <?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place']) == 'home'): /*игра дома*/?>
+							<?php switch (trim($val['time_end'])): ?>
+<?php case 'normal': ?>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
+								<?php break;?>
+								<?php case 'ОТ': ?>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
+								<?php break;?>
+								<?php case 'Б': ?>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['place'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place']) == 'guest'): /*игра в гостях*/?> 
+							<?php switch (trim($val['time_end'])): ?>
+<?php case 'normal': ?>
+									<td><?=$val['rival']?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+								<?php break;?>
+								<?php case 'ОТ': ?>
+									<td><?=$val['rival']?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
+								<?php break;?>
+								<?php case 'Б': ?>
+									<td><?=$val['rival']?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['guest'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+		<?php /*ВТОРАЯ КОМАНДА*/?>
+		<div class="col-lg-5">
+			<?php /*динамика последних 10 игр*/?>
+			<div>
+			    <?php $num_match=1; /*переменная для контроля тире между кругами*/?>
+			    <?php foreach($all_stat['last10g_din_t2'] as $val):?>
+			        <?php if($num_match != 1){echo '<p class="tire"></p>';}?>
+                    <?php if($val['result'] == win){
+                            echo '<p class="circle-win"></p>';
+                        }else{
+                            echo '<p class="circle-lose"></p>';
+                        }
+                    ?>
+                    <?php $num_match++;?>
+			    <?php endforeach; /*if(trim($val['place'])) == 'home')*/?>
+			</div>
+			<table class="table">
+				<tbody>
+				<?php foreach($all_stat['last10g_t2'] as $val):?>
+				    <?php /*установка цвета ячеек: победа - проигрыш команды*/?>
+                    <?php if($val['puck_team'] > $val['puck_rival']){
+                        echo '<tr class="success-table">';
+                    }else{
+                        echo '<tr class="danger">';
+                    }
+                    ?>
+						<td><?=$val['date_view']?></td> <!-- дата-->
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place']) == 'home'): /*игра дома*/?>
+							<?php switch (trim($val['time_end'])): ?>
+<?php case 'normal': ?>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival']?></code></td>
+								<?php break;?>
+								<?php case 'ОТ': ?>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' OT'?></code></td>
+								<?php break;?>
+								<?php case 'Б': ?>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><?=$val['rival']?></td>
+									<td><code><?=$val['puck_team'].':'.$val['puck_rival'].' Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['place'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+						<?php if(trim($val['place']) == 'guest'): /*игра в гостях*/?> 
+							<?php switch (trim($val['time_end'])): ?>
+<?php case 'normal': ?>
+									<td><?=$val['rival']?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team']?></code></td>
+								<?php break;?>
+								<?php case 'ОТ': ?>
+									<td><?=$val['rival']?></td>
+									<td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' OT'?></code></td>
+								<?php break;?>
+								<?php case 'Б': ?>
+									<td><?=$val['rival']?></td>
+                                    <td><strong><?=$arr_team[$val['id_team']]?></strong></td>
+									<td><code><?=$val['puck_rival'].':'.$val['puck_team'].' Б'?></code></td>
+								<?php break;?>
+							<?php endswitch ?>
+						<?php endif; /*if(trim($val['guest'])) == 'home')*/?>
+						<?php/*-------------------------------------------------*/?>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+		</div><!--class="col-lg-4"-->
+	</div><!--class="row"-->
+	<hr>
 	<!-- Последние 5 игр=================================================================== -->
 	<div class="row"><?php /*Последние 5 игр*/?>
 	<h4> Последние 5 игр</h4>
@@ -336,10 +487,27 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	</div><!--class="row"-->
 	<hr>
 	<!-- Заброшенные шайбы================================================================= -->
-	<div class="row bg-info">
-	<h4> Заброшенные шайбы</h4>
-	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	<div class="row">
+        <div class="col-lg-10 alert alert-info lead" role="alert"><strong>Заброшенные шайбы</strong></div>
+	    <div class="col-lg-5 ">
+            
+            <p class="text-primary lead">Всего: <?=$all_stat['puck_all_g_t1']?> <code>(<?=$all_stat['puck_all_g_clear_t1']?>)</code></p>
+            <p class="text-success lead">Дома: <?=$all_stat['puck_all_hom_t1']?> <code>(<?=$all_stat['puck_all_hom_clear_t1']?>)</code></p>
+            <p class="text-danger lead">В гостях: <?=$all_stat['puck_all_gst_t1']?> <code>(<?=$all_stat['puck_all_gst_clear_t1']?>)</code></p>
+            
+            <?php /*динамика заброшенных шайб в последних 10 матчах*/?>
+			<div>
+			    <?php $num_match=1; /*переменная для контроля тире между кругами*/?>
+			    <?php foreach($all_stat['puck_last_g10_t1'] as $val):?>
+			        <?php if($num_match != 1){echo '</p><p class="tire" style="margin:14px 7px"></p>';}?>
+                    <!-- <p class="star-six"></p>-->
+                    <strong class='lead' style="float:left;"><code style="color:#0f0baf;"><?=$val['puck_t_clear']?></code></strong>
+                    <?php $num_match++;?>
+			    <?php endforeach;?>
+			</div>   
+                  
+                        
+            <table class="table table-striped">
                 <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_0_all_g_t1']?></strong></td>
@@ -387,7 +555,23 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_t1']?> - (<?=$all_stat['M(X)_puck_t1']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_t1']?></p>     
 	    </div><!--class="col-lg-5"-->
 	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	        
+            <p class="text-primary lead">Всего: <?=$all_stat['puck_all_g_t2']?> <code>(<?=$all_stat['puck_all_g_clear_t2']?>)</code></p>
+            <p class="text-success lead">Дома: <?=$all_stat['puck_all_hom_t2']?> <code>(<?=$all_stat['puck_all_hom_clear_t2']?>)</code></p>
+            <p class="text-danger lead">В гостях: <?=$all_stat['puck_all_gst_t2']?> <code>(<?=$all_stat['puck_all_gst_clear_t2']?>)</code></p>
+            
+            <?php /*динамика заброшенных шайб в последних 10 матчах*/?>
+			<div>
+			    <?php $num_match=1; /*переменная для контроля тире между кругами*/?>
+			    <?php foreach($all_stat['puck_last_g10_t2'] as $val):?>
+			        <?php if($num_match != 1){echo '</p><p class="tire" style="margin:14px 7px"></p>';}?>
+                    <!-- <p class="star-six"></p>-->
+                    <strong class='lead' style="float:left;"><code style="color:#0f0baf;"><?=$val['puck_t_clear']?></code></strong>
+                    <?php $num_match++;?>
+			    <?php endforeach;?>
+			</div> 
+            
+            <table class="table table-striped">
                  <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_0_all_g_t2']?></strong></td>
@@ -438,10 +622,26 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	</div><!--class="row"-->
 	<hr>
 	<!-- Пропущенные шайбы================================================================= -->
-	<div class="row bg-warning">
-	<h4> Пропущенные шайбы</h4>
+	<div class="row">
+	<div class="col-lg-10 alert alert-warning lead" role="alert"><strong>Пропущенные шайбы</strong></div>
 	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	        
+                <p class="text-primary lead">Всего: <?=$all_stat['puck_loss_all_g_t1']?> <code>(<?=$all_stat['puck_loss_all_g_clear_t1']?>)</code></p>
+                <p class="text-success lead">Дома: <?=$all_stat['puck_loss_all_hom_t1']?> <code>(<?=$all_stat['puck_loss_all_hom_clear_t1']?>)</code></p>
+                <p class="text-danger lead">В гостях: <?=$all_stat['puck_loss_all_gst_t1']?> <code>(<?=$all_stat['puck_loss_all_gst_clear_t1']?>)</code></p>
+            
+            <?php /*динамика заброшенных шайб в последних 10 матчах*/?>
+			<div>
+			    <?php $num_match=1; /*переменная для контроля тире между кругами*/?>
+			    <?php foreach($all_stat['puck_loss_last_g10_t1'] as $val):?>
+			        <?php if($num_match != 1){echo '</p><p class="tire" style="margin:14px 7px"></p>';}?>
+                    <!-- <p class="star-six"></p>-->
+                    <strong class='lead' style="float:left;"><code><?=$val['puck_r_clear']?></code></strong>
+                    <?php $num_match++;?>
+			    <?php endforeach;?>
+			</div> 
+               
+               <table class="table table-striped">
                 <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_0_all_g_t1']?></strong></td>
@@ -489,7 +689,23 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	        <p><samp></samp>D(з.ш.) = <?=$all_stat['M(X)2_puck_loss_t1']?> - (<?=$all_stat['M(X)_puck_loss_t1']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_loss_t1']?></p>     
 	    </div><!--class="col-lg-5"-->
 	    <div class="col-lg-5">
-	        <table class="table table-striped">
+	        
+            <p class="text-primary lead">Всего: <?=$all_stat['puck_loss_all_g_t2']?> <code>(<?=$all_stat['puck_loss_all_g_clear_t2']?>)</code></p>
+            <p class="text-success lead">Дома: <?=$all_stat['puck_loss_all_hom_t2']?> <code>(<?=$all_stat['puck_loss_all_hom_clear_t2']?>)</code></p>
+            <p class="text-danger lead">В гостях: <?=$all_stat['puck_loss_all_gst_t2']?> <code>(<?=$all_stat['puck_loss_all_gst_clear_t2']?>)</code></p>
+                    
+            <?php /*динамика заброшенных шайб в последних 10 матчах*/?>
+			<div>
+			    <?php $num_match=1; /*переменная для контроля тире между кругами*/?>
+			    <?php foreach($all_stat['puck_loss_last_g10_t2'] as $val):?>
+			        <?php if($num_match != 1){echo '</p><p class="tire" style="margin:14px 7px"></p>';}?>
+                    <!-- <p class="star-six"></p>-->
+                    <strong class='lead' style="float:left;"><code><?=$val['puck_r_clear']?></code></strong>
+                    <?php $num_match++;?>
+			    <?php endforeach;?>
+			</div> 
+            
+            <table class="table table-striped">
                  <tr>
                     <td><samp>0 шайб</samp></td>
                     <td><samp>игр: </samp><strong><?= $all_stat['puck_loss_0_all_g_t1']?></strong></td>
@@ -537,6 +753,44 @@ include(Yii::getAlias('@app/web/my_config/module6.php'));
 	        <p><samp></samp>D(п.ш.) = <?=$all_stat['M(X)2_puck_loss_t2']?> - (<?=$all_stat['M(X)_puck_loss_t2']?>)<sup>2</sup> = <?=$all_stat['D(X)_puck_loss_t2']?></p>
 	        </table>     
 	    </div><!--class="col-lg-5"-->       
+	</div><!--class="row"-->
+	<!-- Cводная таблица=================================== -->
+	<div class="row">
+	<div class="col-lg-10 alert alert-success lead" role="alert"><strong>Cводная таблица</strong></div>
+	    <div class="col-lg-6">
+	        
+            
+               <table class="table table-hover table-striped">
+                <thead>
+                    <td class="success"></td>
+                    <td class="success"><?=$arr_team[$id_team_1]?></td>
+                    <td class="success"><?=$arr_team[$id_team_2]?></td>
+                </thead>
+                <tr>
+                    <td class="warning">M(з.ш.)</td>
+                    <td><?=$all_stat['M(X)_puck_t1']?></td>
+                    <td><?=$all_stat['M(X)_puck_t2']?></td>    
+                </tr>
+                <tr>
+                    <td class="warning">D(з.ш.)</td>
+                    <td><?=$all_stat['D(X)_puck_t1']?></td>
+                    <td><?=$all_stat['D(X)_puck_t2']?></td>    
+                </tr>
+                <tr>
+                    <td class="warning">M(п.ш.)</td>
+                    <td><?=$all_stat['M(X)_puck_loss_t1']?></td>
+                    <td><?=$all_stat['M(X)_puck_loss_t2']?></td>    
+                </tr>
+                <tr>
+                    <td class="warning">D(п.ш.)</td>
+                    <td><?=$all_stat['D(X)_puck_loss_t1']?></td>
+                    <td><?=$all_stat['D(X)_puck_loss_t2']?></td>    
+                </tr>
+                
+	        </table>
+   
+	    </div><!--class="col-lg-5"-->
+	           
 	</div><!--class="row"-->
 <?php endif; /*if($all_stat != NULL): - проверка наличия данных*/?>
         

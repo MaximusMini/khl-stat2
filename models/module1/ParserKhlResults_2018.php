@@ -138,7 +138,7 @@ class ParserKhlResults_2018 extends Model
                 $this->result_team[$id_team][$number_match]['result'] = 'lose';}        
             }else{
             // матч не сыгран
-            file_put_contents("5++.txt",$this->result_team[$id_team][$number_match]['puck_team'],FILE_APPEND);    
+            //file_put_contents("5++.txt",$this->result_team[$id_team][$number_match]['puck_team'],FILE_APPEND);    
             break;
             }//else
             
@@ -159,15 +159,15 @@ class ParserKhlResults_2018 extends Model
                 $this->result_team[$id_team][$number_match]['puck_t_clear'] = ($this->result_team[$id_team][$number_match]['puck_team'] - 1);
                 $this->result_team[$id_team][$number_match]['puck_r_clear'] = $this->result_team[$id_team][$number_match]['puck_rival'];
                 
-                file_put_contents("5-win.txt",
-                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
-                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
-                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
-                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
-                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
-                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
-                                  "=ОТ===================================================================="."\n",
-                                  FILE_APPEND);
+//              file_put_contents("5-win.txt",
+//                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
+//                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
+//                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
+//                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
+//                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
+//                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
+//                                  "=ОТ===================================================================="."\n",
+//                                  FILE_APPEND);
                 
                 
             }
@@ -177,15 +177,15 @@ class ParserKhlResults_2018 extends Model
                 $this->result_team[$id_team][$number_match]['puck_r_clear'] = ($this->result_team[$id_team][$number_match]['puck_rival'] - 1);
                 
                 
-                file_put_contents("5-lose.txt",
-                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
-                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
-                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
-                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
-                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
-                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
-                                  "=Б===================================================================="."\n",
-                                  FILE_APPEND);
+//                file_put_contents("5-lose.txt",
+//                                  "time_end - ".$this->result_team[$id_team][$number_match]['time_end']."\n".
+//                                  "result - ".$this->result_team[$id_team][$number_match]['result']."\n".
+//                                  "puck_team - ".$this->result_team[$id_team][$number_match]['puck_team']."\n".
+//                                  "puck_t_clear - ".$this->result_team[$id_team][$number_match]['puck_t_clear']."\n".
+//                                  "puck_rival - ".$this->result_team[$id_team][$number_match]['puck_rival']."\n".
+//                                  "puck_r_clear - ".$this->result_team[$id_team][$number_match]['puck_r_clear']."\n".
+//                                  "=Б===================================================================="."\n",
+//                                  FILE_APPEND);
                 
                 
             }
