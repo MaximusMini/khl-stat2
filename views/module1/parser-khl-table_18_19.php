@@ -30,11 +30,20 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
             <h3>Запад</h3>
             <table class="table table-striped table-condense">
                 <thead>
-                    <tr>
+                    <tr class="bg-info">
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="text-center" style='width:238px'><strong>Команда</strong></td>
+                    <td class="text-center"><strong>Игры</strong></td>
+                    <td class="bg-success text-center"><strong>В</strong></td>
+                    <td class="bg-success text-center"><strong>В(ОТ)</strong></td>
+                    <td class="bg-success text-center"><strong>В(Б)</strong></td>
+                    <td class="bg-danger text-center"><strong>П</strong></td>
+                    <td class="bg-danger text-center"><strong>П(ОТ)</strong></td>
+                    <td class="bg-danger text-center"><strong>П(Б)</strong></td>
+                    <td class="bg-primary text-center"><strong>Шайбы</strong></td>
+                    <td class="bg-warning text-center"><strong>Очки</strong></td>
+                    <td class="bg-info text-center"><strong>%</strong></td>
+                    <td class="bg-success text-center"><strong>Форма</strong></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,15 +51,80 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
                         <tr>
                         <td><?=$val['place']?></td>
                         <td><?=$val['name']?></td>
-                        <td><?=$val['games']?></td>
-                        <td><?=$val['scores']?></td>
-                        
+                        <td class="bg-info text-center"><?=$val['games']?></td>
+                        <td class="bg-success text-center"><?=$val['clear_wins']?></td>
+                        <td class="bg-success text-center"><?=$val['ot_wins']?></td>
+                        <td class="bg-success text-center"><?=$val['b_wins']?></td>
+                        <td class="bg-danger text-center"><?=$val['clear_defeat']?></td>
+                        <td class="bg-danger text-center"><?=$val['ot_defeat']?></td>
+                        <td class="bg-danger text-center"><?=$val['b_defeat']?></td>
+                        <td class="bg-primary text-center"><?=$val['throw_puck']?> - <?=$val['miss_puck']?></td>
+                        <td class="bg-warning text-center"><?=$val['scores']?></td>
+                        <td class="bg-info text-center"><?=$val['percent_scr']?></td>
+                        <td class="bg-success text-center">
+                            <?php for($i=1; $i<=5; $i++):?>
+                                <?php
+                                    if($val['old_match_'.$i] == '_win'){
+                                        echo "<span style='display:inline-block; height:10px; width:10px; background-color:#006600; border-radius:50%;' class='span-tooltip'></span>";    
+                                    }else{
+                                        echo "<span style='display:inline-block; height:10px; width:10px; background-color:#CC0000; border-radius:50%;'></span>";    
+                                    }
+                                ?>
+                            <?php endfor;?>
+                        </td>
                     <?php endforeach;?>
                 </tbody>
             </table>    
         </div>
         <div class="row">
-            <h3>Восток</h3>    
+            <h3>Восток</h3>
+            <table class="table table-striped table-condense">
+                <thead>
+                    <tr class="bg-info">
+                    <td></td>
+                    <td class="text-center"><strong>Команда</strong></td>
+                    <td class="text-center"><strong>Игры</strong></td>
+                    <td class="bg-success text-center"><strong>В</strong></td>
+                    <td class="bg-success text-center"><strong>В(ОТ)</strong></td>
+                    <td class="bg-success text-center"><strong>В(Б)</strong></td>
+                    <td class="bg-danger text-center"><strong>П</strong></td>
+                    <td class="bg-danger text-center"><strong>П(ОТ)</strong></td>
+                    <td class="bg-danger text-center"><strong>П(Б)</strong></td>
+                    <td class="bg-primary text-center"><strong>Шайбы</strong></td>
+                    <td class="bg-warning text-center"><strong>Очки</strong></td>
+                    <td class="bg-info text-center"><strong>%</strong></td>
+                    <td class="bg-success text-center"><strong>Форма</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($table['table_east'] as $val):?>
+                        <tr>
+                        <td><?=$val['place']?></td>
+                        <td><?=$val['name']?></td>
+                        <td class="bg-info text-center"><?=$val['games']?></td>
+                        <td class="bg-success text-center"><?=$val['clear_wins']?></td>
+                        <td class="bg-success text-center"><?=$val['ot_wins']?></td>
+                        <td class="bg-success text-center"><?=$val['b_wins']?></td>
+                        <td class="bg-danger text-center"><?=$val['clear_defeat']?></td>
+                        <td class="bg-danger text-center"><?=$val['ot_defeat']?></td>
+                        <td class="bg-danger text-center"><?=$val['b_defeat']?></td>
+                        <td class="bg-primary text-center"><?=$val['throw_puck']?> - <?=$val['miss_puck']?></td>
+                        <td class="bg-warning text-center"><?=$val['scores']?></td>
+                        <td class="bg-info text-center"><?=$val['percent_scr']?></td>
+                        <td class="bg-success text-center">
+                            <?php for($i=1; $i<=5; $i++):?>
+                                <?php
+                                    if($val['old_match_'.$i] == '_win'){
+                                        echo "<span style='display:inline-block; height:10px; width:10px; background-color:#006600; border-radius:50%;' class='span-tooltip'></span>";    
+                                    }else{
+                                        echo "<span style='display:inline-block; height:10px; width:10px; background-color:#CC0000; border-radius:50%;'></span>";    
+                                    }
+                                ?>
+                            <?php endfor;?>
+                        </td>
+                    <?php endforeach;?>
+                </tbody>
+            </table>    
         </div>
     
     <?php endif;?>
