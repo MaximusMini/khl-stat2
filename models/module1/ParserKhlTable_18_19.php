@@ -5,6 +5,7 @@ namespace app\models\module1;
 use Yii;
 use yii\base\Model;
 
+use GuzzleHttp\Client; // подключаем Guzzle
 
 class ParserKhlTable_18_19 extends Model
 {
@@ -36,6 +37,15 @@ class ParserKhlTable_18_19 extends Model
     
     // главная функция
     function main(){
+        
+    }
+    
+    
+    // парсинг данных таблицы
+    function pars_table(){
+        //создаем объекты класса phpQuery
+        $t_west      = phpQuery::newDocument($table_west);
+        $t_east      = phpQuery::newDocument($table_east);
         
     }
     
