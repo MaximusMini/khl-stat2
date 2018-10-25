@@ -81,26 +81,34 @@ class Module1Controller extends Controller
     }
     
     // отображение результатов парсинга - таблицы из БД
+    public function actionParslTable_18_19()
+    {
+        $pars = new ParserKhlTable_18_19();
+        $pars->pars_table();
+        return $this->render('parser-khl-table_18_19',[
+                                'result_pars'=>true,
+        ]);
+    }
+
+    // отображение результатов парсинга - таблицы из БД
     public function actionViewKhlTable_18_19()
     {
         $all_data = new ParserKhlTable_18_19();
-        
         $table=$all_data->view_table();
-        
-//        return $this->render('main',
-//                             ['id_team_1'=>Yii::$app->request->get('id_team_1'),
-//                              'id_team_2'=>Yii::$app->request->get('id_team_2'),
-//                              'all_stat'=>$all_stat,
-//                             ]
-//                            );    
-//        
-        
-        
         return $this->render('parser-khl-table_18_19',[
                                 'table'=>$table,                                                
         ]);
     }
-    
+
+    // формирование постера
+    public function actionPosterTable_18_19()
+    {
+        $poster = new ParserKhlTable_18_19();
+        //$poster->poster_table();
+        return $this->render('parser-khl-table_18_19',[
+                                                                                
+        ]);
+    }
     
     
     //======================================================================

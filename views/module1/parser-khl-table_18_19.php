@@ -18,13 +18,14 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
 
 
     <div class="row">
-        <button class='btn btn-success' onclick='parsResults(1)'>Парсинг данных</button>
+        <?=Html::a("Парсинг данных", ["module1/parsl-table_18_19"],['class'=>'btn btn-success'])?>
         <?=Html::a("Отобразить таблицы", ["module1/view-khl-table_18_19"],['class'=>'btn btn-primary'])?>
+        <?=Html::a("Формировать постер", ["module1/poster-table_18_19"],['class'=>'btn btn-danger'])?>
     </div>
     
    
   
-<?/*отображение результатов парсинга - таблицы из БД*/?>
+<?/*отображение таблицы из БД*/?>
     <?php if($table != NULL):?>
         <div class="row">
             <h3>Запад</h3>
@@ -62,7 +63,7 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
                         <td class="bg-warning text-center"><?=$val['scores']?></td>
                         <td class="bg-info text-center"><?=$val['percent_scr']?></td>
                         <td class="bg-success text-center">
-                            <?php for($i=1; $i<=5; $i++):?>
+                            <?php for($i=1; $i<=6; $i++):?>
                                 <?php
                                     if($val['old_match_'.$i] == '_win'){
                                         echo "<span style='display:inline-block; height:10px; width:10px; background-color:#006600; border-radius:50%;' class='span-tooltip'></span>";    
@@ -112,7 +113,7 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
                         <td class="bg-warning text-center"><?=$val['scores']?></td>
                         <td class="bg-info text-center"><?=$val['percent_scr']?></td>
                         <td class="bg-success text-center">
-                            <?php for($i=1; $i<=5; $i++):?>
+                            <?php for($i=1; $i<=6; $i++):?>
                                 <?php
                                     if($val['old_match_'.$i] == '_win'){
                                         echo "<span style='display:inline-block; height:10px; width:10px; background-color:#006600; border-radius:50%;' class='span-tooltip'></span>";    
@@ -128,9 +129,16 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
         </div>
     
     <?php endif;?>
+    
+
+<?/*отображение парсинга*/?>
+    <?php if($result_pars != NULL):?>
+        <h4><code>Парсинг завершен</code></h4>
+    <?php endif;?>
+    
 
 
 
 
 
-<p><?php if($table != NULL){printArray($table);}/**/?></p>
+<p><?/*php if($table != NULL){printArray($table);}*/?></p>

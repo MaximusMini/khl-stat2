@@ -56,7 +56,7 @@ class ParserKhlTable_18_19 extends Model
     
     // главная функция
     function main(){
-        $this->pars_table();    
+          
     }
     
     // функция очистки БД
@@ -85,7 +85,7 @@ class ParserKhlTable_18_19 extends Model
     }
     
     // формирование массива
-    function name_team($t_conf,$team, $conf){
+    function name_team($t_conf, $conf){
         $result = $t_conf->find('table tr');
     
         $count_team=1;
@@ -108,6 +108,7 @@ class ParserKhlTable_18_19 extends Model
             $team[$count_arr]['miss_puck']     	= pq($val)->find('td:nth-child(12) span:nth-child(3)')->text();
             $team[$count_arr]['scores']         = pq($val)->find('td:nth-child(13)')->text();
             $team[$count_arr]['percent_scr']    = pq($val)->find('td:nth-child(14)')->text();
+            // последние шесть сыгранных матчей
             for($w=1; $w<=6; $w++){
                 $old_match = 'old_match_'.$w;
                 $res = 'td:nth-child(15) a:nth-child('.$w.') span';
@@ -115,40 +116,87 @@ class ParserKhlTable_18_19 extends Model
             }
             $count_team++;
         }
-    
-        $n_fale = $conf.'_'.date('d').'_'.date('m').'_'.date('Y').'.json';
 
         // запись данных в БД
-        write_table_team($team);
-    
-        return $team;  
+        $this->write_table_team($team);
     }
-    
     
     // парсинг данных таблицы
     function pars_table(){
         
-        // очищаем таблицу
-        
-        
         //создаем объекты класса phpQuery
-        $res_curl = curl_get ('https://www.championat.com/hockey/_superleague/2593/table/all.html');
-        $tables_khl = phpQuery::newDocument($res_curl);
+        $res_curl = $this->curl_get ('https://www.championat.com/hockey/_superleague/2593/table/all.html');
+        $tables_khl = \phpQuery::newDocument($res_curl);
         // определяем таблицы конференций
         $table_west = $tables_khl->find('div.sport__table table:nth-child(2)');
         $table_east = $tables_khl->find('div.sport__table table:nth-child(3)');
         //создаем объекты класса phpQuery
-        $t_west      = phpQuery::newDocument($table_west);
-        $t_east      = phpQuery::newDocument($table_east);
-        
-        // 
-        delete_table_team(); //очистки БД
+        $t_west      = \phpQuery::newDocument($table_west);
+        $t_east      = \phpQuery::newDocument($table_east);
+ 
+        $this->delete_table_team(); //очистки БД
     
-        $arr_west = name_team($t_west,$team_west, 'west');
-        $arr_east = name_team($t_east,$team_east, 'east');
+        $arr_west = $this->name_team($t_west,'west');
+        $arr_east = $this->name_team($t_east,'east');
         
    
         
+    }
+    
+    // формирование постера
+    function poster_table(){
+        // получение данных из БД
+        $this->view_table();
+        // вывод данных на шаблон
+        // загрузка изображения - шаблона
+    
+        $image = imagecreatefrompng('images\module2\template_gameday\game_day_'.$data_poster['amount'].'.png');
+    // установка цвета
+    $color_date = imagecolorallocate($image, 196,199,200);
+    $color_time = imagecolorallocate($image, 112,214,243);
+    $color_text = imagecolorallocate($image, 219,223,224);
+    // установка шрифта
+    $font_date = 'font\ARIALBD.TTF';
+    $font_time = 'font\BigNoodleTitlingCyr.ttf';
+    $font_text = 'font\Arciform Sans cyr-lat Regular.otf';
+
+    // заполнение данными матчей
+    $c_m = $data_poster['amount'];// количество матчей
+    for($i=1; $i<=$c_m; $i++){
+        // формирование имен ключей
+        $timeM = 'time_'.$i;// название ключа массива времени матча
+        $teamFirst = 'team1_'.$i;               // имя первой команды
+        $teamSecond = 'team2_'.$i;              // имя второй команды
+        $xPosTeams = 'xPosTeam1_'.$i;           // начальная позиция по X надписи команд
+        $yPosTeams = 'yPosTeam1_'.$i;           // позиция по Y надписи команд
+        $xPosLogo1 = 'xPosLogo1_'.$i;           // позиция по X логотипа команды 1
+        $xPosLogo2 = 'xPosLogo2_'.$i;           // позиция по X логотипа команды 2
+        $yPosLogos = 'yPosLogo1_'.$i;           // позиция по Y логотипов команд
+        $fontSizeTeams = 'fontSizeTeams_'.$i;   // размер шрифта в названии команд
+        //время
+        imagettftext($image, $time_matches[$i-1]['font_time'], 0, $time_matches[$i-1]['x_pos_time'], $time_matches[$i-1]['y_pos_time'], $color_time , $font_time, $data_poster[$timeM]);
+        // формирование общей строки с именами команды + верхний регистр
+        $teams = $data_poster[$teamFirst].' - '.$data_poster[$teamSecond];
+            //$teams = mb_strtoupper($data_poster[$teamFirst].' - '.$data_poster[$teamSecond]);
+        // вывод надписи
+        imagettftext($image, $data_poster[$fontSizeTeams], 0, $data_poster[$xPosTeams], $data_poster[$yPosTeams], $color_text , $font_text, $teams);
+        // логотипа команды 1
+        $path_logo_temp_1 = $logo[$data_poster[$teamFirst]];
+        $logo_team_1 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_1);
+        // логотипа команды 2
+        $path_logo_temp_2 = $logo[$data_poster[$teamSecond]];
+        $logo_team_2 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_2);
+        // Копирование и наложение логотипов команд
+        imagecopyresized($image, $logo_team_1,$data_poster[$xPosLogo1], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60);
+        imagecopyresized($image, $logo_team_2,$data_poster[$xPosLogo2], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60); 
+    }
+    // сохранение файла
+    $name_new_file = 'images\module2\new\gameDay_'.iconv("UTF-8", "Windows-1251//TRANSLIT",$date_matches).'.png';
+    $name_new_file2 = 'images\module2\new\gameDay_'.$date_matches.'.png';
+    imagepng($image,$name_new_file,9);
+        // сохранение сформированных постеров
+        
+        // ссылка на сформированные постреы 
     }
     
     
