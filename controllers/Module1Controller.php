@@ -104,9 +104,10 @@ class Module1Controller extends Controller
     public function actionPosterTable_18_19()
     {
         $poster = new ParserKhlTable_18_19();
-        //$poster->poster_table();
+        $poster->poster_table();
         return $this->render('parser-khl-table_18_19',[
-                            'poster'=>true,                                                                        
+                            'poster'=>true,
+                            'all_data'=>$poster->all_data,
         ]);
     }
     

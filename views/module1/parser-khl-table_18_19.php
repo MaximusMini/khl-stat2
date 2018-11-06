@@ -140,6 +140,19 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
 <?/*формирование постера*/?>
     <?php if($poster != NULL):?>
         <h4><code>Формирование постера</code></h4>
+        <?/*php printArray($all_data);*/?>
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="../../web/images/module1/new/table_west_khl.png" target="_blank">
+                <img src="../../web/images/module1/new/table_west_khl.png" alt="" title="таблица КХЛ - конференция ЗАПАД" width="300">  
+            </a> 
+        </div>
+        <div class="col-lg-4">
+            <a href="../../web/images/module1/new/table_east_khl.png" target="_blank">
+                <img src="../../web/images/module1/new/table_east_khl.png" alt="" title="таблица КХЛ - конференция ВОСТОК" width="300">  
+            </a>             
+        </div>
+    </div>
     <?php endif;?>
     
 

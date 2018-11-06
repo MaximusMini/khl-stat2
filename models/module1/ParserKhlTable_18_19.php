@@ -26,19 +26,7 @@ class ParserKhlTable_18_19 extends Model
     }
     
     
-    // получение данных таблиц
-    public function view_table(){
-        // формирование запрос
-        $q_w = 'SELECT * FROM table_conf WHERE conf="west"';
-        $q_e = 'SELECT * FROM table_conf WHERE conf="east"';
-        
-        // выполнение запроса
-        $this->all_data['table_west']=$this->id_connect_DB->createCommand($q_w)->queryAll();
-        $this->all_data['table_east']=$this->id_connect_DB->createCommand($q_e)->queryAll();
-        
-        return $this->all_data;
-        
-    }
+    
     
     
     // функция для использования библиотеки curl
@@ -86,7 +74,7 @@ class ParserKhlTable_18_19 extends Model
             }
     }
     
-    // формирование массива
+    // формирование массива для последующей записи в БД
     function name_team($t_conf, $conf){
         $result = $t_conf->find('table tr');
     
@@ -143,62 +131,117 @@ class ParserKhlTable_18_19 extends Model
  
     }
     
+    // получение данных таблиц
+    public function view_table(){
+        // формирование запрос
+        $q_w = 'SELECT * FROM table_conf WHERE conf="west" ORDER BY place ASC';
+        $q_e = 'SELECT * FROM table_conf WHERE conf="east" ORDER BY place ASC';
+        
+        // выполнение запроса
+        $this->all_data['table_west']=$this->id_connect_DB->createCommand($q_w)->queryAll();
+        $this->all_data['table_east']=$this->id_connect_DB->createCommand($q_e)->queryAll();
+        
+        return $this->all_data;
+        
+    }
+    
     // формирование постера
     function poster_table(){
         // получение данных из БД
-        //$this->view_table();
+        $this->view_table();
         
-        $this->table_west =
+        //$this->table_west =
         
         
         // вывод данных на шаблон
         // загрузка изображения - шаблона
     
-        $image = imagecreatefrompng('images\module2\template_gameday\game_day_'.$data_poster['amount'].'.png');
-        // установка цвета
-        $color_date = imagecolorallocate($image, 196,199,200);
-        $color_time = imagecolorallocate($image, 112,214,243);
-        $color_text = imagecolorallocate($image, 219,223,224);
-        // установка шрифта
+        $image_west = imagecreatefrompng('images\module1\template_table\template_table_west_khl.png');
+        $image_east = imagecreatefrompng('images\module1\template_table\template_table_east_khl.png');
+       
+//        // установка цвета
+        $color_date = imagecolorallocate($image_west, 196,199,200);
+        $color_time = imagecolorallocate($image_west, 112,214,243);
+        $color_text = imagecolorallocate($image_west, 219,223,224);
+//        // установка шрифта
         $font_date = 'font\ARIALBD.TTF';
         $font_time = 'font\BigNoodleTitlingCyr.ttf';
         $font_text = 'font\Arciform Sans cyr-lat Regular.otf';
 
     
         // заполнение таблицы ЗАПАД
-        for($i=0; $i<=12; $i++){
-            
-            
-            
-            
+        $stap_y=220; // переменная для шага по вертикали
+        foreach($this->all_data['table_west'] as $val){
+            // эмблема клуба
+                $puth_logo = 'images\module1\logo\\'.$val['id_team'].'.png';
+                $logo_team = imagecreatefrompng($puth_logo);
+                imagecopyresized($image_west, $logo_team, 155, ($stap_y - 35), 0, 0,40, 40, 40,40);
+            // название клуба
+                imagettftext($image_west, 18, 0, 225, $stap_y, $color_text , $font_text, $val['name']);
+            // игр
+                imagettftext($image_west, 18, 0, 505, $stap_y, $color_text , $font_text, $val['games']);
+            // игр выиграли
+                imagettftext($image_west, 18, 0, 595, $stap_y, $color_text , $font_text, $val['clear_wins']);
+            // игр выиграли в ОТ
+                imagettftext($image_west, 18, 0, 687, $stap_y, $color_text , $font_text, $val['ot_wins']);
+            // игр выиграли по Б
+                imagettftext($image_west, 18, 0, 775, $stap_y, $color_text , $font_text, $val['b_wins']);
+            // игр проиграли
+                imagettftext($image_west, 18, 0, 863, $stap_y, $color_text , $font_text, $val['clear_defeat']);
+            // игр выиграли в ОТ
+                imagettftext($image_west, 18, 0, 951, $stap_y, $color_text , $font_text, $val['ot_defeat']);
+            // игр выиграли по Б
+                imagettftext($image_west, 18, 0, 1035, $stap_y, $color_text , $font_text, $val['b_defeat']);
+            // шайбы  (заброшено-пропущено)
+                imagettftext($image_west, 18, 0, 1140, $stap_y, $color_text , $font_text, $val['throw_puck'].'-'.$val['miss_puck']);
+            // шайб пропущено
+                //imagettftext($image_west, 18, 0, 775, $stap_y, $color_text , $font_text, $val['miss_puck']);
+            // очков
+                imagettftext($image_west, 18, 0, 1272, $stap_y, $color_text , $font_text, $val['scores']);
+            // проценты %
+                imagettftext($image_west, 18, 0, 1357, $stap_y, $color_text , $font_text, $val['percent_scr']);
+            $stap_y=$stap_y+61;
         }
-        
-        // заполнение таблицы ВОСТОК 
-        
-        
-        
-        
-//        // вывод надписи
-//        imagettftext($image, $data_poster[$fontSizeTeams], 0, $data_poster[$xPosTeams], $data_poster[$yPosTeams], $color_text , $font_text, $teams);
-//        // логотипа команды 1
-//        $path_logo_temp_1 = $logo[$data_poster[$teamFirst]];
-//        $logo_team_1 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_1);
-//        // логотипа команды 2
-//        $path_logo_temp_2 = $logo[$data_poster[$teamSecond]];
-//        $logo_team_2 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_2);
-//        // Копирование и наложение логотипов команд
-//        imagecopyresized($image, $logo_team_1,$data_poster[$xPosLogo1], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60);
-//        imagecopyresized($image, $logo_team_2,$data_poster[$xPosLogo2], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60); 
-    
-    
-        
-        // сохранение файла
-        $name_new_file = 'images\module2\new\gameDay_'.iconv("UTF-8", "Windows-1251//TRANSLIT",$date_matches).'.png';
-        $name_new_file2 = 'images\module2\new\gameDay_'.$date_matches.'.png';
-        imagepng($image,$name_new_file,9);
-            // сохранение сформированных постеров
+            
+            
+        // заполнение таблицы ВОСТОК
+        $stap_y=220;
+        foreach($this->all_data['table_east'] as $val){
+            // эмблема клуба
+                $puth_logo = 'images\module1\logo\\'.$val['id_team'].'.png';
+                $logo_team = imagecreatefrompng($puth_logo);
+                imagecopyresized($image_east, $logo_team, 155, ($stap_y - 35), 0, 0,40, 40, 40,40);
+             // название клуба
+                imagettftext($image_east, 18, 0, 225, $stap_y, $color_text , $font_text, $val['name']);
+            // игр
+                imagettftext($image_east, 18, 0, 505, $stap_y, $color_text , $font_text, $val['games']);
+            // игр выиграли
+                imagettftext($image_east, 18, 0, 595, $stap_y, $color_text , $font_text, $val['clear_wins']);
+            // игр выиграли в ОТ
+                imagettftext($image_east, 18, 0, 687, $stap_y, $color_text , $font_text, $val['ot_wins']);
+            // игр выиграли по Б
+                imagettftext($image_east, 18, 0, 775, $stap_y, $color_text , $font_text, $val['b_wins']);
+            // игр проиграли
+                imagettftext($image_east, 18, 0, 863, $stap_y, $color_text , $font_text, $val['clear_defeat']);
+            // игр выиграли в ОТ
+                imagettftext($image_east, 18, 0, 951, $stap_y, $color_text , $font_text, $val['ot_defeat']);
+            // игр выиграли по Б
+                imagettftext($image_east, 18, 0, 1035, $stap_y, $color_text , $font_text, $val['b_defeat']);
+            // шайбы  (заброшено-пропущено)
+                imagettftext($image_east, 18, 0, 1140, $stap_y, $color_text , $font_text, $val['throw_puck'].'-'.$val['miss_puck']);
+            // шайб пропущено
+                //imagettftext($image_west, 18, 0, 775, $stap_y, $color_text , $font_text, $val['miss_puck']);
+            // очков
+                imagettftext($image_east, 18, 0, 1272, $stap_y, $color_text , $font_text, $val['scores']);
+            // проценты %
+                imagettftext($image_east, 18, 0, 1357, $stap_y, $color_text , $font_text, $val['percent_scr']);
+            $stap_y=$stap_y+61;
+        }
+            
+        // сохранение файлов
+        imagepng($image_west,'images\module1\new\table_west_khl.png',9);
+        imagepng($image_east,'images\module1\new\table_east_khl.png',9);
 
-            // ссылка на сформированные постреы 
     }
     
     
