@@ -9,6 +9,8 @@ $this->title = 'Формирование постера матча';
 
 // подключение файла с данными для выпадающих списков 
 include(Yii::getAlias('@app/web/my_config/module5.php'));
+// подключение файла с функцией printArray() 
+include(Yii::getAlias('@app/web/my_config/module1.php'));
 ?>
 
 
@@ -51,7 +53,16 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
 <br><br>
     <div id="img-template">
        
-    </div> 
+    </div>
+    
+     
+    <?/*отображение данных*/?>
+    <?php if($data_request != NULL):?>
+        <h4><code>Парсинг завершен</code></h4>
+        <?php echo printArray($data_request);/**/?>
+        <?php echo '<pre>'.printArray($all_data).'</pre>';/**/?>
+    <?php endif;?>  
+        
      
 
 <canvas id='canva' width='800' height='800'> </canvas> 
@@ -112,14 +123,14 @@ include(Yii::getAlias('@app/web/my_config/module5.php'));
     }
 
 
-    drawLine(contCanvas, 100, 100, 145, 167);
-    drawArc(contCanvas, 200, 200, 50, rad(0), rad(210));
-    drawPieSlice(contCanvas, 200, 200, 50, rad(210), rad(250),'#ff0000' );
+//    drawLine(contCanvas, 100, 100, 145, 167);
+//    drawArc(contCanvas, 200, 200, 50, rad(0), rad(210));
+//    drawPieSlice(contCanvas, 200, 200, 50, rad(210), rad(250),'#ff0000' );
 
     // рисование круговой диаграммы с двумя значениями
-    drawPieSlice(contCanvas, 300, 300, 150, rad(270), rad(150),'#ff0000' );
-    drawPieSlice(contCanvas, 300, 300, 150, rad(150), rad(270),'#00ff00' );
-    drawPieSlice(contCanvas, 300, 300, 100, rad(0), rad(380),'#ffffff' );
+//    drawPieSlice(contCanvas, 300, 300, 150, rad(270), rad(150),'#ff0000' );
+//    drawPieSlice(contCanvas, 300, 300, 150, rad(150), rad(270),'#00ff00' );
+//    drawPieSlice(contCanvas, 300, 300, 100, rad(0), rad(380),'#ffffff' );
     
     
     // // рисование показателей побед/поражений
@@ -180,22 +191,6 @@ alert(div);
 
 // document.write
 </script>
-<pre>
-    <?= print_r($data_request)?>
-</pre>
-
-<pre>
-    <?= $id_team1?>
-</pre>
-
-<pre>
-    <?= 'bbb'.print_r($all_data)?>
-</pre>
-
-<pre>
-    <?= $all_data?>
-</pre>
-
 
 
 

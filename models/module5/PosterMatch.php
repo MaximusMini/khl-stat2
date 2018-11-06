@@ -9,8 +9,18 @@ use yii\base\Model;
 class PosterMatch extends Model
 {
     
+    public $id_connect_DB;        // дескриптор подключения к БД
+    
     public $id_team1;
     public $id_team2;
+    
+    public $all_data=[];// массив для сбора всех параметров
+    
+    public $dateMatch;              // дата матча
+    public $timeMatch;              // время матча
+    public $arena;                  // арена
+    public $city;                   // город
+    // _______-----------------------------------
     public $logo1;                 // ссылка на логотип команды
     public $logo2;                 // ссылка на логотип команды
     // победы -----------------------------------
@@ -67,77 +77,32 @@ class PosterMatch extends Model
 
     public $rad;    // радианы
 
-    // перемнные - функции для рисования --------------------
+    // переменные - функции для рисования --------------------
     public $wins_defeats;    // рисование показателей побед/поражений
 
 
 
+     public function __construct($data_request)
+    {
+        // установка id команд при создании экземпляра класса
+        $this->all_data['id_team1']=$data_request['team1'];
+        $this->all_data['id_team2']=$data_request['team2'];
+        // дата матча 
+        $this->all_data['dateMatch']=$data_request['dateMatch'];
+        // время матча
+        $this->all_data['timeMatch']=$data_request['timeMatch'];
+        // арена
+        $this->all_data['arena']=$data_request['arena'];
+        // город
+        $this->all_data['city']=$data_request['city'];                
+        // создание подключения к БД
+        $this->id_connect_DB = Yii::$app->db_khl_stat_2018;
+    }
+    
 
     // получения данных из БД
-    function get_value($id_team1, $id_team2){
-        // установка соединения с БД
-        $db = Yii::$app->db_preview;
-        //*******************************
-        // id команд 
-        $this->id_team1 = $id_team1;
-        $this->id_team2 = $id_team2;
-        // получение ссылки на логотипы
-        $this->logo1 = '_'.$id_team1.'png';
-        $this->logo2 = '_'.$id_team2.'png';
-        // определение количества побед команды в сезоне - table_conf(clear_wins + ot_wins + b_wins)
-        $this->clear_wins1=$db->createCommand('SELECT clear_wins FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['clear_wins'];
-        $this->ot_wins1=$db->createCommand('SELECT ot_wins FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['ot_wins'];
-        $this->b_wins1=$db->createCommand('SELECT b_wins FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['b_wins'];
-        $this->wins1=$this->clear_wins1+$this->ot_wins1+$this->b_wins1;
-        //----------------------------------------------------------
-        $this->clear_wins2=$db->createCommand('SELECT clear_wins FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['clear_wins'];
-        $this->ot_wins2=$db->createCommand('SELECT ot_wins FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['ot_wins'];
-        $this->b_wins2=$db->createCommand('SELECT b_wins FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['b_wins'];
-        $this->wins2=$this->clear_wins2+$this->ot_wins2+$this->b_wins2;
-        // определение количества поражений команды в сезоне - table_conf(clear_defeat + ot_defeat + b_defeat)
-        $this->clear_defeat1=$db->createCommand('SELECT clear_defeat FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['clear_defeat'];
-        $this->ot_defeat1=$db->createCommand('SELECT ot_defeat FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['ot_defeat'];
-        $this->b_defeat1=$db->createCommand('SELECT b_defeat FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['b_defeat'];
-        $this->defeats1=$this->clear_defeat1+$this->ot_defeat1+$this->b_defeat1;
-        //----------------------------------------------------------
-        $this->clear_defeat2=$db->createCommand('SELECT clear_defeat FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['clear_defeat'];
-        $this->ot_defeat2=$db->createCommand('SELECT ot_defeat FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['ot_defeat'];
-        $this->b_defeat2=$db->createCommand('SELECT b_defeat FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['b_defeat'];
-        $this->defeats2=$this->clear_defeat2+$this->ot_defeat2+$this->b_defeat2;
-        // место команды в турнирной таблице конфиренции - table_conf(place)[0]['b_defeat']
-        $this->place1=$db->createCommand('SELECT place FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['place'];
-        $this->place2=$db->createCommand('SELECT place FROM table_conf WHERE id_team='.$id_team2)->queryAll()[0]['place'];
-        // количество сыгранных игр - table_conf(games)
-        $this->games1=$db->createCommand('SELECT games FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['games'];
-        $this->games2=$db->createCommand('SELECT games FROM table_conf WHERE id_team='.$id_team1)->queryAll()[0]['games'];
-        // количество совершенных командой бросков - stat_throw(total_throw)
-        $this->throw1=$db->createCommand('SELECT total_throw FROM stat_throw WHERE id_team='.$id_team1)->queryAll()[0]['total_throw'];
-        $this->throw2=$db->createCommand('SELECT total_throw FROM stat_throw WHERE id_team='.$id_team2)->queryAll()[0]['total_throw'];
-        // количество заброшенных командой шайб - stat_puck(throw_puck)
-        $this->puck1=$db->createCommand('SELECT throw_puck FROM stat_puck WHERE id_team='.$id_team1)->queryAll()[0]['throw_puck'];
-        $this->puck2=$db->createCommand('SELECT throw_puck FROM stat_puck WHERE id_team='.$id_team2)->queryAll()[0]['throw_puck'];
-        // процент реализации бросков командой
-        $this->perc_puck1= round(($this->puck1 / $this->throw1) * 100,1);
-        $this->perc_puck2= round(($this->puck2 / $this->throw2) * 100,1);
-        // количество пропущенных шайб командой - stat_allow_puck(allow_puck)
-        $this->allow_puck1=$db->createCommand('SELECT allow_puck FROM stat_allow_puck WHERE id_team='.$id_team1)->queryAll()[0]['allow_puck'];
-        $this->allow_puck2=$db->createCommand('SELECT allow_puck FROM stat_allow_puck WHERE id_team='.$id_team2)->queryAll()[0]['allow_puck'];
-        // реализация большинства - stat_pow_play_pow_kill(total_power_play, goals_power_play, perc_power_play)
-        $this->total_pp1=$db->createCommand('SELECT total_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['total_power_play'];
-        $this->goals_pp1=$db->createCommand('SELECT goals_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['goals_power_play'];
-        $this->perc_pp1= $db->createCommand('SELECT perc_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['perc_power_play'];
-        //----------------------------------------------------------
-        $this->total_pp2=$db->createCommand('SELECT total_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['total_power_play'];
-        $this->goals_pp2=$db->createCommand('SELECT goals_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['goals_power_play'];
-        $this->perc_pp2= $db->createCommand('SELECT perc_power_play FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['perc_power_play'];
-        // игра в меньшинстве - stat_pow_play_pow_kill(total_power_kill, goals_against_power_kill, perc_power_kill)
-        $this->total_pk1=$db->createCommand('SELECT total_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['total_power_kill'];
-        $this->goals_pk1=$db->createCommand('SELECT goals_against_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['goals_against_power_kill'];
-        $this->perc_pk1= $db->createCommand('SELECT perc_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team1)->queryAll()[0]['perc_power_kill'];
-        //----------------------------------------------------------
-        $this->total_pk2=$db->createCommand('SELECT total_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['total_power_kill'];
-        $this->goals_pk2=$db->createCommand('SELECT goals_against_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['goals_against_power_kill'];
-        $this->perc_pk2= $db->createCommand('SELECT perc_power_kill FROM stat_pow_play_pow_kill WHERE id_team='.$id_team2)->queryAll()[0]['perc_power_kill'];
+    function get_value(){
+       
     }
     
 
