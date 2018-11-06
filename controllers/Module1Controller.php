@@ -106,7 +106,7 @@ class Module1Controller extends Controller
         $poster = new ParserKhlTable_18_19();
         //$poster->poster_table();
         return $this->render('parser-khl-table_18_19',[
-                                                                                
+                            'poster'=>true,                                                                        
         ]);
     }
     

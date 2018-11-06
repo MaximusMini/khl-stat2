@@ -13,6 +13,8 @@ class ParserKhlTable_18_19 extends Model
     public $id_connect_DB;      // дескриптор подключения к БД
     public $all_data=[];        // массив для сбора всех параметров
     
+    public $table_east=[];
+    
     public $arr_team = ["1"=>"Авангард","2"=>"Автомобилист","3"=>"Адмирал","4"=>"Ак Барс","5"=>"Амур","6"=>"Барыс","7"=>"Витязь","8"=>"Динамо М","9"=>"Динамо Мн","10"=>"Динамо Р","11"=>"Йокерит","12"=>"Куньлунь Ред Стар","13"=>"Локомотив","14"=>"Металлург Мг","15"=>"Нефтехимик","16"=>"Салават Юлаев", "17"=>"Северсталь", "18"=>"Сибирь", "19"=>"СКА","20"=>"Слован", "21"=>"Спартак","22"=>"Торпедо", "23"=>"Трактор", "24"=>"ХК Сочи", "25"=>"ЦСКА"];
     
     
@@ -138,65 +140,65 @@ class ParserKhlTable_18_19 extends Model
     
         $arr_west = $this->name_team($t_west,'west');
         $arr_east = $this->name_team($t_east,'east');
-        
-   
-        
+ 
     }
     
     // формирование постера
     function poster_table(){
         // получение данных из БД
-        $this->view_table();
+        //$this->view_table();
+        
+        $this->table_west =
+        
+        
         // вывод данных на шаблон
         // загрузка изображения - шаблона
     
         $image = imagecreatefrompng('images\module2\template_gameday\game_day_'.$data_poster['amount'].'.png');
-    // установка цвета
-    $color_date = imagecolorallocate($image, 196,199,200);
-    $color_time = imagecolorallocate($image, 112,214,243);
-    $color_text = imagecolorallocate($image, 219,223,224);
-    // установка шрифта
-    $font_date = 'font\ARIALBD.TTF';
-    $font_time = 'font\BigNoodleTitlingCyr.ttf';
-    $font_text = 'font\Arciform Sans cyr-lat Regular.otf';
+        // установка цвета
+        $color_date = imagecolorallocate($image, 196,199,200);
+        $color_time = imagecolorallocate($image, 112,214,243);
+        $color_text = imagecolorallocate($image, 219,223,224);
+        // установка шрифта
+        $font_date = 'font\ARIALBD.TTF';
+        $font_time = 'font\BigNoodleTitlingCyr.ttf';
+        $font_text = 'font\Arciform Sans cyr-lat Regular.otf';
 
-    // заполнение данными матчей
-    $c_m = $data_poster['amount'];// количество матчей
-    for($i=1; $i<=$c_m; $i++){
-        // формирование имен ключей
-        $timeM = 'time_'.$i;// название ключа массива времени матча
-        $teamFirst = 'team1_'.$i;               // имя первой команды
-        $teamSecond = 'team2_'.$i;              // имя второй команды
-        $xPosTeams = 'xPosTeam1_'.$i;           // начальная позиция по X надписи команд
-        $yPosTeams = 'yPosTeam1_'.$i;           // позиция по Y надписи команд
-        $xPosLogo1 = 'xPosLogo1_'.$i;           // позиция по X логотипа команды 1
-        $xPosLogo2 = 'xPosLogo2_'.$i;           // позиция по X логотипа команды 2
-        $yPosLogos = 'yPosLogo1_'.$i;           // позиция по Y логотипов команд
-        $fontSizeTeams = 'fontSizeTeams_'.$i;   // размер шрифта в названии команд
-        //время
-        imagettftext($image, $time_matches[$i-1]['font_time'], 0, $time_matches[$i-1]['x_pos_time'], $time_matches[$i-1]['y_pos_time'], $color_time , $font_time, $data_poster[$timeM]);
-        // формирование общей строки с именами команды + верхний регистр
-        $teams = $data_poster[$teamFirst].' - '.$data_poster[$teamSecond];
-            //$teams = mb_strtoupper($data_poster[$teamFirst].' - '.$data_poster[$teamSecond]);
-        // вывод надписи
-        imagettftext($image, $data_poster[$fontSizeTeams], 0, $data_poster[$xPosTeams], $data_poster[$yPosTeams], $color_text , $font_text, $teams);
-        // логотипа команды 1
-        $path_logo_temp_1 = $logo[$data_poster[$teamFirst]];
-        $logo_team_1 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_1);
-        // логотипа команды 2
-        $path_logo_temp_2 = $logo[$data_poster[$teamSecond]];
-        $logo_team_2 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_2);
-        // Копирование и наложение логотипов команд
-        imagecopyresized($image, $logo_team_1,$data_poster[$xPosLogo1], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60);
-        imagecopyresized($image, $logo_team_2,$data_poster[$xPosLogo2], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60); 
-    }
-    // сохранение файла
-    $name_new_file = 'images\module2\new\gameDay_'.iconv("UTF-8", "Windows-1251//TRANSLIT",$date_matches).'.png';
-    $name_new_file2 = 'images\module2\new\gameDay_'.$date_matches.'.png';
-    imagepng($image,$name_new_file,9);
-        // сохранение сформированных постеров
+    
+        // заполнение таблицы ЗАПАД
+        for($i=0; $i<=12; $i++){
+            
+            
+            
+            
+        }
         
-        // ссылка на сформированные постреы 
+        // заполнение таблицы ВОСТОК 
+        
+        
+        
+        
+//        // вывод надписи
+//        imagettftext($image, $data_poster[$fontSizeTeams], 0, $data_poster[$xPosTeams], $data_poster[$yPosTeams], $color_text , $font_text, $teams);
+//        // логотипа команды 1
+//        $path_logo_temp_1 = $logo[$data_poster[$teamFirst]];
+//        $logo_team_1 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_1);
+//        // логотипа команды 2
+//        $path_logo_temp_2 = $logo[$data_poster[$teamSecond]];
+//        $logo_team_2 = imagecreatefrompng('images\module2\logo\\'.$path_logo_temp_2);
+//        // Копирование и наложение логотипов команд
+//        imagecopyresized($image, $logo_team_1,$data_poster[$xPosLogo1], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60);
+//        imagecopyresized($image, $logo_team_2,$data_poster[$xPosLogo2], $data_poster[$yPosLogos], 0, 0,60, 60, 60,60); 
+    
+    
+        
+        // сохранение файла
+        $name_new_file = 'images\module2\new\gameDay_'.iconv("UTF-8", "Windows-1251//TRANSLIT",$date_matches).'.png';
+        $name_new_file2 = 'images\module2\new\gameDay_'.$date_matches.'.png';
+        imagepng($image,$name_new_file,9);
+            // сохранение сформированных постеров
+
+            // ссылка на сформированные постреы 
     }
     
     

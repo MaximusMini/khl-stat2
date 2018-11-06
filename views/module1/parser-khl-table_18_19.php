@@ -136,6 +136,12 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
         <h4><code>Парсинг завершен</code></h4>
     <?php endif;?>
     
+    
+<?/*формирование постера*/?>
+    <?php if($poster != NULL):?>
+        <h4><code>Формирование постера</code></h4>
+    <?php endif;?>
+    
 
 
 
