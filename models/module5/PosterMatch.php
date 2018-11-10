@@ -129,16 +129,47 @@ class PosterMatch extends Model
         // Процент набранных очков
         $query_1='SELECT percent_scr FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
         $query_2='SELECT percent_scr FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
-        $this->all_data['percent_scr_1']=$this->id_connect_DB->createCommand($query_1)->queryScalar();
-        $this->all_data['percent_scr_2']=$this->id_connect_DB->createCommand($query_2)->queryScalar();
+        $this->all_data['percent_scr_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['percent_scr'];
+        $this->all_data['percent_scr_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['percent_scr'];
         // Количество заброшенных шайб
         $query_1='SELECT throw_puck  FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
         $query_2='SELECT throw_puck  FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
-        $this->all_data['throw_puck _1']=$this->id_connect_DB->createCommand($query_1)->queryScalar();
-        $this->all_data['throw_puck _2']=$this->id_connect_DB->createCommand($query_2)->queryScalar();
-        // Количество проведенных бросков
+        $this->all_data['throw_puck_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['throw_puck'];
+        $this->all_data['throw_puck_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['throw_puck'];
+        // Количество проведенных бросков ВСЕГО
+        $query_1='SELECT total_throw FROM stat_throw WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT total_throw  FROM stat_throw WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['total_throw_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_throw'];
+        $this->all_data['total_throw_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_throw'];
+         // Количество проведенных бросков В СРЕДНЕМ ЗА МАЧТ
+        $query_1='SELECT total_throw_average  FROM stat_throw WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT total_throw_average  FROM stat_throw WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['total_throw_average_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_throw_average'];
+        $this->all_data['total_throw_average_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_throw_average'];
+        //Процент реализации бросков
+        $query_1='SELECT total_throw_average  FROM stat_trow_percent WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT total_throw_average  FROM stat_trow_percent WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['throw_perc_total_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_throw_average'];
+        $this->all_data['throw_perc_total_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_throw_average'];
+        //Количество полученного большинства     
+        $query_1='SELECT total_power_play  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT total_power_play  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['total_power_play_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_power_play'];
+        $this->all_data['total_power_play_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_power_play'];  
+        //Процент реализации большинства     
+        $query_1='SELECT perc_power_play  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT perc_power_play  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['perc_power_play_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['perc_power_play'];
+        $this->all_data['perc_power_play_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['perc_power_play'];
+        // Количество численных преимуществ полученных соперником
         
         
+        
+        
+        //stat_pow_play_pow_kill
+                //total_power_kill
+        
+
         
         /*
         <li>Количестов побед (все)</li>
