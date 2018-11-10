@@ -126,7 +126,17 @@ class PosterMatch extends Model
         $query_2='SELECT clear_defeat+ot_defeat+b_defeat FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
         $this->all_data['defeats_1']=$this->id_connect_DB->createCommand($query_1)->queryScalar();
         $this->all_data['defeats_2']=$this->id_connect_DB->createCommand($query_2)->queryScalar();
-        // 
+        // Процент набранных очков
+        $query_1='SELECT percent_scr FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT percent_scr FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['percent_scr_1']=$this->id_connect_DB->createCommand($query_1)->queryScalar();
+        $this->all_data['percent_scr_2']=$this->id_connect_DB->createCommand($query_2)->queryScalar();
+        // Количество заброшенных шайб
+        $query_1='SELECT throw_puck  FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT throw_puck  FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['throw_puck _1']=$this->id_connect_DB->createCommand($query_1)->queryScalar();
+        $this->all_data['throw_puck _2']=$this->id_connect_DB->createCommand($query_2)->queryScalar();
+        // Количество проведенных бросков
         
         
         
@@ -156,13 +166,10 @@ class PosterMatch extends Model
     function position(){
         /*
         все данные заносим в массив
-
-        all_data['position_1'][0]['place']['team']['scores']
-        all_data['position_1'][1]['place']['team']['scores']
-        all_data['position_1'][2]['place']['team']['scores']
-        
+            all_data['position_1'][0]['place']['team']['scores']
+            all_data['position_1'][1]['place']['team']['scores']
+            all_data['position_1'][2]['place']['team']['scores']
         */
-        
         // если первая команда занимает первое место
         if($this->all_data['place_team_1'] == 1){
             for($i=0; $i<=2; $i++){
@@ -183,8 +190,62 @@ class PosterMatch extends Model
                 $this->all_data['position_2'][$i]['team']=$this->id_connect_DB->createCommand('SELECT name FROM table_conf WHERE place='.($i+1).' AND conf="'.$this->all_data['conf_2'].'"')->queryAll()[0]['name'];
                 // набранные очки
                 $this->all_data['position_2'][$i]['scores']=$this->id_connect_DB->createCommand('SELECT scores FROM table_conf WHERE place='.($i+1).' AND conf="'.$this->all_data['conf_2'].'"')->queryAll()[0]['scores'];    
-            }   
+            }
         }
+        // если команда 1 последняя
+        if( ($this->all_data['place_team_1'] == 13 && $this->all_data['conf_1']== 'east') || ($this->all_data['place_team_1'] == 12 && $this->all_data['conf_1']== 'west') ){
+            if($this->all_data['conf_1']== 'east'){$num_place=13;}else{$num_place=12;}
+            for($i=0; $i<=2; $i++){
+                // место
+                $this->all_data['position_1'][$i]['place']=$i+($num_place-2);
+                // имя команды
+                $this->all_data['position_1'][$i]['team']=$this->id_connect_DB->createCommand('SELECT name FROM table_conf WHERE place='.($i+($num_place-2)).' AND conf="'.$this->all_data['conf_1'].'"')->queryAll()[0]['name'];
+                // набранные очки
+                $this->all_data['position_1'][$i]['scores']=$this->id_connect_DB->createCommand('SELECT scores FROM table_conf WHERE place='.($i+($num_place-2)).' AND conf="'.$this->all_data['conf_1'].'"')->queryAll()[0]['scores'];     
+            }
+            
+        }
+        // если команда 2 последняя
+        if( ($this->all_data['place_team_2'] == 13 && $this->all_data['conf_2']== 'east') || ($this->all_data['place_team_2'] == 12 && $this->all_data['conf_2']== 'west')   ){
+            if($this->all_data['conf_2']== 'east'){$num_place=13;}else{$num_place=12;}
+            for($i=0; $i<=2; $i++){
+                // место
+                $this->all_data['position_2'][$i]['place']=$i+($num_place-2);
+                // имя команды
+                $this->all_data['position_2'][$i]['team']=$this->id_connect_DB->createCommand('SELECT name FROM table_conf WHERE place='.($i+($num_place-2)).' AND conf="'.$this->all_data['conf_2'].'"')->queryAll()[0]['name'];
+                // набранные очки
+                $this->all_data['position_2'][$i]['scores']=$this->id_connect_DB->createCommand('SELECT scores FROM table_conf WHERE place='.($i+($num_place-2)).' AND conf="'.$this->all_data['conf_2'].'"')->queryAll()[0]['scores'];     
+            }    
+        }
+        
+        // если команда 1 не первая и не последняя в конференции
+        if( ($this->all_data['place_team_1'] > 1 || $this->all_data['place_team_1'] > 13 && $this->all_data['conf_1']== 'east') || ($this->all_data['place_team_1'] > 1 && $this->all_data['place_team_1'] > 12 && $this->all_data['conf_1']== 'west') ){
+            for($i=0; $i<=2; $i++){
+             // место
+                $this->all_data['position_1'][$i]['place']=$i+($this->all_data['place_team_1']-1);
+                // имя команды
+                $this->all_data['position_1'][$i]['team']=$this->id_connect_DB->createCommand('SELECT name FROM table_conf WHERE place='.($i+($this->all_data['place_team_1']-1)).' AND conf="'.$this->all_data['conf_1'].'"')->queryAll()[0]['name'];
+                // набранные очки
+                $this->all_data['position_1'][$i]['scores']=$this->id_connect_DB->createCommand('SELECT scores FROM table_conf WHERE place='.($i+($this->all_data['place_team_1']-1)).' AND conf="'.$this->all_data['conf_1'].'"')->queryAll()[0]['scores'];    
+            }    
+        }
+         // если команда 2 не первая и не последняя в конференции
+        if( ($this->all_data['place_team_2'] > 1 || $this->all_data['place_team_2'] > 13 && $this->all_data['conf_2']== 'east') || ($this->all_data['place_team_2'] > 1 && $this->all_data['place_team_2'] > 12 && $this->all_data['conf_2']== 'west') ){
+            for($i=0; $i<=2; $i++){
+             // место
+                $this->all_data['position_2'][$i]['place']=$i+($this->all_data['place_team_2']-1);
+                // имя команды
+                $this->all_data['position_2'][$i]['team']=$this->id_connect_DB->createCommand('SELECT name FROM table_conf WHERE place='.($i+($this->all_data['place_team_2']-1)).' AND conf="'.$this->all_data['conf_2'].'"')->queryAll()[0]['name'];
+                // набранные очки
+                $this->all_data['position_2'][$i]['scores']=$this->id_connect_DB->createCommand('SELECT scores FROM table_conf WHERE place='.($i+($this->all_data['place_team_2']-1)).' AND conf="'.$this->all_data['conf_2'].'"')->queryAll()[0]['scores'];    
+            }    
+        }
+        
+        
+        
+        
+        
+        
 //        
         
     }
