@@ -108,14 +108,18 @@ class PosterMatch extends Model
         $this->all_data['conf_2']=$this->id_connect_DB->createCommand('SELECT conf FROM table_conf WHERE id_team='.$this->all_data['id_team2'])->queryAll()[0]['conf'];
          
          
-         $this->get_value();
-         $this->position();
+         $this->get_value();    // получения данных из БД
+         $this->position();     // определение положения команд в турнирной таблице
          
     }
     
-
     // получения данных из БД
     function get_value(){
+        // количество проведенных игр
+        $query_1='SELECT games FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT games FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['games_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['games'];
+        $this->all_data['games_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['games'];
         //Количестов побед
         $query_1='SELECT clear_wins + ot_wins + b_wins FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
         $query_2='SELECT clear_wins + ot_wins + b_wins FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
@@ -126,6 +130,18 @@ class PosterMatch extends Model
         $query_2='SELECT clear_defeat+ot_defeat+b_defeat FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
         $this->all_data['defeats_1']=$this->id_connect_DB->createCommand($query_1)->queryScalar();
         $this->all_data['defeats_2']=$this->id_connect_DB->createCommand($query_2)->queryScalar();
+        // соотношенрие побед/поражений
+            /* 1.расчитывается процент побед от общего количества проведенных игр */ 
+            /* 2.процент поражений = 100% - процент побед */
+        $this->all_data['perc_wins_1']=round(($this->all_data['wins_1']/$this->all_data['games_1'])*100);
+        $this->all_data['perc_defeats_1']=100-$this->all_data['perc_wins_1'];
+        $this->all_data['perc_wins_2']=round(($this->all_data['wins_2']/$this->all_data['games_2'])*100);
+        $this->all_data['perc_defeats_2']=100-$this->all_data['perc_wins_2'];
+            // пересчет в градусы для рисования круговой диаграммы
+            $this->all_data['grade_wins_1']=round($this->all_data['perc_wins_1']*3,6);
+            $this->all_data['grade_defeats_1']=360-$this->all_data['grade_wins_1'];
+        
+        
         // Процент набранных очков
         $query_1='SELECT percent_scr FROM table_conf WHERE id_team='.$this->all_data['id_team1'];
         $query_2='SELECT percent_scr FROM table_conf WHERE id_team='.$this->all_data['id_team2'];
@@ -147,10 +163,10 @@ class PosterMatch extends Model
         $this->all_data['total_throw_average_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_throw_average'];
         $this->all_data['total_throw_average_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_throw_average'];
         //Процент реализации бросков
-        $query_1='SELECT total_throw_average  FROM stat_trow_percent WHERE id_team='.$this->all_data['id_team1'];
-        $query_2='SELECT total_throw_average  FROM stat_trow_percent WHERE id_team='.$this->all_data['id_team2'];
-        $this->all_data['throw_perc_total_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_throw_average'];
-        $this->all_data['throw_perc_total_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_throw_average'];
+        $query_1='SELECT throw_perc_total  FROM stat_trow_percent WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT throw_perc_total  FROM stat_trow_percent WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['throw_perc_total_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['throw_perc_total'];
+        $this->all_data['throw_perc_total_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['throw_perc_total'];
         //Количество полученного большинства     
         $query_1='SELECT total_power_play  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team1'];
         $query_2='SELECT total_power_play  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team2'];
@@ -162,12 +178,16 @@ class PosterMatch extends Model
         $this->all_data['perc_power_play_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['perc_power_play'];
         $this->all_data['perc_power_play_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['perc_power_play'];
         // Количество численных преимуществ полученных соперником
-        
-        
-        
-        
-        //stat_pow_play_pow_kill
-                //total_power_kill
+        $query_1='SELECT total_power_kill  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT total_power_kill  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['total_power_kill_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['total_power_kill'];
+        $this->all_data['total_power_kill_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['total_power_kill'];
+        // Процент нереализованных численных преимуществ соперников
+        $query_1='SELECT perc_power_kill  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team1'];
+        $query_2='SELECT perc_power_kill  FROM stat_pow_play_pow_kill WHERE id_team='.$this->all_data['id_team2'];
+        $this->all_data['perc_power_kill_1']=$this->id_connect_DB->createCommand($query_1)->queryAll()[0]['perc_power_kill'];
+        $this->all_data['perc_power_kill_2']=$this->id_connect_DB->createCommand($query_2)->queryAll()[0]['perc_power_kill'];
+        // Силовые приемы
         
 
         
@@ -190,9 +210,6 @@ class PosterMatch extends Model
         <li>Количество вбрасываний</li>
        */
     }
-    
-    
-    
     // определение положения команд в турнирной таблице
     function position(){
         /*
@@ -280,6 +297,17 @@ class PosterMatch extends Model
 //        
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     // формирование кода JavaScript

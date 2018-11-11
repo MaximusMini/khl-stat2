@@ -23,8 +23,7 @@ class Module5Controller extends Controller
         
         // получение параметров
         $data_request = Yii::$app->request->get();
-        
-        file_put_contents('module5.txt', $data_request, FILE_APPEND);
+        //file_put_contents('module5.txt', $data_request, FILE_APPEND);
         
         $id_team1 = $data_request['team1'];
         $id_team2 = $data_request['team2'];
@@ -32,15 +31,6 @@ class Module5Controller extends Controller
         
         // подключение модели
         $val_team1 = new PosterMatch($data_request);
-        //$mod_poster_match_team2 = new PosterMatch();
-        
-        
-        
-//        $val_team1->get_value($id_team1,$id_team2);
-//        $val_team1->wins_defeats();
-//        $js_code = $val_team1->wins_defeats;
-        
-        
         
         return $this->render('main', [
                                 'data_request' => $data_request, 
@@ -49,6 +39,24 @@ class Module5Controller extends Controller
 //                                'js_code' => $val_team1->wins_defeats,
                             ]);
     }
+    
+    // сохранение сформированного постера
+     public function actionSavePoster()
+     {
+        // формирование имени файла
+        $date='12.11.2018';
+        $name_file = 'poster_'.$date.'.png';
+        // получение параметров
+        if(Yii::$app->request->post()){
+            //file_put_contents('111.png',base64_decode(Yii::$app->request->post('scrImg')));
+            file_put_contents('images\module5\new\\'.$name_file,base64_decode(Yii::$app->request->post('scrImg')));
+            //file_put_contents('111.txt',Yii::$app->request->post('scrImg'));
+            
+        } 
+
+         
+     }
+
     
     
    

@@ -11,6 +11,8 @@ $this->title = 'Формирование постера матча';
 include(Yii::getAlias('@app/web/my_config/module5.php'));
 // подключение файла с функцией printArray() 
 include(Yii::getAlias('@app/web/my_config/module1.php'));
+// подключение JS
+$this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);
 ?>
 
 
@@ -56,6 +58,7 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
        
     </div>
     
+    <button onclick="getDrawPict()">Постер</button>
    
     <div class="row">
         <ul>
@@ -81,69 +84,167 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
            
     <?/*отображение данных*/?>
     <?php if($data_request != NULL):?>
-        <h4><code>Парсинг завершен</code></h4>
         <?php echo printArray($data_request);/**/?>
         <?php echo '<pre>'.printArray($all_data).'</pre>';/**/?>
+        
+        <div>
+             <h4>Холст</h4>
+             <canvas id='example'>Обновите браузер</canvas>    
+        </div>
+       
+        
+    <script>  
+        <?php /* передача переменных из php в js */?>
+        <?php
+//        echo 'var dateMatch = '.$all_data['dateMatch'].';';
+//        echo 'var timeMatch = '.$all_data['timeMatch'].';';
+//        echo 'var dateMatch = '.$all_data['dateMatch'].';';
+//        echo 'var dateMatch = '.$all_data['dateMatch'].';';
+        
+        echo 'var dataPoster={'.
+            'dateMatch:"'.$all_data['dateMatch'].'",'.
+            'timeMatch:"'.$all_data['timeMatch'].'",'.
+            
+            'wins_1:'.$all_data['wins_1'].','.
+            'wins_2:'.$all_data['wins_2'].','.
+            'defeats_1:'.$all_data['defeats_1'].','.
+            'defeats_2:'.$all_data['defeats_2'].','.
+            'perc_wins_1:'.$all_data['perc_wins_1'].','.
+            'perc_defeats_1:'.$all_data['perc_defeats_1'].','.
+            'perc_wins_2:'.$all_data['perc_wins_2'].','.
+            'perc_defeats_2:'.$all_data['perc_defeats_2'].','.
+            'grade_wins_1:'.$all_data['grade_wins_1'].','.
+            'grade_defeats_1:'.$all_data['grade_defeats_1'].','.
+            
+            
+            '};';
+        
+        /*
+        
+[grade_wins_1] => 57
+    [grade_wins_2] => 303
+
+
+    [arena] => Большой
+    [city] => Минск
+    [name_team_1] => Адмирал
+    [name_team_2] => Металлург Мг
+    [place_team_1] => 12
+    [place_team_2] => 5
+    [conf_1] => east
+    [conf_2] => east
+    [wins_1] => 5
+    [wins_2] => 17
+    [defeats_1] => 21
+    [defeats_2] => 10
+    [percent_scr_1] => 25
+    [percent_scr_2] => 64.8
+    [throw_puck_1] => 51
+    [throw_puck_2] => 72
+    [total_throw_1] => 679
+    [total_throw_2] => 890
+    [total_throw_average_1] => 26.12
+    [total_throw_average_2] => 34.23
+    [throw_perc_total_1] => 7.5
+    [throw_perc_total_2] => 7.6
+    [total_power_play_1] => 208
+    [total_power_play_2] => 201
+    [perc_power_play_1] => 20.7
+    [perc_power_play_2] => 16.4
+    [total_power_kill_1] => 218
+    [total_power_kill_2] => 194
+    [perc_power_kill_1] => 80.3
+    [perc_power_kill_2] => 74.2
+        
+        */
+        ?>
+        
+        
+        // основная функция рисования постера
+        function getDrawPict(){
+            // получаем контекст канвы
+            var canvas = document.getElementById("example");
+            ctx     = canvas.getContext('2d'); // Контекст
+            // Создание нового объекта изображения
+            var img = new Image();  
+            img.src = '../../web/images/module5/temp.png';  // загружаем изображение
+            // Событие onLoad, ждём момента пока загрузится изображение 
+            img.onload = function() {    
+                // меняем размеры холста на размеры загруженного изображения
+                canvas.width=img.width;
+                canvas.height=img.height;
+                // вывод изображения на холст от точки с координатами 0, 0
+                ctx.drawImage(img, 0, 0, img.width, img.height);  
+                // рисование линии
+                drawLine(ctx, 10,10, 100, 100);
+                
+                // рисование соотношения побед/поражений
+                <?/*
+                    отдельно нужно расчитать точки для рисования
+                        
+                    
+                    1.рисование начинается с точки rad(270) - верх-середина
+                    
+                    2.сначало рисуется процент поражений
+                        точка до которой она рисуется нужно рассчитать - в градусах
+                        1 процент - 3,6 градусов 
+                        perc_defeats_1
+                    
+                    3.от него рисуется процент побед
+                    
+                    
+                */?>
+                
+                
+                
+                // установка значений процента поражений 
+                ctx .lineWidth = 25;
+                ctx .fillStyle = '#ff0000';
+                ctx .strokeStyle = "#8B0000"; // цвет линии
+                
+                // отрисовка процента поражений команды 1
+                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']));
+               
+                // установка значений процента побед 
+                ctx .lineWidth = 25;
+                ctx .fillStyle = '#ff0000';
+                ctx .strokeStyle = "#008000"; // цвет линии
+                
+                // отрисовка процента поражений команды 1
+                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270));
+                
+                
+                
+                
+                // перевод изображения в base 64
+                var scrImg = canvas.toDataURL('image/png').replace(/data:image\/png;base64,/, '');
+                // вызов функции для сохранения изображения
+                getAjax(scrImg);
+            }//img.onload
+        }//----getDrawPict()
+        // функция сохранения изображения    
+        function getAjax(scrImg){
+            $.ajax({
+                url: "save-poster",
+                data:{scrImg: scrImg},
+                type:"post",
+                success:function(data, textStatus, jqXHR){
+                    //alert('success');
+                },
+                error:function(jqXHR, srtErr, errorThrown){
+                    alert('error: '+srtErr+' errorThrown:'+errorThrown);
+                }    
+            });   
+        }//-----getAjax(scrImg)
+    </script>
+
     <?php endif;?>  
         
-     
 
-<canvas id='canva' width='800' height='800'> </canvas> 
-
- <!-- <img id="img-template" src="./../web/images/module5/temp.png" width="600"> -->
 
 <script>
-    var canvas = document.getElementById("canva");
-        canvas.width = 800;
-        canvas.height = 800;
-    var contCanvas = canvas.getContext("2d");
+   
 
-    // https://code.tutsplus.com/ru/tutorials/how-to-draw-a-pie-chart-and-doughnut-chart-using-javascript-and-html5-canvas--cms-27197
-
-    // функция рисования линии
-    function drawLine(ctx, startX, startY, endX, endY){
-        /*
-        ctx: ссылка на контекст рисунка
-        startX: координата X начальной точки линии
-        startY: координата Y начальной точки линии
-        endX: координата X конечной точки линии
-        endY: координата Y конечной точки линии
-        */
-        ctx.beginPath();
-        ctx.moveTo(startX,startY);
-        ctx.lineTo(endX,endY);
-        ctx.stroke();
-    }
-
-    // рисование дуги
-    function drawArc(ctx, centerX, centerY, radius, startAngle, endAngle){
-        /*
-        centerX: координата X центра окружности
-        centerY: координата Y центра окружности
-        radius: координата X конечной точки линии
-        startAngle: угол начала в радианах, где начинается часть круга
-        endAngle: конечный угол в радианах, где заканчивается часть круга
-        */
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.stroke();
-    }
-
-    // рисование куска пирога
-    function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
-        // color: цвет, используемый для заполнения среза
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.closePath();
-        ctx.fill();
-    }
-
-    // пересчет градусов в радианы
-    var rad = function(grad){
-        return (grad*Math.PI)/180;
-    }
 
 
 //    drawLine(contCanvas, 100, 100, 145, 167);
@@ -170,7 +271,7 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
         
     //     //alert (percDefeatsRadian1);
         
-    //     // победы/поражения команды 1
+    //     // победы/поражения команды 2
     //     var winsTeam2 = 25;
     //     var defeatsTeam2 = 31;
     //     var gamesTeams2 = 56;
@@ -201,18 +302,18 @@ include(Yii::getAlias('@app/web/my_config/module1.php'));
 <!-- rll -->
 <script><?=$js_code?></script>
 <script>
-winsDefeats(200, 200, contCanvas);
-
-var imgTag = document.createElement('img');
-imgTag.id = 'img-template';
-imgTag.setAttribute('src','./../web/images/module5/temp.png');
-imgTag.setAttribute('width','600');
-var div = document.getElementById('img-template');
-// $('div#img-template').append(imgTag);
-document.body.appendChild(imgTag, div);
-alert(div);
-
-// document.write
+//            //winsDefeats(200, 200, contCanvas);
+//
+//            var imgTag = document.createElement('img');
+//            imgTag.id = 'img-template';
+//            imgTag.setAttribute('src','./../web/images/module5/temp.png');
+//            imgTag.setAttribute('width','600');
+//            var div = document.getElementById('img-template');
+//            // $('div#img-template').append(imgTag);
+//            document.body.appendChild(imgTag, div);
+//            alert(div);
+//
+//            // document.write
 </script>
 
 
