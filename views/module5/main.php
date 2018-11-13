@@ -21,7 +21,8 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
 
 <h2>Формирование постера матча</h2>
 
-    <form action="go-poster" method="get">
+    <div class="row">
+        <form action="go-poster" method="get">
         <div class="row">
             <div class="col-lg-2">
                 <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px'>Команда 1</p>
@@ -48,17 +49,33 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                 <select class='team2 form-control' name='city' id='city'> <?=$city_match ?> </select>
             </div>
         </div>
+        <br>
+        <button type="submit" class="btn btn-success">Формировать данные для постера</button>
         <hr>
-        <button type="submit" class="btn btn-success">Формировать постер</button>
     </form>
+    </div>
 
-<br><br>
     
     <div id="img-template">
        
     </div>
     
-    <button onclick="getDrawPict()">Постер</button>
+    <div class="row">
+        <div class="row">
+            <div class="col-lg-2">
+                 <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px'>Цвет команды 1</p>    
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+        </div>
+        <br>
+        <button class='btn btn-primary' onclick="getDrawPict()">Постер</button>
+        <hr>
+    </div>
+    
    
     <div class="row">
         <ul>
