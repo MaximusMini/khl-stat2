@@ -267,7 +267,7 @@ class PosterMatch extends Model
         }
         
         // если команда 1 не первая и не последняя в конференции
-        if( ($this->all_data['place_team_1'] > 1 || $this->all_data['place_team_1'] > 13 && $this->all_data['conf_1']== 'east') || ($this->all_data['place_team_1'] > 1 && $this->all_data['place_team_1'] > 12 && $this->all_data['conf_1']== 'west') ){
+        if( ($this->all_data['place_team_1'] > 1 && $this->all_data['place_team_1'] < 13 && $this->all_data['conf_1']== 'east') || ($this->all_data['place_team_1'] > 1 && $this->all_data['place_team_1'] < 12 && $this->all_data['conf_1']== 'west') ){
             for($i=0; $i<=2; $i++){
              // место
                 $this->all_data['position_1'][$i]['place']=$i+($this->all_data['place_team_1']-1);
@@ -278,7 +278,7 @@ class PosterMatch extends Model
             }    
         }
          // если команда 2 не первая и не последняя в конференции
-        if( ($this->all_data['place_team_2'] > 1 || $this->all_data['place_team_2'] > 13 && $this->all_data['conf_2']== 'east') || ($this->all_data['place_team_2'] > 1 && $this->all_data['place_team_2'] > 12 && $this->all_data['conf_2']== 'west') ){
+        if( ($this->all_data['place_team_2'] > 1 && $this->all_data['place_team_2'] < 13 && $this->all_data['conf_2']== 'east') || ($this->all_data['place_team_2'] > 1 && $this->all_data['place_team_2'] < 12 && $this->all_data['conf_2']== 'west') ){
             for($i=0; $i<=2; $i++){
              // место
                 $this->all_data['position_2'][$i]['place']=$i+($this->all_data['place_team_2']-1);

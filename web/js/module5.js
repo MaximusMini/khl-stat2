@@ -14,7 +14,7 @@
     }
 
     // рисование дуги
-    function drawArc(ctx, centerX, centerY, radius, startAngle, endAngle){
+    function drawArc(ctx, centerX, centerY, radius, startAngle, endAngle, lineWidth, fillStyle, strokeStyle){
         /*
         centerX: координата X центра окружности
         centerY: координата Y центра окружности
@@ -22,6 +22,11 @@
         startAngle: угол начала в радианах, где начинается часть круга
         endAngle: конечный угол в радианах, где заканчивается часть круга
         */
+        // параметры линии
+        ctx.lineWidth = lineWidth;
+        ctx.fillStyle = fillStyle;
+        ctx.strokeStyle = strokeStyle; // цвет линии
+        // рисование
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
         ctx.stroke();

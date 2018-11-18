@@ -63,11 +63,21 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
     <div class="row">
         <div class="row">
             <div class="col-lg-2">
-                 <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px'>Цвет команды 1</p>    
+                 <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px; font-size:11px;'>Команда 1 (процент побед)</p>
+                 <input class='form-control' type="color" id='colorWinTeam_1' name='colorWinTeam_1' value='#8B0000'>    
             </div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                 <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px; font-size:9px;'>Команда 1 (процент поражений)</p>
+                 <input class='form-control' type="color" id='colorDefTeam_1' name='colorWinTeam_1' value='#008000'>
+            </div>
+            <div class="col-lg-2">
+                <p class='alert alert-warning form-control' style='margin:5px 0px; padding:5px 10px; font-size:11px;'>Команда 2 (процент побед)</p>
+                 <input class='form-control' type="color" id='colorWinTeam_2' name='colorWinTeam_1' value='#8B0000'>
+            </div>
+            <div class="col-lg-2">
+                <p class='alert alert-warning form-control' style='margin:5px 0px; padding:5px 10px; font-size:9px;'>Команда 2 (процент поражений)</p>
+                 <input class='form-control' type="color" id='colorDefTeam_2' name='colorWinTeam_1' value='#8B0000'>
+            </div>
             <div class="col-lg-2"></div>
             <div class="col-lg-2"></div>
         </div>
@@ -111,6 +121,7 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
        
         
     <script>  
+        alert(document.getElmentById('colorWinTeam_1').value);
         <?php /* передача переменных из php в js */?>
         <?php
 //        echo 'var dateMatch = '.$all_data['dateMatch'].';';
@@ -193,7 +204,7 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                 // вывод изображения на холст от точки с координатами 0, 0
                 ctx.drawImage(img, 0, 0, img.width, img.height);  
                 // рисование линии
-                drawLine(ctx, 10,10, 100, 100);
+                //drawLine(ctx, 10,10, 100, 100);
                 
                 // рисование соотношения побед/поражений
                 <?/*
@@ -212,23 +223,18 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                     
                 */?>
                 
-                
-                
-                // установка значений процента поражений 
-                ctx .lineWidth = 25;
-                ctx .fillStyle = '#ff0000';
-                ctx .strokeStyle = "#8B0000"; // цвет линии
-                
                 // отрисовка процента поражений команды 1
-                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']));
-               
-                // установка значений процента побед 
-                ctx .lineWidth = 25;
-                ctx .fillStyle = '#ff0000';
-                ctx .strokeStyle = "#008000"; // цвет линии
+                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']),25,'#ff0000',"#8B0000" );
+                // отрисовка процента побед команды 1
+                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270), 25,'#ff0000',"#008000" );
                 
-                // отрисовка процента поражений команды 1
-                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270));
+                // отрисовка процента поражений команды 2
+                drawArc(ctx, 260, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_2']),25,'#ff0000',"#8B0000" );
+                // отрисовка процента побед команды 2
+                drawArc(ctx, 260, 360, 50, rad(270+dataPoster['grade_defeats_2']), rad(270), 25,'#ff0000',"#008000" );
+                
+                
+                
                 
                 
                 
