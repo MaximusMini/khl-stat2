@@ -68,15 +68,15 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
             </div>
             <div class="col-lg-2">
                  <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px; font-size:9px;'>Команда 1 (процент поражений)</p>
-                 <input class='form-control' type="color" id='colorDefTeam_1' name='colorWinTeam_1' value='#008000'>
+                 <input class='form-control' type="color" id='colorDefTeam_1' name='colorDefTeam_1' value='#008000'>
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-warning form-control' style='margin:5px 0px; padding:5px 10px; font-size:11px;'>Команда 2 (процент побед)</p>
-                 <input class='form-control' type="color" id='colorWinTeam_2' name='colorWinTeam_1' value='#8B0000'>
+                 <input class='form-control' type="color" id='colorWinTeam_2' name='colorWinTeam_2' value='#8B0000'>
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-warning form-control' style='margin:5px 0px; padding:5px 10px; font-size:9px;'>Команда 2 (процент поражений)</p>
-                 <input class='form-control' type="color" id='colorDefTeam_2' name='colorWinTeam_1' value='#8B0000'>
+                 <input class='form-control' type="color" id='colorDefTeam_2' name='colorDefTeam_2' value='#8B0000'>
             </div>
             <div class="col-lg-2"></div>
             <div class="col-lg-2"></div>
@@ -107,6 +107,11 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
             <li>Количество вбрасываний</li>
         </ul>
     </div>
+      
+    <?php /*вывод изображения*/ ?>
+    <div class="row">
+        <img src="" id='final_post' alt="" width="400">
+    </div>
        
            
     <?/*отображение данных*/?>
@@ -121,7 +126,7 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
        
         
     <script>  
-        alert(document.getElmentById('colorWinTeam_1').value);
+        //alert(document.getElmentById('colorWinTeam_1').value);
         <?php /* передача переменных из php в js */?>
         <?php
 //        echo 'var dateMatch = '.$all_data['dateMatch'].';';
@@ -143,6 +148,8 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
             'perc_defeats_2:'.$all_data['perc_defeats_2'].','.
             'grade_wins_1:'.$all_data['grade_wins_1'].','.
             'grade_defeats_1:'.$all_data['grade_defeats_1'].','.
+            'grade_wins_2:'.$all_data['grade_wins_2'].','.
+            'grade_defeats_2:'.$all_data['grade_defeats_2'].','.
             
             
             '};';
@@ -190,6 +197,7 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
         
         // основная функция рисования постера
         function getDrawPict(){
+            
             // получаем контекст канвы
             var canvas = document.getElementById("example");
             ctx     = canvas.getContext('2d'); // Контекст
@@ -224,14 +232,16 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                 */?>
                 
                 // отрисовка процента поражений команды 1
-                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']),25,'#ff0000',"#8B0000" );
-                // отрисовка процента побед команды 1
-                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270), 25,'#ff0000',"#008000" );
+                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']),25,'#ff0000', document.getElementById('colorWinTeam_1').value );
+//                // отрисовка процента побед команды 1
+                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270), 25,'#ff0000', document.getElementById('colorDefTeam_1').value );
                 
                 // отрисовка процента поражений команды 2
-                drawArc(ctx, 260, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_2']),25,'#ff0000',"#8B0000" );
+                alert(document.getElementById('colorWinTeam_2').value);
+                drawArc(ctx, 360, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_2']),25,'#ff0000', document.getElementById('colorWinTeam_2').value );
                 // отрисовка процента побед команды 2
-                drawArc(ctx, 260, 360, 50, rad(270+dataPoster['grade_defeats_2']), rad(270), 25,'#ff0000',"#008000" );
+                alert(document.getElementById('colorDefTeam_2').value);
+                drawArc(ctx, 360, 360, 50, rad(270+dataPoster['grade_defeats_2']), rad(270), 25,'#ff0000', document.getElementById('colorDefTeam_2').value);
                 
                 
                 
@@ -241,6 +251,9 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                 
                 // перевод изображения в base 64
                 var scrImg = canvas.toDataURL('image/png').replace(/data:image\/png;base64,/, '');
+                // вывод изображения на страницу
+                var srcImg = canvas.toDataURL('image/png');
+                document.getElementById('final_post').src = srcImg;
                 // вызов функции для сохранения изображения
                 getAjax(scrImg);
             }//img.onload

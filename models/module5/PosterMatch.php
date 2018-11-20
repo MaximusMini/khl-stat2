@@ -140,6 +140,8 @@ class PosterMatch extends Model
             // пересчет в градусы для рисования круговой диаграммы
             $this->all_data['grade_wins_1']=round($this->all_data['perc_wins_1']*3,6);
             $this->all_data['grade_defeats_1']=360-$this->all_data['grade_wins_1'];
+            $this->all_data['grade_wins_2']=round($this->all_data['perc_wins_2']*3,6);
+            $this->all_data['grade_defeats_2']=360-$this->all_data['grade_wins_2'];
         
         
         // Процент набранных очков
