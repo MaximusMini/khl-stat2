@@ -42,6 +42,26 @@
         ctx.closePath();
         ctx.fill();
     }
+
+    // рисование индикатора заброшенных шайб команды 1
+    function throwPuck_1(ctx,throwPuck,xStart,yStart,lineWidth,fillStyle,strokeStyle){
+        /*
+        throwPuck - количество заброшенных шайб
+        xPos - начальная позиция по X
+        yPos - начальная позиция по Y
+        */
+        ctx.beginPath();
+        ctx.moveTo(xStart,yStart);// 400,400
+        ctx.lineTo(xStart,yStart+10);// 400,400
+        ctx.lineTo(xStart-throwPuck,yStart+10);// 400,400
+        ctx.lineTo(xStart-throwPuck,yStart);// 400,400
+        ctx.lineTo(xStart,yStart);// 400,400
+        ctx.closePath();
+        ctx.fill();
+        
+    }
+
+    // рисование индикатора заброшенных шайб команды 1
     
     // пересчет градусов в радианы
     var rad = function(grad){

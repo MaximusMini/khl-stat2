@@ -64,19 +64,19 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
         <div class="row">
             <div class="col-lg-2">
                  <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px; font-size:11px;'>Команда 1 (процент побед)</p>
-                 <input class='form-control' type="color" id='colorWinTeam_1' name='colorWinTeam_1' value='#8B0000'>    
+                 <input class='form-control' type="color" id='colorWinTeam_1' name='colorWinTeam_1' value='#fb1e1e'>    
             </div>
             <div class="col-lg-2">
                  <p class='alert alert-info form-control' style='margin:5px 0px; padding:5px 10px; font-size:9px;'>Команда 1 (процент поражений)</p>
-                 <input class='form-control' type="color" id='colorDefTeam_1' name='colorDefTeam_1' value='#008000'>
+                 <input class='form-control' type="color" id='colorDefTeam_1' name='colorDefTeam_1' value='#2cde44'>
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-warning form-control' style='margin:5px 0px; padding:5px 10px; font-size:11px;'>Команда 2 (процент побед)</p>
-                 <input class='form-control' type="color" id='colorWinTeam_2' name='colorWinTeam_2' value='#8B0000'>
+                 <input class='form-control' type="color" id='colorWinTeam_2' name='colorWinTeam_2' value='#3ac1b0'>
             </div>
             <div class="col-lg-2">
                 <p class='alert alert-warning form-control' style='margin:5px 0px; padding:5px 10px; font-size:9px;'>Команда 2 (процент поражений)</p>
-                 <input class='form-control' type="color" id='colorDefTeam_2' name='colorDefTeam_2' value='#8B0000'>
+                 <input class='form-control' type="color" id='colorDefTeam_2' name='colorDefTeam_2' value='#f5f012'>
             </div>
             <div class="col-lg-2"></div>
             <div class="col-lg-2"></div>
@@ -150,7 +150,8 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
             'grade_defeats_1:'.$all_data['grade_defeats_1'].','.
             'grade_wins_2:'.$all_data['grade_wins_2'].','.
             'grade_defeats_2:'.$all_data['grade_defeats_2'].','.
-            
+            'throw_puck_1:'.$all_data['throw_puck_1'].','.
+            'throw_puck_2:'.$all_data['throw_puck_2'].','.
             
             '};';
         
@@ -211,9 +212,11 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                 canvas.height=img.height;
                 // вывод изображения на холст от точки с координатами 0, 0
                 ctx.drawImage(img, 0, 0, img.width, img.height);  
-                // рисование линии
-                //drawLine(ctx, 10,10, 100, 100);
-                
+                // получение настроек рисования
+                var colorWinTeam_1 = document.getElementById('colorWinTeam_1').value;
+                var colorDefTeam_1 = document.getElementById('colorDefTeam_1').value;
+                var colorWinTeam_2 = document.getElementById('colorWinTeam_2').value;
+                var colorDefTeam_2 = document.getElementById('colorDefTeam_2').value;
                 // рисование соотношения побед/поражений
                 <?/*
                     отдельно нужно расчитать точки для рисования
@@ -232,16 +235,20 @@ $this->registerJsFile('web/js/module5.js',['depends' => ['app\assets\AppAsset'],
                 */?>
                 
                 // отрисовка процента поражений команды 1
-                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']),25,'#ff0000', document.getElementById('colorWinTeam_1').value );
-//                // отрисовка процента побед команды 1
-                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270), 25,'#ff0000', document.getElementById('colorDefTeam_1').value );
-                
+                drawArc(ctx, 160, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_1']),25,'#ff0000', colorWinTeam_1);
+                // отрисовка процента побед команды 1
+                drawArc(ctx, 160, 360, 50, rad(270+dataPoster['grade_defeats_1']), rad(270), 25,'#ff0000', colorDefTeam_1);
                 // отрисовка процента поражений команды 2
-                alert(document.getElementById('colorWinTeam_2').value);
-                drawArc(ctx, 360, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_2']),25,'#ff0000', document.getElementById('colorWinTeam_2').value );
+                drawArc(ctx, 360, 360, 50, rad(270), rad(270+dataPoster['grade_defeats_2']),25,'#ff0000', colorWinTeam_2);
                 // отрисовка процента побед команды 2
-                alert(document.getElementById('colorDefTeam_2').value);
-                drawArc(ctx, 360, 360, 50, rad(270+dataPoster['grade_defeats_2']), rad(270), 25,'#ff0000', document.getElementById('colorDefTeam_2').value);
+                drawArc(ctx, 360, 360, 50, rad(270+dataPoster['grade_defeats_2']), rad(270), 25,'#ff0000', colorDefTeam_2);
+                
+                // отрисовка индикатора заброшенных шайб команды 1
+                throwPuck_1(ctx,dataPoster['throw_puck_1'],400,400,25,'#ff0000', colorWinTeam_1)
+                
+                
+                // отрисовка индикатора заброшенных шайб команды 2
+                
                 
                 
                 
