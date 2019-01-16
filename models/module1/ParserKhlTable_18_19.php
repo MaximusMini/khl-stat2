@@ -59,7 +59,7 @@ class ParserKhlTable_18_19 extends Model
     
     // функция записи данных в БД
     function write_table_team($team){
-
+            //echo "<pre>".print_r($team,true)."<pre>"; // проверка полученного массива
             foreach($team as $arr_1){
                 //определяем id команды
                 $name_team = $arr_1['name'];
@@ -76,37 +76,36 @@ class ParserKhlTable_18_19 extends Model
     
     // формирование массива для последующей записи в БД
     function name_team($t_conf, $conf){
-        $result = $t_conf->find('table tr');
-    
+        $result = $t_conf->find('tr');
         $count_team=1;
         foreach($result as $val){
             // избавляемся от пустых строк, которые идут в начале таблицы
-            if ($count_team < 4){$count_team++; continue;}
+            if ($count_team < 2){$count_team++; continue;} 
             // формирование массива team
-            $count_arr = $count_team-3;
+            $count_arr = $count_team-1;
             $team[$count_arr]['conf']           = $conf;
-            $team[$count_arr]['name']           = pq($val)->find('td:nth-child(4)')->text();
-            $team[$count_arr]['place']          = $count_team-3;
-            $team[$count_arr]['games']          = pq($val)->find('td:nth-child(5)')->text();
-            $team[$count_arr]['clear_wins']     = pq($val)->find('td:nth-child(6)')->text();
-            $team[$count_arr]['ot_wins']        = pq($val)->find('td:nth-child(7)')->text();
-            $team[$count_arr]['b_wins']         = pq($val)->find('td:nth-child(8)')->text();
-            $team[$count_arr]['b_defeat']       = pq($val)->find('td:nth-child(9)')->text();
-            $team[$count_arr]['ot_defeat']      = pq($val)->find('td:nth-child(10)')->text();
-            $team[$count_arr]['clear_defeat']   = pq($val)->find('td:nth-child(11)')->text();
-            $team[$count_arr]['throw_puck']     = pq($val)->find('td:nth-child(12) span:nth-child(1)')->text();
-            $team[$count_arr]['miss_puck']     	= pq($val)->find('td:nth-child(12) span:nth-child(3)')->text();
-            $team[$count_arr]['scores']         = pq($val)->find('td:nth-child(13)')->text();
-            $team[$count_arr]['percent_scr']    = pq($val)->find('td:nth-child(14)')->text();
+            $team[$count_arr]['name']           = trim(pq($val)->find('td:nth-child(2)')->text());
+            //$team[$count_arr]['place']          = $count_team-3;
+            $team[$count_arr]['place']          = trim(pq($val)->find('td:nth-child(1)')->text());
+            $team[$count_arr]['games']          = pq($val)->find('td:nth-child(3)')->text();
+            $team[$count_arr]['clear_wins']     = pq($val)->find('td:nth-child(4)')->text();
+            $team[$count_arr]['ot_wins']        = pq($val)->find('td:nth-child(5)')->text();
+            $team[$count_arr]['b_wins']         = pq($val)->find('td:nth-child(6)')->text();
+            $team[$count_arr]['b_defeat']       = pq($val)->find('td:nth-child(7)')->text();
+            $team[$count_arr]['ot_defeat']      = pq($val)->find('td:nth-child(8)')->text();
+            $team[$count_arr]['clear_defeat']   = pq($val)->find('td:nth-child(9)')->text();
+            $team[$count_arr]['throw_puck']     = pq($val)->find('td:nth-child(10) span:nth-child(1)')->text();
+            $team[$count_arr]['miss_puck']     	= pq($val)->find('td:nth-child(10) span:nth-child(3)')->text();
+            $team[$count_arr]['scores']         = pq($val)->find('td:nth-child(11)')->text();
+            $team[$count_arr]['percent_scr']    = pq($val)->find('td:nth-child(12)')->text();
             // последние шесть сыгранных матчей
             for($w=1; $w<=6; $w++){
                 $old_match = 'old_match_'.$w;
-                $res = 'td:nth-child(15) a:nth-child('.$w.') span';
+                $res = 'td:nth-child(13) a:nth-child('.$w.') span';
                 $team[$count_arr][$old_match]    = pq($val)->find($res)->attr('class');
             }
             $count_team++;
         }
-
         // запись данных в БД
         $this->write_table_team($team);
     }
@@ -115,11 +114,14 @@ class ParserKhlTable_18_19 extends Model
     function pars_table(){
         
         //создаем объекты класса phpQuery
-        $res_curl = $this->curl_get ('https://www.championat.com/hockey/_superleague/2593/table/all.html');
+        $res_curl = $this->curl_get ('https://www.championat.com/hockey/_superleague/tournament/2593/table/#all');
         $tables_khl = \phpQuery::newDocument($res_curl);
         // определяем таблицы конференций
-        $table_west = $tables_khl->find('div.sport__table table:nth-child(2)');
-        $table_east = $tables_khl->find('div.sport__table table:nth-child(3)');
+        $table_west = $tables_khl->find('div.tournament-tabs__content._light.tabs-content._active.js-tournament-tab-content div:nth-child(2) table.result-table.table.table-stripe.table-row-hover._no-stretch');
+        $table_east = $tables_khl->find('div.tournament-tabs__content._light.tabs-content._active.js-tournament-tab-content div:nth-child(3) table.result-table.table.table-stripe.table-row-hover._no-stretch');
+        
+        /* file_put_contents('table_khl.txt',$table_west, FILE_APPEND); */
+ 
         //создаем объекты класса phpQuery
         $t_west      = \phpQuery::newDocument($table_west);
         $t_east      = \phpQuery::newDocument($table_east);
